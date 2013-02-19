@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -Rf ./data/* ./BatailleNavale-desktop/bin/data/
+cp -Rf ./data/* ./BatailleNavale-android/bin/data/
