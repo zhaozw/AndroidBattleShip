@@ -82,7 +82,7 @@ public abstract class CmmScreenAdapter implements Screen {
 	public boolean tmpSave() { return false; }
 	public boolean tmpLoad() { return false; }
 	
-	public static void getSpriteBatch(SpriteBatch sb) {
+	public static void setSpriteBatch(SpriteBatch sb) {
 		spriteBatch = sb;
 	}
 	
@@ -96,9 +96,13 @@ public abstract class CmmScreenAdapter implements Screen {
 		wallpaper.setPosition(-wallpaper.getWidth()/2, -wallpaper.getHeight()/2);
 	}
 
-	public void addGraphicComponent(Sprite sprite) {
+	public void addSprite(Sprite sprite) {
 		assert(!sprites.contains(sprite));
 		sprites.add(sprite);
+	}
+	public void addTexture(Texture text) {
+		assert(!textures.contains(text));
+		textures.add(text);
 	}
 	
 	public Game getApp() {
