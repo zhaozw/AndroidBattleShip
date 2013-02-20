@@ -24,8 +24,9 @@ public class MainMenuScreen extends CmmScreenAdapter {
 
 	@Override
 	public void initialize() {
+		super.initialize();
 		/* *****  Création du fond ***** */
-		Texture wallText = new Texture("data/img/menuMenuWallpaper.png");
+		Texture wallText = new Texture("data/img/mainMenuWallpaper.jpg");
 		TextureRegion wallTextReg = new TextureRegion(wallText);
 		Sprite wallpaper = new Sprite(wallTextReg);
 		setWallpaper(wallpaper);
@@ -58,12 +59,12 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		});
 		
 		/* ***** Création de la texture du menu ***** */
-		Texture menuText = new Texture("data/mainMenu.png");
+		Texture menuText = new Texture("data/img/mainMenu.png");
 		TextureRegion menuTextReg = new TextureRegion(menuText);
 		textures.add(menuText);
 		
 		/* ***** Création du menu ***** */
-		menu = new CmmMenuGroup(menus, menuTextReg, -0.4f, -0.2f, 0.8f, 0.8f);
+		menu = new CmmMenuGroup(menus, menuTextReg, -0.4f, -0.4f, 0.8f, 0.8f);
 		sprites.add(menu);
 		
 		/* ***** Création du listener sur le menu ***** */
