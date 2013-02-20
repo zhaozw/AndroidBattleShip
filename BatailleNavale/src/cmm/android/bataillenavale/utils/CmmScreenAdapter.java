@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,17 +26,26 @@ public abstract class CmmScreenAdapter implements Screen {
 	public CmmScreenAdapter(Game app) {
 		super();
 		assert(spriteBatch != null):  "The SpriteBatch isn't initialized !";
+		assert(camera != null):  "The OrthographicCamera isn't initialized !";
 		this.app = app;
 	}
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+
 		if(wallpaper != null) {
 			wallpaper.draw(spriteBatch);
 		}
 		for(Sprite s: sprites) {
 			s.draw(spriteBatch);
 		}
+		
+		spriteBatch.end();
 	}
 
 	@Override
@@ -115,5 +126,9 @@ public abstract class CmmScreenAdapter implements Screen {
 
 	public static Camera getCamera() {
 		return camera;
+	}
+	
+	public static void setCamera(OrthographicCamera cam) {
+		camera = cam;
 	}
 }
