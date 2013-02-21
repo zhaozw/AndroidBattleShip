@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 import cmm.android.bataillenavale.utils.menus.CmmMenu;
 import cmm.android.bataillenavale.utils.menus.CmmMenuGroup;
@@ -16,7 +17,7 @@ import cmm.android.bataillenavale.utils.menus.CmmMenuGroupListener;
 public class MainMenuScreen extends CmmScreenAdapter {
 	private CmmMenuGroup menu;
 	
-	public MainMenuScreen(Game app) {
+	public MainMenuScreen(BatailleNavale app) {
 		super(app);
 	}
 
@@ -35,7 +36,7 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		menus.add(new CmmMenu("Jouer") {
 			@Override
 			public boolean onTouched() {
-				Gdx.app.log("TMP_batailleNavale", "allez, on joue!");
+				app.setScreen(0);//TODO
 				return true;
 			}
 		});

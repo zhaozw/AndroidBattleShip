@@ -1,12 +1,12 @@
 package cmm.android.bataillenavale.view.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.controlers.PlaceBateauListener;
 import cmm.android.bataillenavale.controlers.ShipChooserListener;
 import cmm.android.bataillenavale.modele.Bateau;
@@ -19,7 +19,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 	private GraphicMer graphicMer;
 	private ShipChooser shipChooser;
 
-	public PlaceBateauScreen(Game app) {
+	public PlaceBateauScreen(BatailleNavale app) {
 		super(app);
 	}
 

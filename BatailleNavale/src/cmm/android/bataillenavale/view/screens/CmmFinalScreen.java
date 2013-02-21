@@ -1,16 +1,16 @@
 package cmm.android.bataillenavale.view.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 
 public class CmmFinalScreen extends CmmScreenAdapter {
 	private static final int CMM_SPRITE = 0;
-	public CmmFinalScreen(Game app) {
+	public CmmFinalScreen(BatailleNavale app) {
 		super(app);
 		// TODO Auto-generated constructor stub
 	}

@@ -1,12 +1,12 @@
 package cmm.android.bataillenavale.view.screens;
 
-import com.badlogic.gdx.Game;
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 
 public class SearchEnnemyScreen extends CmmScreenAdapter {
 
-	public SearchEnnemyScreen(Game app) {
+	public SearchEnnemyScreen(BatailleNavale app) {
 		super(app);
 		
 	}
