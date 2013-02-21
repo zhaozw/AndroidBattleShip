@@ -2,14 +2,12 @@ package cmm.android.bataillenavale.view.screens;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 import cmm.android.bataillenavale.utils.menus.CmmMenu;
 import cmm.android.bataillenavale.utils.menus.CmmMenuGroup;
