@@ -3,7 +3,8 @@ package cmm.android.bataillenavale.utils;
 import java.util.ArrayList;
 
 
-import com.badlogic.gdx.ApplicationListener;
+import cmm.android.bataillenavale.modele.Coord2F;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 
 public abstract class CmmScreenAdapter implements Screen {
 	private Game app;
@@ -22,7 +24,8 @@ public abstract class CmmScreenAdapter implements Screen {
 	protected ArrayList<Texture> textures;
 	protected static SpriteBatch spriteBatch;
 	protected static OrthographicCamera camera;
-	
+	private static final Vector3 touchPos = new Vector3();
+	private static final Coord2F coord = new Coord2F();
 	public CmmScreenAdapter(Game app) {
 		super();
 		assert(spriteBatch != null):  "The SpriteBatch isn't initialized !";
@@ -130,5 +133,13 @@ public abstract class CmmScreenAdapter implements Screen {
 	
 	public static void setCamera(OrthographicCamera cam) {
 		camera = cam;
+	}
+	
+	public static Coord2F intToFloatCoord(int x, int y) {
+		touchPos.set(x, y, 0);
+		camera.unproject(touchPos);
+		coord.x = touchPos.x;
+		coord.y = touchPos.y;
+		return coord;
 	}
 }
