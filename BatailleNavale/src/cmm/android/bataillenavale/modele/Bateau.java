@@ -1,9 +1,19 @@
 package cmm.android.bataillenavale.modele;
 
 public class Bateau {
+	public static final int NB_BOATS = 5;
 	private int taille;
 	private boolean horizontal;
 	private int debX, debY;
+	
+	public Bateau(int taille) {
+		super();
+		assert(taille >= 1 && taille <= 5);
+		this.taille = taille;
+		this.horizontal = true;
+		this.debX = -1;
+		this.debY = -1;
+	}
 	
 	public Bateau(int taille, boolean horizontal, int debX, int debY) {
 		super();

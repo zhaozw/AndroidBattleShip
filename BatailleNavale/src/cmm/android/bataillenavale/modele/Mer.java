@@ -44,4 +44,28 @@ public class Mer {
 	public void setBateaux(ArrayList<Bateau> bateaux) {
 		this.bateaux = bateaux;
 	}
+
+
+	public int caseAt(int x, int y) {
+		return mer[y][x];
+	}
+
+
+	public void addBateauAt(Bateau b, int x, int y) {
+		bateaux.add(b);
+		boolean horizontal = b.isHorizontal();
+		int merX, merY;
+		for(int i = 0, taille = b.getTaille(); i < taille; i++) {
+			if(horizontal) {
+				merX = x + i;
+				merY = y;
+			} else {
+				merX = x;
+				merY = y + i;
+			}
+			
+			mer[merY][merX] = BOAT_HANDLE_GOOD;
+		}
+		
+	}
 }
