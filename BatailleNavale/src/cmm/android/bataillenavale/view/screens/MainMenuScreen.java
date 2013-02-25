@@ -2,7 +2,6 @@ package cmm.android.bataillenavale.view.screens;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -36,7 +35,7 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		menus.add(new CmmMenu("Jouer") {
 			@Override
 			public boolean onTouched() {
-				app.setScreen(0);//TODO
+				app.setScreen(BatailleNavale.SEARCH_ENNEMY);
 				return true;
 			}
 		});
@@ -50,9 +49,7 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		menus.add(new CmmMenu("Quitter") {
 			@Override
 			public boolean onTouched() {
-//				BatailleNavale app = (BatailleNavale)getApp();
-//				app.setScreen(app.setScreen(app.getCmmFinal()));
-				Gdx.app.log("TMP_batailleNavale", "Allez salut; on quitte!");
+				app.setScreen(BatailleNavale.CMM_FINAL);
 				return true;
 			}
 		});
