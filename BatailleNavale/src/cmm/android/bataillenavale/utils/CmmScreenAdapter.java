@@ -55,35 +55,40 @@ public abstract class CmmScreenAdapter implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_resize");
 	}
 
 	@Override
 	public void show() {
+		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_show");
 		initialize();
 		tmpLoad();
 	}
 
 	@Override
 	public void hide() {
+		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_hide");
 		tmpSave();
 		dispose();
 	}
 
 	@Override
 	public void pause() {
+		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_pause");
 		tmpSave();
 		dispose();
 	}
 
 	@Override
 	public void resume() {
+		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_resume");
 		initialize();
 		tmpLoad();
 	}
 
 	@Override
 	public void dispose() {
+		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_dispose");
 		for(Texture t : textures) {
 			t.dispose();
 		}
