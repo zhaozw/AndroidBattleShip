@@ -3,6 +3,7 @@ package cmm.android.bataillenavale.utils;
 import java.util.ArrayList;
 
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Coord2F;
 
 import com.badlogic.gdx.Game;
@@ -18,7 +19,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
 public abstract class CmmScreenAdapter implements Screen {
-	private Game app;
+	protected BatailleNavale app;
 	private Sprite wallpaper;
 	protected ArrayList<Sprite> sprites;
 	protected ArrayList<Texture> textures;
@@ -26,7 +27,8 @@ public abstract class CmmScreenAdapter implements Screen {
 	protected static OrthographicCamera camera;
 	private static final Vector3 touchPos = new Vector3();
 	private static final Coord2F coord = new Coord2F();
-	public CmmScreenAdapter(Game app) {
+	
+	public CmmScreenAdapter(BatailleNavale app) {
 		super();
 		assert(spriteBatch != null):  "The SpriteBatch isn't initialized !";
 		assert(camera != null):  "The OrthographicCamera isn't initialized !";
@@ -123,7 +125,7 @@ public abstract class CmmScreenAdapter implements Screen {
 		return app;
 	}
 
-	public void setApp(Game app) {
+	public void setApp(BatailleNavale app) {
 		this.app = app;
 	}
 
