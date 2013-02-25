@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 import cmm.android.bataillenavale.view.screens.CmmFinalScreen;
 import cmm.android.bataillenavale.view.screens.MainMenuScreen;
+import cmm.android.bataillenavale.view.screens.PlaceBateauScreen;
+import cmm.android.bataillenavale.view.screens.SearchEnnemyScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +15,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BatailleNavale extends Game {
-	public static final int MAIN_MENU = 0, CMM_FINAL = 1;
+	public static final int MAIN_MENU = 0, CMM_FINAL = 1, SEARCH_ENNEMY = 2,PLACE_BATEAU = 3;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private ArrayList<Screen> screens;
@@ -32,6 +34,8 @@ public class BatailleNavale extends Game {
 		screens = new ArrayList<Screen>();
 		screens.add(MAIN_MENU, new MainMenuScreen(this));
 		screens.add(CMM_FINAL,new CmmFinalScreen(this));
+		screens.add(SEARCH_ENNEMY, new SearchEnnemyScreen(this));
+		screens.add(PLACE_BATEAU, new PlaceBateauScreen(this));
 		setScreen(screens.get(MAIN_MENU));
 	}
 
