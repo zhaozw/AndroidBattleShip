@@ -9,7 +9,6 @@ import cmm.android.bataillenavale.view.screens.PlaceBateauScreen;
 import cmm.android.bataillenavale.view.screens.SearchEnnemyScreen;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,10 +21,7 @@ public class BatailleNavale extends Game {
 	
 	@Override
 	public void create() {		
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		
-		camera = new OrthographicCamera(1, h/w);
+		camera = new OrthographicCamera(1, 1);
 		batch = new SpriteBatch();
 		
 		CmmScreenAdapter.setSpriteBatch(batch);
