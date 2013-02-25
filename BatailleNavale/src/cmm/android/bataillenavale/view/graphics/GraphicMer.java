@@ -1,6 +1,7 @@
 package cmm.android.bataillenavale.view.graphics;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
@@ -25,5 +26,12 @@ public class GraphicMer extends Sprite {
 		}
 		return null;
 	}
-	 
+
+	@Override
+	public void draw(SpriteBatch spriteBatch) {
+		super.draw(spriteBatch);
+		for(int i = 0; i <= Mer.ARRAY_SIZE; i++) {
+
+		}
+	}
 }
