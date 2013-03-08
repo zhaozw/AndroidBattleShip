@@ -3,6 +3,7 @@ package cmm.android.bataillenavale.view.graphics;
 import java.util.ArrayList;
 
 import cmm.android.bataillenavale.modele.Bateau;
+import cmm.android.bataillenavale.modele.Mer;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,11 @@ public class ShipChooser extends Sprite {
 	public ShipChooser(TextureRegion bateauTextRegion) {
 		Bateau b;
 		Sprite s;
+		bateaux = new ArrayList<Bateau>(5);
+		spriteBateaux = new ArrayList<Sprite>(5);
+		float width = getWidth();
+		float height = getHeight() / 5f;
+		
 		for(int i = 1; i <= 5; i++) {
 			b = new Bateau(i);
 			bateaux.add(b);
@@ -24,7 +30,7 @@ public class ShipChooser extends Sprite {
 			s = new Sprite(bateauTextRegion);
 			spriteBateaux.add(s);
 		}
-		replaceBoats();
+		selectedIndex = -1;
 	}
 
 	public void draw(SpriteBatch batch) {
@@ -35,10 +41,22 @@ public class ShipChooser extends Sprite {
 
 	private void replaceBoats() {
 		Sprite s;
+		
+		/* ***** calcul des diverses coordonnées et tailles afin de placer les bateaux de façon sympa! ***** */
 		float x = getX(), y = getY();
+		float width = getWidth();
+		float height = getHeight();
+		float boatHeight = height / 5f;
+		float boatWidth;
+		float boatX = 0;
+		int taille;
 		for(int i = 0, size = spriteBateaux.size(); i < size; i++) {
+			taille = bateaux.get(i).getTaille();
+			boatWidth = (i+1) * (width/Mer.NB_BOAT_HANDLES);
 			s = spriteBateaux.get(i);
-			s.setPosition(x, y + 0.05f * (i+1));
+			s.setSize(boatWidth, boatHeight);
+			s.setPosition(x + boatX, y + height - boatHeight);
+			boatX += boatWidth;
 		}
 	}
 
@@ -66,6 +84,7 @@ public class ShipChooser extends Sprite {
 			Sprite s;
 			for(int i = 0, size = spriteBateaux.size(); i < size; i++) {
 				s = spriteBateaux.get(i);
+				//Si on a trouvé sur quel bateau on a cliqué:
 				if(s.getBoundingRectangle().contains(x, y)) {
 					selectedIndex = i;
 					return true;
@@ -86,6 +105,7 @@ public class ShipChooser extends Sprite {
 			bateaux.remove(selectedIndex);
 			spriteBateaux.remove(selectedIndex);
 			selectedIndex = -1;
+			replaceBoats();
 		}
 	}
 }

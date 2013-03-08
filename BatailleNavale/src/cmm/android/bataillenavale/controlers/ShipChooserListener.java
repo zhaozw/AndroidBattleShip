@@ -16,6 +16,7 @@ public class ShipChooserListener extends InputAdapter {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		Coord2F coord = CmmScreenAdapter.intToFloatCoord(screenX, screenY);
-		return	shipChooser.setSelectedBoat(coord.x, coord.y);
+		boolean hasTouched = shipChooser.setSelectedBoat(coord.x, coord.y);
+		return hasTouched;
 	}	
 }

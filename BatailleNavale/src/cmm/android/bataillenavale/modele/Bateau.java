@@ -23,7 +23,7 @@ public class Bateau {
 		this.debX = debX;
 		this.debY = debY;
 	}
-
+	
 	public int getTaille() {
 		return taille;
 	}

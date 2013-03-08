@@ -3,17 +3,15 @@ package cmm.android.bataillenavale.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.controlers.PlaceBateauListener;
 import cmm.android.bataillenavale.controlers.ShipChooserListener;
-import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 import cmm.android.bataillenavale.view.graphics.ShipChooser;
+//TODO cycle de vie!
 
 public class PlaceBateauScreen extends CmmScreenAdapter {
 	private GraphicMer graphicMer;
@@ -25,30 +23,31 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 
 	@Override
 	public void initialize() {
-		super.initialize();
-
+		super.initialize();		
+		
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = new Texture("data/img/gameWallpaper.jpg");
-		setWallpaper(new TextureRegion(wallText));
+		setWallpaper(new TextureRegion(wallText, 349, 496));
 		textures.add(wallText);
-
-		/* ***** Création de la texture pour le bateau ***** */
-		Texture bateauText = new Texture("data/img/boat.png");
-		TextureRegion bateauTextReg = new TextureRegion(bateauText);
-		textures.add(bateauText);
-
-		float sizeCasePlateau = 0.5f / Mer.ARRAY_SIZE;
-		Sprite bateau;
-		for(int i = 0; i < Bateau.NB_BOATS; i++) {
-			bateau = new Sprite(bateauTextReg);
-			bateau.setSize(sizeCasePlateau * (i+1), sizeCasePlateau);
-			bateau.setPosition(-0.5f, 0.5f - (i+1) * bateau.getHeight());
-			sprites.add(bateau);
-		}
-
-		//TODO cycle de vie!
+		
+		/* ***** Création des textures ***** */
+		Texture shipText = new Texture("data/img/ship.png");
+		textures.add(shipText);
+		TextureRegion shipTextReg = new TextureRegion(shipText);
+		
+		/* ***** initialisation de la mer graphique ***** */
+		GraphicMer.initialize(this, shipTextReg);
 		graphicMer = new GraphicMer(new Mer());
-		shipChooser = new ShipChooser(bateauTextReg);
+		float sp = getScreenProportion();
+		graphicMer.setSize(0.5f, 0.5f / sp);
+		graphicMer.setPosition(-graphicMer.getWidth()/2, -graphicMer.getHeight()/2);
+		sprites.add(graphicMer);
+		
+		/* ***** Création du ShipChooser ***** */
+		shipChooser = new ShipChooser(shipTextReg);
+		shipChooser.setSize(1.f, 0.3f);
+		shipChooser.setPosition(-0.5f, 0.2f);
+		sprites.add(shipChooser);
 		
 		/* ***** Gestion du listener ***** */
 		ShipChooserListener scl = new ShipChooserListener(shipChooser);
@@ -56,7 +55,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		InputMultiplexer multiplexer = new InputMultiplexer(scl, sbl);
 		Gdx.input.setInputProcessor(multiplexer);
 	}
-
+	
 	@Override
 	public boolean tmpSave() {
 		// TODO Auto-generated method stub
