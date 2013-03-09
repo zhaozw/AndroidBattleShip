@@ -39,7 +39,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		GraphicMer.initialize(this, shipTextReg);
 		graphicMer = new GraphicMer(new Mer());
 		float sp = getScreenProportion();
-		graphicMer.setSize(0.5f, 0.5f / sp);
+		graphicMer.setSize(0.5f * sp, 0.5f);
 		graphicMer.setPosition(-graphicMer.getWidth()/2, -graphicMer.getHeight()/2);
 		sprites.add(graphicMer);
 		
