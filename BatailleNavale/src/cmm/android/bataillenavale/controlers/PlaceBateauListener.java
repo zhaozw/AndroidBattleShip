@@ -4,7 +4,6 @@ import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Coord2F;
-import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 import cmm.android.bataillenavale.view.graphics.ShipChooser;
 import cmm.android.bataillenavale.view.screens.PlaceBateauScreen;
