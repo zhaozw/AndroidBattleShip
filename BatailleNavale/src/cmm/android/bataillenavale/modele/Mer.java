@@ -48,14 +48,13 @@ public class Mer {
 	public int getNbBoats() {
 		return bateaux.size();
 	}
-	
+
 	public int caseAt(int x, int y) {
 		return mer[y][x];
 	}
 
 
 	public boolean addBateauAt(Bateau b, int x, int y, boolean horizontal) {
-		bateaux.add(b);
 		int merX, merY;
 
 		/* 
@@ -82,20 +81,20 @@ public class Mer {
 				}
 			}
 		}
-		else if(!horizontal) {
+		else {
 			//Si au moins une case dépasse de l'eau
 			if(x >= ARRAY_SIZE || y >= ARRAY_SIZE - b.getTaille()){
 				return false;
 			}
 			//Si au moins une case est déjà prise par un autre bateau:
-			for(int i = x, max = x + b.getTaille(); i <= max; i++) {
+			for(int i = y, max = y + b.getTaille(); i <= max; i++) {
 				if(mer[i][x] != EMPTY) {
 					return false;
 				}
 			}
 		}
 
-		
+
 		/* OUF! Arrivé ici, on est sûr que le bateau peut rentrer! */
 		//On affecte les bonnes valeurs aux attributs du bateau:
 		b.setDebX(x);
@@ -114,6 +113,7 @@ public class Mer {
 
 			mer[merY][merX] = BOAT_HANDLE_GOOD;
 		}
+		bateaux.add(b);
 		return true;
 	}
 
