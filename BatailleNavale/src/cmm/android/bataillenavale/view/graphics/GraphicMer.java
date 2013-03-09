@@ -13,14 +13,16 @@ import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 
 public class GraphicMer extends Sprite {
-	private static Texture merText, touchedText, emptyText;
+	private static Texture merText, touchedText, missedText;
 	private static TextureRegion shipTextReg;
 	private static CmmScreenAdapter screen;
 	private ArrayList<Sprite> shipSprites;
 	private Mer mer;
+	private boolean shipsVisible;
 
-	public GraphicMer(Mer mer) {
+	public GraphicMer(Mer mer, boolean shipsVisible) {
 		this.mer = mer;
+		this.shipsVisible = shipsVisible;
 		shipSprites = new ArrayList<Sprite>(5);
 
 		for(Bateau b: mer.getBateaux()) {
@@ -55,12 +57,25 @@ public class GraphicMer extends Sprite {
 
 			for(int j = 0; j < Mer.ARRAY_SIZE; j++) {
 				x = debX + (j * merWidth);
-				spriteBatch.draw(merText, x, y, merWidth, merHeight);
+				switch(mer.caseAt(j, i)) {
+				case Mer.EMPTY:
+				case Mer.BOAT_HANDLE_GOOD:
+					spriteBatch.draw(merText, x, y, merWidth, merHeight);
+					break;
+				case Mer.TOUCHED:
+					spriteBatch.draw(touchedText, x, y, merWidth, merHeight);
+					break;
+				case Mer.MISSED:
+					spriteBatch.draw(missedText, x, y, merWidth, merHeight);
+					break;
+				}
 			}
 		}
 
-		for(Sprite s: shipSprites) {
-			s.draw(spriteBatch);
+		if(shipsVisible) {
+			for(Sprite s: shipSprites) {
+				s.draw(spriteBatch);
+			}
 		}
 	}
 
@@ -70,7 +85,11 @@ public class GraphicMer extends Sprite {
 		/* ***** Création des textures pour le bateau et pour la mer ***** */
 		GraphicMer.shipTextReg = shipTextReg;
 		merText = new Texture("data/img/mer.png");
+		missedText = new Texture("data/img/missed.png");
+		touchedText = new Texture("data/img/touched.png");
 		screen.addTexture(merText);
+		screen.addTexture(missedText);
+		screen.addTexture(touchedText);
 
 		/* ***** on place tous les bateaux ***** */
 		/*
