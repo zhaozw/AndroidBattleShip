@@ -105,7 +105,6 @@ public class ShipChooser extends Sprite {
 			bateaux.remove(selectedIndex);
 			spriteBateaux.remove(selectedIndex);
 			selectedIndex = -1;
-			replaceBoats();
 		}
 	}
 }
