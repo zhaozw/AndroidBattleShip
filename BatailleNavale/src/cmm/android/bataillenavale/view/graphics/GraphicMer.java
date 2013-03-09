@@ -22,6 +22,10 @@ public class GraphicMer extends Sprite {
 	public GraphicMer(Mer mer) {
 		this.mer = mer;
 		shipSprites = new ArrayList<Sprite>(5);
+
+		for(Bateau b: mer.getBateaux()) {
+			addGraphicboat(b);
+		}
 	}
 
 	public Mer getMer() {
@@ -47,14 +51,14 @@ public class GraphicMer extends Sprite {
 		float x, y;
 
 		for(int i = 0; i < Mer.ARRAY_SIZE; i++) {
-			y = debY + getWidth() - (i+1) * merHeight;
+			y = debY + getHeight() - (i+1) * merHeight;
 
 			for(int j = 0; j < Mer.ARRAY_SIZE; j++) {
 				x = debX + (j * merWidth);
 				spriteBatch.draw(merText, x, y, merWidth, merHeight);
 			}
 		}
-		
+
 		for(Sprite s: shipSprites) {
 			s.draw(spriteBatch);
 		}
@@ -81,29 +85,71 @@ public class GraphicMer extends Sprite {
 		 */
 	}
 
+
 	public boolean addBateauAt(Bateau b, int x, int y, boolean horizontal) {
 		if(mer.addBateauAt(b, x, y, horizontal)) {
-
-			Sprite s = new Sprite(shipTextReg);
-
-			/* ***** calcul de l'endroid où il faut placer le bateau ***** */
-			float width, height;
-			float widthCase = getWidth() / Mer.ARRAY_SIZE;
-			float heightCase = getHeight() / Mer.ARRAY_SIZE;
-			if(horizontal) {
-				width = widthCase * b.getTaille();
-				height = heightCase;
-			} else {
-				width = widthCase;
-				height = heightCase * b.getTaille();
-			}
-			s.setSize(width, height);
-			s.setPosition(getX() + x * widthCase, getY() + getHeight() - y * heightCase);
-
-			/* ***** on place le nouveau sprite ***** */
-			shipSprites.add(s);
+			addGraphicboat(b);
 			return true;
 		}
 		return false;
+	}
+
+	private void addGraphicboat(Bateau b) {
+		Sprite s = new Sprite(shipTextReg);
+		shipSprites.add(s);
+		resizeBoat(shipSprites.size() - 1);
+	}
+
+	private void resizeBoats() {
+		for(int i = 0, size = shipSprites.size(); i < size; i++) {
+			resizeBoat(i);
+		}
+	}
+
+	private void resizeBoat(int index) {
+		float width, height;
+		float widthCase = getWidth() / Mer.ARRAY_SIZE;
+		float heightCase = getHeight() / Mer.ARRAY_SIZE;
+		Sprite s;
+		Bateau b;
+		s = shipSprites.get(index);
+		b = mer.getBateau(index);
+		if(b.isHorizontal()) {
+			width = widthCase * b.getTaille();
+			height = heightCase;
+		} else {
+			width = widthCase;
+			height = heightCase * b.getTaille();
+		}
+		s.setSize(width, height);
+		s.setPosition(
+				getX() + b.getDebX() * widthCase,
+				getY() + getHeight() - b.getDebY() * heightCase
+				);
+	}
+
+
+	@Override
+	public void setSize(float width, float height) {
+		super.setSize(width, height);
+		resizeBoats();
+	}
+
+	@Override
+	public void setPosition(float x, float y) {
+		super.setPosition(x, y);
+		resizeBoats();
+	}
+
+	@Override
+	public void setX(float x) {
+		super.setX(x);
+		resizeBoats();
+	}
+
+	@Override
+	public void setY(float y) {
+		super.setY(y);
+		resizeBoats();
 	}
 }
