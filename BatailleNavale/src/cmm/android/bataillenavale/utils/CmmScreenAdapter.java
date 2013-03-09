@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Coord2F;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
@@ -25,6 +24,7 @@ public abstract class CmmScreenAdapter implements Screen {
 	protected ArrayList<Texture> textures;
 	protected static SpriteBatch spriteBatch;
 	protected static OrthographicCamera camera;
+	private static float screenProportion;
 	private static final Vector3 touchPos = new Vector3();
 	private static final Coord2F coord = new Coord2F();
 	
@@ -33,6 +33,10 @@ public abstract class CmmScreenAdapter implements Screen {
 		assert(spriteBatch != null):  "The SpriteBatch isn't initialized !";
 		assert(camera != null):  "The OrthographicCamera isn't initialized !";
 		this.app = app;
+		float h = Gdx.graphics.getHeight();
+		float w = Gdx.graphics.getWidth();
+		screenProportion = h/w;
+		Gdx.app.log("h/w", ""+screenProportion);
 	}
 
 	@Override
@@ -56,10 +60,12 @@ public abstract class CmmScreenAdapter implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_resize");
+//		screenProportion = Gdx.graphics.getHeight() / Gdx.graphics.getWidth();
 	}
 
 	@Override
 	public void show() {
+	
 		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_show");
 		initialize();
 		tmpLoad();
@@ -126,7 +132,7 @@ public abstract class CmmScreenAdapter implements Screen {
 		textures.add(text);
 	}
 	
-	public Game getApp() {
+	public BatailleNavale getApp() {
 		return app;
 	}
 
@@ -148,5 +154,9 @@ public abstract class CmmScreenAdapter implements Screen {
 		coord.x = touchPos.x;
 		coord.y = touchPos.y;
 		return coord;
+	}
+	
+	public static float getScreenProportion() {
+		return screenProportion;
 	}
 }
