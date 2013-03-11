@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class ShipChooser extends Sprite {
 	private ArrayList<Bateau> bateaux;
 	private ArrayList<Sprite> spriteBateaux;
-	private boolean horizontal;
 	private int selectedIndex;
 
 	public ShipChooser(TextureRegion bateauTextRegion) {
@@ -20,8 +19,6 @@ public class ShipChooser extends Sprite {
 		Sprite s;
 		bateaux = new ArrayList<Bateau>(5);
 		spriteBateaux = new ArrayList<Sprite>(5);
-		float width = getWidth();
-		float height = getHeight() / 5f;
 		
 		for(int i = 1; i <= 5; i++) {
 			b = new Bateau(i);

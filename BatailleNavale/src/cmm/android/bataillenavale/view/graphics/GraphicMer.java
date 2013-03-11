@@ -2,6 +2,7 @@ package cmm.android.bataillenavale.view.graphics;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,7 +39,7 @@ public class GraphicMer extends Sprite {
 	public Coord2D getCaseAt(float screenX, float screenY) {
 		if(getBoundingRectangle().contains(screenX, screenY)) {
 			int x = (int)( (screenX - getX()) / (getWidth() / Mer.ARRAY_SIZE) );
-			int y= (int)(((getY() + getHeight()) - screenY) / (getHeight() / Mer.ARRAY_SIZE));
+			int y = (int)(((getY() + getHeight()) - screenY) / (getHeight() / Mer.ARRAY_SIZE));
 
 			return new Coord2D(x, y);
 		}
@@ -51,7 +52,7 @@ public class GraphicMer extends Sprite {
 		float merHeight = getHeight() / Mer.ARRAY_SIZE;
 		float debX = getX(), debY = getY();
 		float x, y;
-
+		
 		for(int i = 0; i < Mer.ARRAY_SIZE; i++) {
 			y = debY + getHeight() - (i+1) * merHeight;
 
@@ -68,10 +69,13 @@ public class GraphicMer extends Sprite {
 				case Mer.MISSED:
 					spriteBatch.draw(missedText, x, y, merWidth, merHeight);
 					break;
+					
+				default:
+					Gdx.app.log("debug", "impossible!");
 				}
 			}
 		}
-
+		
 		if(shipsVisible) {
 			for(Sprite s: shipSprites) {
 				s.draw(spriteBatch);
@@ -143,7 +147,7 @@ public class GraphicMer extends Sprite {
 		s.setSize(width, height);
 		s.setPosition(
 				getX() + b.getDebX() * widthCase,
-				getY() + getHeight() - b.getDebY() * heightCase
+				getY() + getHeight() - (b.getDebY()+1) * heightCase
 				);
 	}
 

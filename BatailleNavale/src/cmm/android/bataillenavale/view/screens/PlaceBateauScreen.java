@@ -37,7 +37,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		
 		/* ***** initialisation de la mer graphique ***** */
 		GraphicMer.initialize(this, shipTextReg);
-		graphicMer = new GraphicMer(new Mer());
+		graphicMer = new GraphicMer(new Mer(), true);
 		float sp = getScreenProportion();
 		graphicMer.setSize(0.5f * sp, 0.5f);
 		graphicMer.setPosition(-graphicMer.getWidth()/2, -graphicMer.getHeight()/2);
@@ -52,7 +52,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		/* ***** Gestion du listener ***** */
 		ShipChooserListener scl = new ShipChooserListener(shipChooser);
 		PlaceBateauListener sbl = new PlaceBateauListener(this);
-		InputMultiplexer multiplexer = new InputMultiplexer(scl, sbl);
+		InputMultiplexer multiplexer = new InputMultiplexer(sbl, scl);
 		Gdx.input.setInputProcessor(multiplexer);
 	}
 	
