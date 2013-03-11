@@ -51,13 +51,13 @@ public class CmmFinalScreen extends CmmScreenAdapter {
 	@Override
 	public void initialize() {
 		super.initialize();
-				
+
 		Texture cmmText = new Texture("data/img/cmm.png");
 		textures.add(CMM_SPRITE, cmmText);
 		TextureRegion cmmTextReg = new TextureRegion(cmmText, 278, 330);
 		
 		Sprite cmmSprite = new Sprite(cmmTextReg);
-		cmmSprite.setSize(0.2f, 0.2f);
+		cmmSprite.setSize(0.2f * getScreenProportion(), 0.2f); //On cherche à avoir l'image carrée malgré l'écran rectangulaire
 		cmmSprite.setPosition(-cmmSprite.getWidth()/2, -cmmSprite.getHeight()/2);
 		sprites.add(cmmSprite);
 	}
