@@ -3,7 +3,7 @@ package cmm.android.bataillenavale.modele;
 import java.util.ArrayList;
 
 public class Mer {
-	public static final int EMPTY = 0, BOAT_HANDLE_GOOD = 1, BOAT_HANDLE_KILLED = 2, TOUCHED = 3, MISSED = 4;
+	public static final int EMPTY = 0, BOAT_HANDLE_GOOD = 1, BOAT_HANDLE_KILLED = 2, MISSED = 3;
 	public static final int ARRAY_SIZE = 8;
 	public static final int NB_BOAT_HANDLES = 1 + 2 + 3 + 4 + 5;
 	private int[][] mer;
@@ -27,7 +27,9 @@ public class Mer {
 			nbHandlesTouched++;
 			return true;
 		}
-
+		
+		//else
+		mer[y][x] = MISSED;
 		return false;
 	}
 
