@@ -40,7 +40,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		textures.add(shipText);
 		TextureRegion shipTextReg = new TextureRegion(shipText);
 		GraphicMer.initialize(this, shipTextReg);
-		
+
 		/* ***** place les graphicMer en tant que sprite à afficher ***** */
 		float sp = getScreenProportion();
 		graphicJoueur.setSize(0.5f * sp, 0.5f);
@@ -49,7 +49,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		graphicAdversaire.setPosition(-graphicAdversaire.getWidth()/2, 0.5f - graphicAdversaire.getHeight());
 		sprites.add(graphicJoueur);
 		sprites.add(graphicAdversaire);
-		
+
 		/* ***** gestion du controleur ***** */
 		Gdx.input.setInputProcessor(new GameListener(this));
 	}
