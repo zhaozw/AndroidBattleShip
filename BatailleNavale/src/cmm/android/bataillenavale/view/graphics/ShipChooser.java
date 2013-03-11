@@ -46,9 +46,9 @@ public class ShipChooser extends Sprite {
 		float boatHeight = height / 5f;
 		float boatWidth;
 		float boatX = 0;
-		int taille;
+//		int taille;
 		for(int i = 0, size = spriteBateaux.size(); i < size; i++) {
-			taille = bateaux.get(i).getTaille();
+//			taille = bateaux.get(i).getTaille(); //FIXME je m'en sers pas de ça?
 			boatWidth = (i+1) * (width/Mer.NB_BOAT_HANDLES);
 			s = spriteBateaux.get(i);
 			s.setSize(boatWidth, boatHeight);
