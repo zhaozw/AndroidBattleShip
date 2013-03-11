@@ -2,7 +2,6 @@ package cmm.android.bataillenavale.view.graphics;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,7 +15,7 @@ import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 public class GraphicMer extends Sprite {
 	private static Texture merText, touchedText, missedText;
 	private static TextureRegion shipTextReg;
-	private static CmmScreenAdapter screen;
+	//	private static CmmScreenAdapter screen;
 	private ArrayList<Sprite> shipSprites;
 	private Mer mer;
 	private boolean shipsVisible;
@@ -52,7 +51,7 @@ public class GraphicMer extends Sprite {
 		float merHeight = getHeight() / Mer.ARRAY_SIZE;
 		float debX = getX(), debY = getY();
 		float x, y;
-		
+		Texture t = null;
 		for(int i = 0; i < Mer.ARRAY_SIZE; i++) {
 			y = debY + getHeight() - (i+1) * merHeight;
 
@@ -61,21 +60,23 @@ public class GraphicMer extends Sprite {
 				switch(mer.caseAt(j, i)) {
 				case Mer.EMPTY:
 				case Mer.BOAT_HANDLE_GOOD:
-					spriteBatch.draw(merText, x, y, merWidth, merHeight);
+					t = merText;
 					break;
-				case Mer.TOUCHED:
-					spriteBatch.draw(touchedText, x, y, merWidth, merHeight);
+				case Mer.BOAT_HANDLE_KILLED:
+					t = touchedText;
 					break;
 				case Mer.MISSED:
-					spriteBatch.draw(missedText, x, y, merWidth, merHeight);
+					t = missedText;
 					break;
-					
+
 				default:
-					Gdx.app.log("debug", "impossible!");
+					assert(false) : "cette texture n'existe pas";
 				}
+				
+				spriteBatch.draw(t, x, y, merWidth, merHeight);
 			}
 		}
-		
+
 		if(shipsVisible) {
 			for(Sprite s: shipSprites) {
 				s.draw(spriteBatch);
@@ -84,7 +85,7 @@ public class GraphicMer extends Sprite {
 	}
 
 	public static void initialize(CmmScreenAdapter screen, TextureRegion shipTextReg) {
-		GraphicMer.screen = screen;
+		//		GraphicMer.screen = screen;
 
 		/* ***** Création des textures pour le bateau et pour la mer ***** */
 		GraphicMer.shipTextReg = shipTextReg;
