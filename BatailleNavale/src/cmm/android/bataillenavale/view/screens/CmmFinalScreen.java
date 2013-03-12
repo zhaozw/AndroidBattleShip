@@ -8,6 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 
+/**
+ * Screen permettant d'afficher uen petite image avant de terminer l'application.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class CmmFinalScreen extends CmmScreenAdapter {
 	private static final int CMM_SPRITE = 0;
 	public CmmFinalScreen(BatailleNavale app) {

@@ -13,6 +13,15 @@ import cmm.android.bataillenavale.utils.menus.CmmMenu;
 import cmm.android.bataillenavale.utils.menus.CmmMenuGroup;
 import cmm.android.bataillenavale.utils.menus.CmmMenuGroupListener;
 
+/**
+ * Screen permettant d'afficher un menu afin de choisir ce que l'on veut faire parmi:
+ * 		Mode 1 joueur,
+ * 		Mode réseau,
+ * 		Options,
+ * 		Quitter.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class MainMenuScreen extends CmmScreenAdapter {
 	private CmmMenuGroup menu;
 	

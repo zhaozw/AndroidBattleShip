@@ -10,6 +10,11 @@ import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 
+/**
+ * Screen principale permettant de jouer à la bataille navale.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public abstract class GameScreen extends CmmScreenAdapter {
 	protected GraphicMer graphicJoueur;
 	protected GraphicMer graphicAdversaire;

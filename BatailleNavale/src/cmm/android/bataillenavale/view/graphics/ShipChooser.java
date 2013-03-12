@@ -9,6 +9,15 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * Cette classe est un helper graphique.
+ * Elle permet d'afficher une liste de bateaux sur lesquels on peut cliquer afin d'en séléctionner 1.
+ * Le fait qu'elle hérite de Sprite permet de lui donner une taille (width, height), et une origine (x, y).
+ * L'affichage prend donc en compte les attributs héritées de Sprite.
+ * On peut récupérer le bateau séléctionné. Afin de le supprimer de la liste, il faut appeler la méthode rmSelectedBateau()
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class ShipChooser extends Sprite {
 	private ArrayList<Bateau> bateaux;
 	private ArrayList<Sprite> spriteBateaux;

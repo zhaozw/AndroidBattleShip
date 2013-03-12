@@ -20,6 +20,11 @@ import cmm.android.bataillenavale.view.graphics.GraphicMer;
 import cmm.android.bataillenavale.view.graphics.ShipChooser;
 
 
+/**
+ * Screen permettant de placer ses bateaux avant de pouvoir jouer contre un adversaire (humain ou ordinateur).
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class PlaceBateauScreen extends CmmScreenAdapter {
 	private GraphicMer graphicMer;
 	private ShipChooser shipChooser;

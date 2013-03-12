@@ -6,6 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * Controleur sur un MenuGroup. Il s'occupe d'appeler la callback onTouched du CmmMenu sur lequel on clique.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class CmmMenuGroupListener extends InputAdapter {
 	private CmmMenuGroup menuGroup;
 	private Vector3 touchPos;

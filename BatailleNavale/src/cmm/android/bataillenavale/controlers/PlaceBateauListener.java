@@ -11,6 +11,11 @@ import cmm.android.bataillenavale.view.screens.VersusComputerGameScreen;
 
 import com.badlogic.gdx.InputAdapter;
 
+/**
+ * Controleur permettant de placer les bateaux d'un ShipChooser.
+ * Ce contrôleur utilise le ShipChooser du screen PlaceBateauScreen passé en paramètre du constructeur.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ */
 public class PlaceBateauListener extends InputAdapter {
 	private PlaceBateauScreen placeBateau;
 	private boolean horizontal;
@@ -45,7 +50,9 @@ public class PlaceBateauListener extends InputAdapter {
 		return false;
 	}
 
-	
+	/**
+	 * Callback appelée lorsque tous les bateaux sont placées.
+	 */
 	protected void onAllShipPlaced() {
 		VersusComputerGameScreen screen = (VersusComputerGameScreen)placeBateau.getApp().getScreen(BatailleNavale.VERSUS_COMPUTER_GAME);
 		screen.setJoueur(placeBateau.getGraphicMer().getMer());

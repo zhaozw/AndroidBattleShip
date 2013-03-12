@@ -22,7 +22,12 @@ public class Mer {
 	private ArrayList<Bateau> bateaux;
 	private int nbHandlesTouched;
 
-	public Mer() {
+	/**
+	 * Crée une mer par défaut:
+	 * La taille est celle d'un jeu de bataille navale classique
+	 * Il n'y a que de la mer: par de bateaux
+	 */
+	 public Mer() {
 		mer = new int[ARRAY_SIZE][];
 		for(int i = 0; i < ARRAY_SIZE; i++) {
 			mer[i] = new int[ARRAY_SIZE]; 
@@ -32,7 +37,13 @@ public class Mer {
 		nbHandlesTouched = 0;
 	}
 
-
+	/**
+	 * Permet de simuler un tir de l'adversaire sur cette Mer
+	 * Place les flags dans la mer pour l'affichage et pour savoir si tous les bateaux sont coulés.
+	 * @param x l'abscisse de la case sur laquelle l'adversaire tire
+	 * @param y l'ordonnée de la case sur laqueele l'adversaire tire
+	 * @return TRUE si et seulement si le tir atteint une case où il y a un bateau, et si cette case n'a pas été déjà touché auparavant.
+	 */
 	public boolean tirer(int x, int y) {
 		boolean touched = false;
 		
@@ -48,29 +59,25 @@ public class Mer {
 		return touched;
 	}
 
+	/**
+	 * Vérifie si tous les bateaux de cette Mer ont été coulées
+	 * @return true s'il ne reste plus aucun bateau sur la mer.
+	 */
 	public boolean aPerdu() {
 		return nbHandlesTouched == NB_BOAT_HANDLES;
 	}
 
 
-	public ArrayList<Bateau> getBateaux() {
-		return bateaux;
-	}
-
-
-	public void setBateaux(ArrayList<Bateau> bateaux) {
-		this.bateaux = bateaux;
-	}
-
-	public int getNbBoats() {
-		return bateaux.size();
-	}
-
-	public int caseAt(int x, int y) {
-		return mer[y][x];
-	}
-
-
+	/** 
+	 * Permet d'ajouter un bateau sur la mer.
+	 * Le bateau est modifié par cette méthode: elle place b.debX = x; b.debY = y; b.horizontal = horizontal
+	 * Ne place le bateau que s'il ne sort pas de cette mer.
+	 * @param b le bateau à placer
+	 * @param x l'abscisse de la case où il faut placer le bateau
+	 * @param y l'ordonnée de la case où il faut placer le bateau
+	 * @param horizontal vrai si le bateau doit être placer horizontalement.
+	 * @return TRUE si et seulement si le bateau a pu être placé, c'ets-à-dire si le bateau tient complétement sur cette case.
+	 */
 	public boolean addBateauAt(Bateau b, int x, int y, boolean horizontal) {
 		int merX, merY;
 
@@ -134,8 +141,21 @@ public class Mer {
 		return true;
 	}
 
-
+	public ArrayList<Bateau> getBateaux() {
+		return bateaux;
+	}
 	public Bateau getBateau(int i) {
 		return bateaux.get(i);
+	}
+	public void setBateaux(ArrayList<Bateau> bateaux) {
+		this.bateaux = bateaux;
+	}
+
+	public int getNbBoats() {
+		return bateaux.size();
+	}
+
+	public int caseAt(int x, int y) {
+		return mer[y][x];
 	}
 }

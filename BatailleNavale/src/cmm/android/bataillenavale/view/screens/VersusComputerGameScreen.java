@@ -7,8 +7,12 @@ import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 
+/**
+ * Screen permettant de jouer contre l'ordinateur
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class VersusComputerGameScreen extends GameScreen {
-
 	public VersusComputerGameScreen(BatailleNavale app) {
 		super(app);
 	}

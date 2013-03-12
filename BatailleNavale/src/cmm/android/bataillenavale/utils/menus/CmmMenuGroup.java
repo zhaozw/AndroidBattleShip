@@ -10,6 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
+/**
+ * Permet de gérer une série de menus, de les placer sur l'ecran (car il hérite de Sprite).
+ * Cette classe utilise la taille du Sprite (width, height) et son origine (x, y) afin de se repeindre correctement.
+ * Sa taille est donc recalculé chaque fois que l'on appelle getSize() par exemple.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class CmmMenuGroup extends Sprite {
 	private ArrayList<CmmMenu> menus;
 	protected float menuHeight;
@@ -27,7 +34,7 @@ public class CmmMenuGroup extends Sprite {
 		menuHeight = height / menus.size();
 
 		/* ***** génère une police à partir d'un fichier TTF ***** */
-		FileHandle fontFile = Gdx.files.local("data/fonts/mainMenu.ttf");
+		FileHandle fontFile = Gdx.files.internal("data/fonts/mainMenu.ttf");
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
 		font = generator.generateFont(15);
 		generator.dispose();
@@ -41,6 +48,7 @@ public class CmmMenuGroup extends Sprite {
 		return menuHeight;
 	}
 	
+	@Override
 	public void draw(SpriteBatch batch) {
 		float x = getX();
 		float y = getY() + getHeight();

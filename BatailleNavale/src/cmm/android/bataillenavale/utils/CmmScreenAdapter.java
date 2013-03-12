@@ -17,6 +17,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * Classe qui réimplémente certaines méthodes de la classe Screen. Cette classe est un helper gérer correctement l'affichage de tous les sprites qui la composent
+ * De plus, elle permet d'appeller dispose() sur toutes les Texture qui la composent.
+ * Elle permet enfin de réaliser des calculs (ainsi que de mémoriser certains résultats) puisqu'elle contient des Singletons sur la OrthographicCamera et le SpriteBatch
+ * Par exemple, elle mémorise la proportion width/height de l'écran sur lequel on lance l'application, afin de ne pas avoir à la calculer à chaque appelle des fonctions render().
+ * 
+ *  Globalement, chaque classe héritant de cette classe doit:
+ *  	Réimplémenter initialize() afin de placer en mémoire les Textures. 
+ *  		Si vous souhaitez qu'une texture soit supprimé automatiquement lors des appels à hide() et dispose(), vous devez l'ajouterdans l'ArrayList textures (fortement conseillé)
+ *  		Si vous souhaite qu'un sprite soit affiché automatique lors des appels à render(), il faut l'ajouter dans l'ArrayList sprites (fortement conseillé)
+ *  	Réimplémenter render(), en affichant tout ce qui ne fait pas partit des Sprite de l'ArrayList sprites
+ *  	Réimplémenter dispose(), en appelant dispose() sur toutes les Texture  qui ne sont pas ajoutés dans l'ArrayList textures.
+ *  
+ *  	Cette classe permet donc d'appeler les bonnes méthodes en gérant le cycle de vie android. Les méthodes tmpSave et tmpLoad permettent respectivement de sauver et charger la mémoire dans un fichier afin d'être sûr que les données ne sont pas supprimé lorsque votre appication est mis en pause (voir cycle de vie android).
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public abstract class CmmScreenAdapter implements Screen {
 	protected BatailleNavale app;
 	private Sprite wallpaper;

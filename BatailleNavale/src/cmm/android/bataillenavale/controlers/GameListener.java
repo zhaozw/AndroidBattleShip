@@ -10,6 +10,11 @@ import cmm.android.bataillenavale.view.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 
+/**
+ * Controleur permettant de gérer les clic sur la mer adverse afin de simuler un tir.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class GameListener extends InputAdapter {
 	private GameScreen jeu;
 
