@@ -18,7 +18,7 @@ public class VersusComputerGameScreen extends GameScreen {
 		/* ***** place les bateaux au hasard sur la mer de l'adversaire (i.e. l'ordinateur) ***** */
 		boolean horizontal;
 		int x, y;
-		int i = 1;
+		int i = 0;
 		Mer computerMer = new Mer();
 		graphicAdversaire = new GraphicMer(computerMer,false);
 
@@ -32,7 +32,7 @@ public class VersusComputerGameScreen extends GameScreen {
 				x = (int)(Math.random() * Mer.ARRAY_SIZE);
 				y = (int)(Math.random() * (Mer.ARRAY_SIZE - i));
 			}
-			if(computerMer.addBateauAt(new Bateau(i), x, y, horizontal))
+			if(computerMer.addBateauAt(new Bateau(Mer.TAILLE_BATEAUX[i]), x, y, horizontal))
 				i++;
 		}
 		
