@@ -15,7 +15,6 @@ import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 public class GraphicMer extends Sprite {
 	private static Texture merText, touchedText, missedText;
 	private static TextureRegion shipTextReg;
-	//	private static CmmScreenAdapter screen;
 	private ArrayList<Sprite> shipSprites;
 	private Mer mer;
 	private boolean shipsVisible;
@@ -95,18 +94,6 @@ public class GraphicMer extends Sprite {
 		screen.addTexture(merText);
 		screen.addTexture(missedText);
 		screen.addTexture(touchedText);
-
-		/* ***** on place tous les bateaux ***** */
-		/*
-		float sizeCasePlateau = 0.5f / Mer.ARRAY_SIZE;
-		Sprite bateau;
-		for(int i = 0; i < Bateau.NB_BOATS; i++) {
-			bateau = new Sprite(bateauTextReg);
-			bateau.setSize(sizeCasePlateau * (i+1), sizeCasePlateau);
-			bateau.setPosition(-0.5f, 0.5f - (i+1) * bateau.getHeight());
-			screen.addSprite(bateau);
-		}
-		 */
 	}
 
 

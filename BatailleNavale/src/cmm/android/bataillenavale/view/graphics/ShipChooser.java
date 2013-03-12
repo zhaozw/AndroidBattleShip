@@ -20,8 +20,8 @@ public class ShipChooser extends Sprite {
 		bateaux = new ArrayList<Bateau>(5);
 		spriteBateaux = new ArrayList<Sprite>(5);
 		
-		for(int i = 1; i <= 5; i++) {
-			b = new Bateau(i);
+		for(int i = 0; i < 5; i++) {
+			b = new Bateau(Mer.TAILLE_BATEAUX[i]);
 			bateaux.add(b);
 
 			s = new Sprite(bateauTextRegion);
@@ -46,10 +46,10 @@ public class ShipChooser extends Sprite {
 		float boatHeight = height / 5f;
 		float boatWidth;
 		float boatX = 0;
-//		int taille;
+		int taille;
 		for(int i = 0, size = spriteBateaux.size(); i < size; i++) {
-//			taille = bateaux.get(i).getTaille(); //FIXME je m'en sers pas de ça?
-			boatWidth = (i+1) * (width/Mer.NB_BOAT_HANDLES);
+			taille = bateaux.get(i).getTaille();
+			boatWidth = taille * (width/Mer.NB_BOAT_HANDLES);
 			s = spriteBateaux.get(i);
 			s.setSize(boatWidth, boatHeight);
 			s.setPosition(x + boatX, y + height - boatHeight);

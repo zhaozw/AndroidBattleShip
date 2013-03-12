@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Mer {
 	public static final int EMPTY = 0, BOAT_HANDLE_GOOD = 1, BOAT_HANDLE_KILLED = 2, MISSED = 3;
-	public static final int ARRAY_SIZE = 8;
-	public static final int NB_BOAT_HANDLES = 1 + 2 + 3 + 4 + 5;
+	public static final int ARRAY_SIZE = 10;
+	public static final int NB_BOAT_HANDLES = 2 + 3 + 3 + 4 + 5;
+	public static final int[] TAILLE_BATEAUX = {2, 3, 3, 4, 5};
 	private int[][] mer;
 	private ArrayList<Bateau> bateaux;
 	private int nbHandlesTouched;
@@ -22,15 +23,18 @@ public class Mer {
 
 
 	public boolean tirer(int x, int y) {
+		boolean touched = false;
+		
 		if(mer[y][x] == BOAT_HANDLE_GOOD) {
 			mer[y][x] = BOAT_HANDLE_KILLED;
 			nbHandlesTouched++;
-			return true;
+			touched = true;
 		}
-		
-		//else
-		mer[y][x] = MISSED;
-		return false;
+		else if(mer[y][x] == EMPTY) {
+			mer[y][x] = MISSED;
+		}
+		//Si c'est une case sur laquelle on a déjà tiré, on ne change rien, et on est sûr qu'elle ne touche rien
+		return touched;
 	}
 
 	public boolean aPerdu() {
