@@ -2,6 +2,17 @@ package cmm.android.bataillenavale.modele;
 
 import java.util.ArrayList;
 
+/**
+ * Modèle permettant de placer en mémoire une Mer (c'est-à-dire la carte d'un joueur).
+ * Une mer est constitué:
+ * 		d'un tableau de bateaux,
+ * 		d'un tableau à deux dimensions de flags, afin de savoir ce qu'il y a sur cette case (VIDE, BATEAU, BATEAU DETRUIT, TIR DANS L'EAU)
+ *      du nombre de cases touchées.
+ * On peut modifier le modèle en appelant la méthode tirer() qui permet de simuler à tir de l'adversaire sur cette mer.
+ * la méthode aPerdu() permet de voir si le joueur à qui appartient cette mer a perdu, c'est-à-dire si tous les bateaux sont coulées.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 1.0
+ */
 public class Mer {
 	public static final int EMPTY = 0, BOAT_HANDLE_GOOD = 1, BOAT_HANDLE_KILLED = 2, MISSED = 3;
 	public static final int ARRAY_SIZE = 10;
@@ -71,17 +82,17 @@ public class Mer {
 		 */
 
 		//Si n'est pas dans l'eau
-		if(x < 0 || y < 0) {
+ 		if(x < 0 || y < 0) {
 			return false;
 		}
 
 		if(horizontal) {
 			//Si au moins une case dépasse de l'eau
-			if(x + b.getTaille() >= ARRAY_SIZE || y >= ARRAY_SIZE) {
+			if(x + b.getTaille()-1 >= ARRAY_SIZE || y >= ARRAY_SIZE) {
 				return false;
 			}
 			//Si au moins une case est déjà prise par un autre bateau:
-			for(int i = x, max = x + b.getTaille(); i <= max; i++) {
+			for(int i = x, max = x + b.getTaille(); i < max; i++) {
 				if(mer[y][i] != EMPTY) {
 					return false;
 				}
@@ -89,7 +100,7 @@ public class Mer {
 		}
 		else {
 			//Si au moins une case dépasse de l'eau
-			if(x >= ARRAY_SIZE || y >= ARRAY_SIZE - b.getTaille()){
+			if(x >= ARRAY_SIZE || y + b.getTaille() -1 >= ARRAY_SIZE){
 				return false;
 			}
 			//Si au moins une case est déjà prise par un autre bateau:
