@@ -111,7 +111,7 @@ public class Mer {
 				return false;
 			}
 			//Si au moins une case est déjà prise par un autre bateau:
-			for(int i = y, max = y + b.getTaille(); i <= max; i++) {
+			for(int i = y, max = y + b.getTaille(); i < max; i++) {
 				if(mer[i][x] != EMPTY) {
 					return false;
 				}
