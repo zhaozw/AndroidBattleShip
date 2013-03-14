@@ -18,12 +18,10 @@ import com.badlogic.gdx.InputAdapter;
  */
 public class PlaceBateauListener extends InputAdapter {
 	private PlaceBateauScreen placeBateau;
-	private boolean horizontal;
-	
+
 	public PlaceBateauListener(PlaceBateauScreen placeBateau) {
 		super();
 		this.placeBateau = placeBateau;
-		horizontal = true;
 	}
 
 	@Override
@@ -31,12 +29,12 @@ public class PlaceBateauListener extends InputAdapter {
 		Coord2F coord = PlaceBateauScreen.intToFloatCoord(screenX, screenY);
 		GraphicMer graphicMer = placeBateau.getGraphicMer();
 		ShipChooser shipChooser = placeBateau.getShipChooser();
-		
+
 		if(graphicMer.getBoundingRectangle().contains(coord.x, coord.y)) {
 			Bateau selected = shipChooser.getSelectedBateau();
 			Coord2D clickedCase = graphicMer.getCaseAt(coord.x, coord.y);
 			if(selected != null && clickedCase != null) {
-				if(graphicMer.addBateauAt(selected, clickedCase.x, clickedCase.y, horizontal)) {
+				if(graphicMer.addBateauAt(selected, clickedCase.x, clickedCase.y, shipChooser.getHorizontal())) {
 					shipChooser.rmSelectedBateau();
 				}
 			}
@@ -45,7 +43,6 @@ public class PlaceBateauListener extends InputAdapter {
 			if(graphicMer.getMer().getNbBoats() == Bateau.NB_BOATS) {
 				onAllShipPlaced();
 			}
-			return true;
 		}
 		return false;
 	}

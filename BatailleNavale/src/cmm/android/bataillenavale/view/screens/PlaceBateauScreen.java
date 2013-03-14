@@ -46,7 +46,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		/* ***** Création des textures ***** */
 		Texture shipText = new Texture("data/img/ship.png");
 		textures.add(shipText);
-		TextureRegion shipTextReg = new TextureRegion(shipText);
+		TextureRegion shipTextReg = new TextureRegion(shipText, 803, 198);
 
 		/* ***** initialisation de la mer graphique ***** */
 		GraphicMer.initialize(this, shipTextReg);
@@ -57,7 +57,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		sprites.add(graphicMer);
 
 		/* ***** Création du ShipChooser ***** */
-		shipChooser = new ShipChooser(shipTextReg);
+		shipChooser = new ShipChooser(this, shipTextReg);
 		shipChooser.setSize(1.f, 0.3f);
 		shipChooser.setPosition(-0.5f, 0.2f);
 		sprites.add(shipChooser);

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
@@ -92,19 +93,24 @@ public class GraphicMer extends Sprite {
 	}
 
 	public static void initialize(CmmScreenAdapter screen, TextureRegion shipTextReg) {
-		//		GraphicMer.screen = screen;
-
 		/* ***** Création des textures pour le bateau et pour la mer ***** */
 		GraphicMer.shipTextReg = shipTextReg;
 		merText = new Texture("data/img/mer.png");
 		missedText = new Texture("data/img/missed.png");
 		touchedText = new Texture("data/img/touched.png");
-		screen.addTexture(merText);
-		screen.addTexture(missedText);
-		screen.addTexture(touchedText);
+		
+		/* On place les textures dans l'ArrayList de textures transversales, afin de pouvoir les utiliser dans les autres screens */
+		BatailleNavale app = screen.getApp();
+		app.addTexture(merText);
+		app.addTexture(missedText);
+		app.addTexture(touchedText);
 	}
 
-
+	public static void dispose() {
+		merText.dispose();
+		missedText.dispose();
+		touchedText.dispose();
+	}
 	public boolean addBateauAt(Bateau b, int x, int y, boolean horizontal) {
 		if(mer.addBateauAt(b, x, y, horizontal)) {
 			addGraphicboat(b);
@@ -121,6 +127,7 @@ public class GraphicMer extends Sprite {
 
 	private void resizeBoats() {
 		for(int i = 0, size = shipSprites.size(); i < size; i++) {
+			shipSprites.get(i).setRegion(shipTextReg);
 			resizeBoat(i);
 		}
 	}
@@ -145,6 +152,11 @@ public class GraphicMer extends Sprite {
 				getX() + b.getDebX() * widthCase,
 				getY() + getHeight() - (b.getDebY()+1) * heightCase
 				);
+		
+		if(!b.isHorizontal()) {
+			s.rotate90(true);
+			s.setY(s.getY() - (s.getHeight() - heightCase) );
+		}
 	}
 
 

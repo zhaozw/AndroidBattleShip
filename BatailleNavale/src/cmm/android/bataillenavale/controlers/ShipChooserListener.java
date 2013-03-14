@@ -13,15 +13,26 @@ import cmm.android.bataillenavale.view.graphics.ShipChooser;
  */
 public class ShipChooserListener extends InputAdapter {
 	private ShipChooser shipChooser;
-	
+
 	public ShipChooserListener(ShipChooser shipChooser) {
 		this.shipChooser = shipChooser;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		boolean hasTouched = false;
 		Coord2F coord = CmmScreenAdapter.intToFloatCoord(screenX, screenY);
-		boolean hasTouched = shipChooser.setSelectedBoat(coord.x, coord.y);
+		if(shipChooser.getBoundingRectangle().contains(coord.x, coord.y)) {
+			//Si on a appuyé sur le bouton pour changer l'orientation:
+			if(shipChooser.getChangeOrientationButton().getBoundingRectangle().contains(coord.x, coord.y)) {
+				hasTouched = true;
+				shipChooser.switchHorizontal();
+			}
+			else {
+				hasTouched = shipChooser.setSelectedBoat(coord.x, coord.y);
+			}
+		}
+
 		return hasTouched;
 	}	
 }
