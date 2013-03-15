@@ -59,35 +59,42 @@ public class GraphicMer extends Sprite {
 		float merHeight = getHeight() / Mer.ARRAY_SIZE;
 		float debX = getX(), debY = getY();
 		float x, y;
-		Texture t = null;
+		
+		/* ***** On place la grille de la mer ***** */ 
 		for(int i = 0; i < Mer.ARRAY_SIZE; i++) {
 			y = debY + getHeight() - (i+1) * merHeight;
 
 			for(int j = 0; j < Mer.ARRAY_SIZE; j++) {
 				x = debX + (j * merWidth);
-				switch(mer.caseAt(j, i)) {
-				case Mer.EMPTY:
-				case Mer.BOAT_HANDLE_GOOD:
-					t = merText;
-					break;
-				case Mer.BOAT_HANDLE_KILLED:
-					t = touchedText;
-					break;
-				case Mer.MISSED:
-					t = missedText;
-					break;
-
-				default:
-					assert(false) : "cette texture n'existe pas";
-				}
-				
-				spriteBatch.draw(t, x, y, merWidth, merHeight);
+				spriteBatch.draw(merText, x, y, merWidth, merHeight);
 			}
 		}
 
+		/* ***** On place les bateaux s'il doivent être visibles ***** */
 		if(shipsVisible) {
 			for(Sprite s: shipSprites) {
 				s.draw(spriteBatch);
+			}
+		}
+		
+		/* ***** On place les croix là où on a tiré ***** */
+		int currentCase;
+		for(int i = 0; i < Mer.ARRAY_SIZE; i++) {
+			y = debY + getHeight() - (i+1) * merHeight;
+			for(int j = 0; j < Mer.ARRAY_SIZE; j++) {
+				x = debX + (j * merWidth);
+				
+				currentCase = mer.caseAt(j, i);
+				switch(currentCase) {
+				case Mer.BOAT_HANDLE_KILLED:
+					spriteBatch.draw(touchedText, x, y, merWidth, merHeight);
+					break;
+				case Mer.MISSED:
+					spriteBatch.draw(missedText, x, y, merWidth, merHeight);
+					break;
+					
+				}
+				x = debX + (j * merWidth);
 			}
 		}
 	}
