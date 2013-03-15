@@ -19,7 +19,7 @@ import cmm.android.bataillenavale.utils.CmmScreenAdapter;
  * Le fait qu'elle hérite de Sprite permet de lui donner une taille (width, height), et une origine (x, y).
  * L'affichage prend donc en compte les attributs héritées de Sprite.
  * @author Jonathan GEOFFROY, Samy CHAYEM
- * @version 1.0
+ * @version 2.0
  */
 public class GraphicMer extends Sprite {
 	private static Texture merText, touchedText, missedText;
