@@ -1,6 +1,5 @@
 package cmm.android.bataillenavale.controlers;
 
-import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Coord2F;
 import cmm.android.bataillenavale.utils.CmmScreenAdapter;
@@ -33,14 +32,15 @@ public class GameListener extends InputAdapter {
 				Gdx.app.log("tirer", "touché!");
 				if(adv.getMer().aPerdu()) {
 					Gdx.app.log("jeu", "Vous avez gagné!");
-					jeu.getApp().setScreen(BatailleNavale.MAIN_MENU);
+					jeu.setIsOverGame();
 				}
 			}
 			else {
 				Gdx.app.log("tirer", "dans l'eau!");
 			}
 
-			jeu.adversairePlay(); //puisqu'on a joué, c'est à l'adversaire!
+			if(!jeu.isOverGame())
+				jeu.adversairePlay(); //puisqu'on a joué, c'est à l'adversaire!
 			return true;
 		}
 		return false;
