@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Mer;
+import cmm.android.bataillenavale.view.graphics.General;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 
 /**
@@ -53,9 +54,13 @@ public class VersusComputerGameScreen extends GameScreen {
 		boolean touched = graphicJoueur.getMer().tirer(x, y);		
 		if(touched) {
 			Gdx.app.log("game", "touché!");
+			getGraphicAdversaire().getGeneral().setStatus(General.HAPPY);
+			getGraphicJoueur().getGeneral().setStatus(General.UNHAPPY);
 		}
 		else {
 			Gdx.app.log("game", "dans l'eau!");
+			getGraphicAdversaire().getGeneral().setStatus(General.CLASSIC);
+			getGraphicJoueur().getGeneral().setStatus(General.CLASSIC);
 		}
 		return touched;
 	}

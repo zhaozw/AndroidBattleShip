@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class General extends Sprite {
 	public final static int PLAYER = 0, ADVERSAIRE = 1;
-	private final static int CLASSIC = 0, HAPPY = 1, UNHAPPY = 2;
+	public final static int CLASSIC = 0, HAPPY = 1, UNHAPPY = 2;
 	private TextureRegion generalTextReg, happyTextReg, unhappyTextReg;
-	private int state;
+	private int status;
 	
 	public General(CmmScreenAdapter screen, int type) {
 		Texture text;
@@ -25,7 +25,7 @@ public class General extends Sprite {
 			default:
 				assert false: "the general type doesn't exist!";
 		}
-		state = CLASSIC;
+		setStatus(CLASSIC);
 		/* ***** général dans son état normal ****** */
 		text = new Texture("./data/img/classic_" + textName);
 		screen.getApp().putTransversalTexture("classic_" + textName, text);
@@ -43,5 +43,24 @@ public class General extends Sprite {
 		
 		/* ***** On place la texture classique ****** */
 		setRegion(generalTextReg);
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+		switch(status) {
+		case CLASSIC:
+			setRegion(generalTextReg);
+			break;
+		case HAPPY:
+			setRegion(happyTextReg);
+			break;
+		case UNHAPPY:
+			setRegion(unhappyTextReg);
+			break;
+		}
 	}
 }
