@@ -188,8 +188,21 @@ public class GraphicMer extends Sprite {
 			s.setY(s.getY() - (s.getHeight() - heightCase) );
 		}
 	}
-
-
+	
+	public boolean touchSea(float x, float y) {
+		boolean touch;
+		if(isPlayer) {
+			touch = x > getX() && x < getX() + Mer.ARRAY_SIZE * widthCase &&
+					y < getY() + getHeight() &&  y > getY() + getHeight() - Mer.ARRAY_SIZE * heightCase;
+		}
+		else {
+			touch = x > getX() + general.getWidth() && x < getX() + general.getWidth() + Mer.ARRAY_SIZE * widthCase &&
+					y < getY() + getHeight() &&  y > getY() + getHeight() - Mer.ARRAY_SIZE * heightCase;
+		}
+		return touch;
+	}
+	
+	
 	@Override
 	public void setSize(float width, float height) {
 		super.setSize(width, height);
@@ -222,7 +235,6 @@ public class GraphicMer extends Sprite {
 		}
 		general.setPosition(generalX, generalY);
 	}
-
 	@Override
 	public void setX(float x) {
 		super.setX(x);
@@ -237,16 +249,7 @@ public class GraphicMer extends Sprite {
 		general.setY(getY() + getHeight() - general.getHeight());
 	}
 
-	public boolean touchSea(float x, float y) {
-		boolean touch;
-		if(isPlayer) {
-			touch = x > getX() && x < getX() + Mer.ARRAY_SIZE * widthCase &&
-					y < getY() + getHeight() &&  y > getY() + getHeight() - Mer.ARRAY_SIZE * heightCase;
-		}
-		else {
-			touch = x > getX() + general.getWidth() && x < getX() + general.getWidth() + Mer.ARRAY_SIZE * widthCase &&
-					y < getY() + getHeight() &&  y > getY() + getHeight() - Mer.ARRAY_SIZE * heightCase;
-		}
-		return touch;
+	public General getGeneral() {
+		return general;
 	}
 }
