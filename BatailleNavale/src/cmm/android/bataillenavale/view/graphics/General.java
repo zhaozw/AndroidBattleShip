@@ -32,14 +32,14 @@ public class General extends Sprite {
 		generalTextReg = new TextureRegion(text);
 		
 //		/* ***** général heureux ***** */
-//		text = new Texture("./data/img/happy_" + textName);
-//		screen.getApp().putTransversalTexture("classic_" + textName, text);
-//		generalTextReg = new TextureRegion(text);
-//		
-//		/* ***** général déçu ***** */
-//		text = new Texture("./data/img/unhappy_" + textName);
-//		screen.getApp().putTransversalTexture("classic_" + textName, text);
-//		generalTextReg = new TextureRegion(text);
+		text = new Texture("./data/img/happy_" + textName);
+		screen.getApp().putTransversalTexture("happy_" + textName, text);
+		generalTextReg = new TextureRegion(text);
+		
+		/* ***** général déçu ***** */
+		text = new Texture("./data/img/unhappy_" + textName);
+		screen.getApp().putTransversalTexture("unhappy_" + textName, text);
+		generalTextReg = new TextureRegion(text);
 		
 		/* ***** On place la texture classique ****** */
 		setRegion(generalTextReg);
