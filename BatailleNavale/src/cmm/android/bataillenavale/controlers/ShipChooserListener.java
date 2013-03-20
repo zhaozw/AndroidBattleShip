@@ -9,7 +9,7 @@ import cmm.android.bataillenavale.view.graphics.ShipChooser;
 /**
  * Controleur permettant de séléctionner un bateau dans le ShipChooser passé en paramètre du constructeur
  * @author Jonathan GEOFFROY, Samy CHAYEM
- * @version 1.0
+ * @version 2.0
  */
 public class ShipChooserListener extends InputAdapter {
 	private ShipChooser shipChooser;

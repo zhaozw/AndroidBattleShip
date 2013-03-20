@@ -24,7 +24,7 @@ public class VersusComputerGameScreen extends GameScreen {
 		int x, y;
 		int i = 0;
 		Mer computerMer = new Mer();
-		graphicAdversaire = new GraphicMer(computerMer, false);
+		graphicAdversaire = new GraphicMer(this, computerMer, false);
 
 		while(computerMer.getNbBoats() < Bateau.NB_BOATS) {
 			horizontal = Math.random() >= 0.5;

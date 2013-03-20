@@ -12,7 +12,7 @@ import com.badlogic.gdx.InputAdapter;
 /**
  * Controleur permettant de gérer les clic sur la mer adverse afin de simuler un tir.
  * @author Jonathan GEOFFROY, Samy CHAYEM
- * @version 1.0
+ * @version 2.0
  */
 public class GameListener extends InputAdapter {
 	private GameScreen jeu;
@@ -25,8 +25,8 @@ public class GameListener extends InputAdapter {
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		GraphicMer adv = jeu.getGraphicAdversaire();
 		Coord2F click = CmmScreenAdapter.intToFloatCoord(screenX, screenY);
-		if(adv.getBoundingRectangle().contains(click.x, click.y)) {
-			
+		if(adv.touchSea(click.x, click.y)) {
+			Gdx.app.log("debug", "touch sea");
 			Coord2D touchedCase = adv.getCaseAt(click.x, click.y);
 			if(adv.getMer().tirer(touchedCase.x, touchedCase.y)) {
 				Gdx.app.log("tirer", "touché!");
@@ -41,6 +41,7 @@ public class GameListener extends InputAdapter {
 
 			if(!jeu.isOverGame())
 				jeu.adversairePlay(); //puisqu'on a joué, c'est à l'adversaire!
+			
 			return true;
 		}
 		return false;

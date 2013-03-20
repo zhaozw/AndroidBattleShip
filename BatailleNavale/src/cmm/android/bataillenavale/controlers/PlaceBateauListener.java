@@ -15,6 +15,7 @@ import com.badlogic.gdx.InputAdapter;
  * Controleur permettant de placer les bateaux d'un ShipChooser.
  * Ce contrôleur utilise le ShipChooser du screen PlaceBateauScreen passé en paramètre du constructeur.
  * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 2.0
  */
 public class PlaceBateauListener extends InputAdapter {
 	private PlaceBateauScreen placeBateau;
@@ -30,9 +31,10 @@ public class PlaceBateauListener extends InputAdapter {
 		GraphicMer graphicMer = placeBateau.getGraphicMer();
 		ShipChooser shipChooser = placeBateau.getShipChooser();
 
-		if(graphicMer.getBoundingRectangle().contains(coord.x, coord.y)) {
+		if(graphicMer.touchSea(coord.x, coord.y)) {
 			Bateau selected = shipChooser.getSelectedBateau();
 			Coord2D clickedCase = graphicMer.getCaseAt(coord.x, coord.y);
+
 			if(selected != null && clickedCase != null) {
 				if(graphicMer.addBateauAt(selected, clickedCase.x, clickedCase.y, shipChooser.getHorizontal())) {
 					shipChooser.rmSelectedBateau();

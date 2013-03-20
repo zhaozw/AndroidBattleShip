@@ -31,7 +31,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 	public static final String TMP_SAVE = "./tmp";
 
 	public PlaceBateauScreen(BatailleNavale app) {
-		super(app);
+		super(app, false);
 	}
 
 	@Override
@@ -41,19 +41,18 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = new Texture("data/img/gameWallpaper.jpg");
 		setWallpaper(new TextureRegion(wallText, 349, 496));
-		textures.add(wallText);
+		app.putTransversalTexture("wallpaper", wallText);
 
 		/* ***** Création des textures ***** */
 		Texture shipText = new Texture("data/img/ship.png");
-		textures.add(shipText);
+		app.putTransversalTexture("ship", shipText);
 		TextureRegion shipTextReg = new TextureRegion(shipText, 803, 198);
 
 		/* ***** initialisation de la mer graphique ***** */
 		GraphicMer.initialize(this, shipTextReg);
-		graphicMer = new GraphicMer(new Mer(), true);
-		float sp = getScreenProportion();
-		graphicMer.setSize(0.5f * sp, 0.5f);
-		graphicMer.setPosition(-graphicMer.getWidth()/2, -graphicMer.getHeight()/2);
+		graphicMer = new GraphicMer(this, new Mer(), true);
+		graphicMer.setSize(1.0f, 0.5f);
+		graphicMer.setPosition(-0.5f, -0.5f);
 		sprites.add(graphicMer);
 
 		/* ***** Création du ShipChooser ***** */
@@ -76,7 +75,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 			ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(handle.file()));
 			save.writeObject(graphicMer.getMer());
 			save.close();
-		}catch (IOException e) {
+		} catch (IOException e) {
 			return false;
 		}
 
@@ -89,7 +88,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 			FileHandle handle = Gdx.files.internal(TMP_SAVE);
 			ObjectInputStream load = new ObjectInputStream(new FileInputStream(handle.file()));
 			Mer mer = (Mer)load.readObject();
-			graphicMer = new GraphicMer(mer, true);
+			graphicMer = new GraphicMer(this, mer, true);
 			load.close();
 		}catch (IOException e) {
 			return false;
