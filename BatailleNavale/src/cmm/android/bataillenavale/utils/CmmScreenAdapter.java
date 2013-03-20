@@ -39,21 +39,22 @@ public abstract class CmmScreenAdapter implements Screen {
 	private Sprite wallpaper;
 	protected ArrayList<Sprite> sprites;
 	protected ArrayList<Texture> textures;
+	private boolean continousRendering;
 	protected static SpriteBatch spriteBatch;
 	protected static OrthographicCamera camera;
 	private static float screenProportion;
 	private static final Vector3 touchPos = new Vector3();
 	private static final Coord2F coord = new Coord2F();
 	
-	public CmmScreenAdapter(BatailleNavale app) {
+	public CmmScreenAdapter(BatailleNavale app, boolean continousRendering) {
 		super();
 		assert(spriteBatch != null):  "The SpriteBatch isn't initialized !";
 		assert(camera != null):  "The OrthographicCamera isn't initialized !";
 		this.app = app;
+		this.continousRendering = continousRendering; 
 		float h = Gdx.graphics.getHeight();
 		float w = Gdx.graphics.getWidth();
 		screenProportion = h/w;
-		Gdx.app.log("h/w", ""+screenProportion);
 	}
 
 	@Override
@@ -82,7 +83,6 @@ public abstract class CmmScreenAdapter implements Screen {
 
 	@Override
 	public void show() {
-	
 		Gdx.app.log("CmmScreenAdapter", getClass() + ": on_show");
 		initialize();
 		tmpLoad();
@@ -116,11 +116,13 @@ public abstract class CmmScreenAdapter implements Screen {
 			t.dispose();
 		}
 		textures.clear();
+		sprites.clear();
 	}
 	
 	public void initialize() {
 		sprites = new ArrayList<Sprite>();
 		textures = new ArrayList<Texture>();
+		Gdx.graphics.setContinuousRendering(continousRendering); 
 	}
 	
 	public boolean tmpSave() { return false; }

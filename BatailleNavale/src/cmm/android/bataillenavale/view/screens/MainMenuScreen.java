@@ -26,7 +26,7 @@ public class MainMenuScreen extends CmmScreenAdapter {
 	private CmmMenuGroup menu;
 	
 	public MainMenuScreen(BatailleNavale app) {
-		super(app);
+		super(app, false);
 	}
 
 	@Override

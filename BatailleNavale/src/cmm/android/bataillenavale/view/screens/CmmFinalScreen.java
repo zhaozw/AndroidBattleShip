@@ -16,7 +16,7 @@ import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 public class CmmFinalScreen extends CmmScreenAdapter {
 	private static final int CMM_SPRITE = 0;
 	public CmmFinalScreen(BatailleNavale app) {
-		super(app);
+		super(app, true);
 		// TODO Auto-generated constructor stub
 	}
 
