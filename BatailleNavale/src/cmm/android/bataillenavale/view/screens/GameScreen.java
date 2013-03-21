@@ -19,13 +19,20 @@ import cmm.android.bataillenavale.view.graphics.GraphicMer;
 public abstract class GameScreen extends CmmScreenAdapter {
 	protected GraphicMer graphicJoueur;
 	protected GraphicMer graphicAdversaire;
+	protected boolean playerTurn;
 	protected boolean isOverGame;
 
 	public GameScreen(BatailleNavale app) {
 		super(app, false);
 		isOverGame = false;
+		playerTurn = Math.random() > 0.5;
 	}
-
+	public GameScreen(BatailleNavale app, boolean autoRender) {
+		super(app, autoRender);
+		isOverGame = false;
+		playerTurn = Math.random() > 0.5;
+	}
+	
 	public void setJoueur(Mer joueur) {
 		graphicJoueur = new GraphicMer(this, joueur, true);
 	}
@@ -105,5 +112,13 @@ public abstract class GameScreen extends CmmScreenAdapter {
 
 	public boolean isOverGame() {
 		return isOverGame;
+	}
+
+	public boolean isPlayerTurn() {
+		return playerTurn;
+	}
+
+	public void setPlayerTurn(boolean b) {
+		playerTurn = b;		
 	}
 }

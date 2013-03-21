@@ -25,24 +25,25 @@ public class General extends Sprite {
 			default:
 				assert false: "the general type doesn't exist!";
 		}
-		setStatus(CLASSIC);
 		/* ***** général dans son état normal ****** */
 		text = new Texture("./data/img/classic_" + textName);
 		screen.getApp().putTransversalTexture("classic_" + textName, text);
 		generalTextReg = new TextureRegion(text);
 		
-//		/* ***** général heureux ***** */
+		/* ***** général heureux ***** */
 		text = new Texture("./data/img/happy_" + textName);
 		screen.getApp().putTransversalTexture("happy_" + textName, text);
-		generalTextReg = new TextureRegion(text);
+		happyTextReg = new TextureRegion(text);
 		
 		/* ***** général déçu ***** */
 		text = new Texture("./data/img/unhappy_" + textName);
 		screen.getApp().putTransversalTexture("unhappy_" + textName, text);
-		generalTextReg = new TextureRegion(text);
+		unhappyTextReg = new TextureRegion(text);
 		
 		/* ***** On place la texture classique ****** */
 		setRegion(generalTextReg);
+		status = CLASSIC;
+	
 	}
 
 	public int getStatus() {

@@ -14,8 +14,11 @@ import cmm.android.bataillenavale.view.graphics.GraphicMer;
  * @version 1.0
  */
 public class VersusComputerGameScreen extends GameScreen {
+	private float adversaireTimer;
+	
 	public VersusComputerGameScreen(BatailleNavale app) {
-		super(app);
+		super(app, true);
+		adversaireTimer = 0;
 	}
 
 	@Override
@@ -63,5 +66,25 @@ public class VersusComputerGameScreen extends GameScreen {
 			getGraphicJoueur().getGeneral().setStatus(General.CLASSIC);
 		}
 		return touched;
+	}
+
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		if(!playerTurn) {
+			adversaireTimer += delta;
+			if(adversaireTimer > 1) {
+				if(adversairePlay()) {
+					graphicAdversaire.getGeneral().setStatus(General.HAPPY);
+					graphicJoueur.getGeneral().setStatus(General.UNHAPPY);
+				}
+				else {
+					graphicAdversaire.getGeneral().setStatus(General.CLASSIC);
+					graphicJoueur.getGeneral().setStatus(General.CLASSIC);
+				}
+				playerTurn = true; //C'est au joueur de jouer.
+				adversaireTimer = 0;
+			}
+		}
 	}
 }
