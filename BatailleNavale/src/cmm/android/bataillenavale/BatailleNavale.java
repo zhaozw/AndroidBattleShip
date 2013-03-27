@@ -1,5 +1,8 @@
 package cmm.android.bataillenavale;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+
 import cmm.android.bataillenavale.utils.CmmGameAdapter;
 import cmm.android.bataillenavale.view.screens.CmmFinalScreen;
 import cmm.android.bataillenavale.view.screens.MainMenuScreen;
@@ -12,6 +15,10 @@ public class BatailleNavale extends CmmGameAdapter {
 	@Override
 	public void create() {
 		super.create();
+		
+		/* ***** On met la musique en streaming ***** */
+		Music music = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music.mp3"));
+		music.play();
 		
 		/* ***** on crée toutes les screens en mémoire pour les utiliser dans l'appli ***** */
 		screens.add(MAIN_MENU, new MainMenuScreen(this));
