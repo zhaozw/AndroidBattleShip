@@ -8,6 +8,7 @@ import cmm.android.bataillenavale.modele.Coord2F;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -39,6 +40,7 @@ public abstract class CmmScreenAdapter implements Screen {
 	private Sprite wallpaper;
 	protected ArrayList<Sprite> sprites;
 	protected ArrayList<Texture> textures;
+	protected ArrayList<Sound> sounds;
 	private boolean continousRendering;
 	protected static SpriteBatch spriteBatch;
 	protected static OrthographicCamera camera;
@@ -117,11 +119,17 @@ public abstract class CmmScreenAdapter implements Screen {
 		}
 		textures.clear();
 		sprites.clear();
+		
+		for(Sound s : sounds) {
+			s.dispose();
+		}
+		sounds.clear();
 	}
 	
 	public void initialize() {
 		sprites = new ArrayList<Sprite>();
 		textures = new ArrayList<Texture>();
+		sounds = new ArrayList<Sound>();
 		Gdx.graphics.setContinuousRendering(continousRendering); 
 	}
 	
@@ -177,5 +185,13 @@ public abstract class CmmScreenAdapter implements Screen {
 	
 	public static float getScreenProportion() {
 		return screenProportion;
+	}
+
+	public void addSoundAt(int index, Sound sound) {
+		sounds.add(index, sound);
+	}
+
+	public boolean addSound(Sound sound) {
+		return sounds.add(sound);
 	}
 }

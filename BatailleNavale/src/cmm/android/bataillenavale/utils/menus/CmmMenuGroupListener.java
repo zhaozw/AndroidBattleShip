@@ -34,7 +34,4 @@ public class CmmMenuGroupListener extends InputAdapter {
 		}
 		return false;
 	}
-	
-	
-
 }

@@ -17,27 +17,27 @@ public class General extends Sprite {
 		String textName = "";
 		switch (type) {
 		case PLAYER:
-			textName = "playerGeneral.png";
+			textName = "PlayerGeneral.png";
 			break;
 		case ADVERSAIRE:
-			textName = "adversaireGeneral.png";
+			textName = "AdversaireGeneral.png";
 			break;
 			default:
 				assert false: "the general type doesn't exist!";
 		}
 		/* ***** général dans son état normal ****** */
-		text = new Texture("./data/img/classic_" + textName);
-		screen.getApp().putTransversalTexture("classic_" + textName, text);
+		text = new Texture("data/img/classic" + textName);
+		screen.getApp().putTransversalTexture("classic" + textName, text);
 		generalTextReg = new TextureRegion(text);
 		
 		/* ***** général heureux ***** */
-		text = new Texture("./data/img/happy_" + textName);
-		screen.getApp().putTransversalTexture("happy_" + textName, text);
+		text = new Texture("data/img/happy" + textName);
+		screen.getApp().putTransversalTexture("happy" + textName, text);
 		happyTextReg = new TextureRegion(text);
 		
 		/* ***** général déçu ***** */
-		text = new Texture("./data/img/unhappy_" + textName);
-		screen.getApp().putTransversalTexture("unhappy_" + textName, text);
+		text = new Texture("./data/img/unhappy" + textName);
+		screen.getApp().putTransversalTexture("unhappy" + textName, text);
 		unhappyTextReg = new TextureRegion(text);
 		
 		/* ***** On place la texture classique ****** */

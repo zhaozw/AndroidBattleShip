@@ -3,12 +3,10 @@ package cmm.android.bataillenavale.utils.menus;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 /**
  * Permet de gérer une série de menus, de les placer sur l'ecran (car il hérite de Sprite).
@@ -33,11 +31,8 @@ public class CmmMenuGroup extends Sprite {
 		
 		menuHeight = height / menus.size();
 
-		/* ***** génère une police à partir d'un fichier TTF ***** */
-		FileHandle fontFile = Gdx.files.internal("data/fonts/mainMenu.ttf");
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-		font = generator.generateFont(15);
-		generator.dispose();
+		/* ***** génère une police à partir d'un fichier FNT ***** */
+		font = new BitmapFont(Gdx.files.internal("data/fonts/mainMenu.fnt"), Gdx.files.internal("data/fonts/mainMenu.png"), false);
 	}
 	
 	public CmmMenu getMenuAt(int index) {
@@ -54,6 +49,7 @@ public class CmmMenuGroup extends Sprite {
 		float y = getY() + getHeight();
 		float width = getWidth();
 		String menuName;
+
 		for(CmmMenu m: menus) {
 			menuName = m.getName();
 			y -= menuHeight;
