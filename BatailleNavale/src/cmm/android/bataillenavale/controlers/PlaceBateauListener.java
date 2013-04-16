@@ -18,7 +18,7 @@ import com.badlogic.gdx.InputAdapter;
  * @version 2.0
  */
 public class PlaceBateauListener extends InputAdapter {
-	private PlaceBateauScreen placeBateau;
+	protected PlaceBateauScreen placeBateau;
 
 	public PlaceBateauListener(PlaceBateauScreen placeBateau) {
 		super();
