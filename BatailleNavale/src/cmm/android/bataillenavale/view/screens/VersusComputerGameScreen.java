@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Bateau;
+import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.view.graphics.General;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
@@ -47,25 +48,11 @@ public class VersusComputerGameScreen extends GameScreen {
 		super.initialize();
 	}
 
-	@Override
-	public boolean adversairePlay() {
+	public void adversairePlay() {
 		int x = (int)(Math.random() * Mer.ARRAY_SIZE);
 		int y = (int)(Math.random() * Mer.ARRAY_SIZE);
 
-		Gdx.app.log("game", "computer joue: " + x + "-" + y);
-		
-		boolean touched = graphicJoueur.getMer().tirer(x, y);		
-		if(touched) {
-			Gdx.app.log("game", "touché!");
-			getGraphicAdversaire().getGeneral().setStatus(General.HAPPY);
-			getGraphicJoueur().getGeneral().setStatus(General.UNHAPPY);
-		}
-		else {
-			Gdx.app.log("game", "dans l'eau!");
-			getGraphicAdversaire().getGeneral().setStatus(General.CLASSIC);
-			getGraphicJoueur().getGeneral().setStatus(General.CLASSIC);
-		}
-		return touched;
+		tirer(new Coord2D(x, y));		
 	}
 
 	@Override
@@ -74,14 +61,7 @@ public class VersusComputerGameScreen extends GameScreen {
 		if(!playerTurn) {
 			adversaireTimer += delta;
 			if(adversaireTimer > 1) {
-				if(adversairePlay()) {
-					graphicAdversaire.getGeneral().setStatus(General.HAPPY);
-					graphicJoueur.getGeneral().setStatus(General.UNHAPPY);
-				}
-				else {
-					graphicAdversaire.getGeneral().setStatus(General.CLASSIC);
-					graphicJoueur.getGeneral().setStatus(General.CLASSIC);
-				}
+				adversairePlay();
 				playerTurn = true; //C'est au joueur de jouer.
 				adversaireTimer = 0;
 			}

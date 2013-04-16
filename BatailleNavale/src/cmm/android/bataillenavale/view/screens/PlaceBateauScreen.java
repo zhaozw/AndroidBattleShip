@@ -26,8 +26,8 @@ import cmm.android.bataillenavale.view.graphics.ShipChooser;
  * @version 1.0
  */
 public class PlaceBateauScreen extends CmmScreenAdapter {
-	private GraphicMer graphicMer;
-	private ShipChooser shipChooser;
+	protected GraphicMer graphicMer;
+	protected ShipChooser shipChooser;
 	public static final String TMP_SAVE = "./tmp";
 
 	public PlaceBateauScreen(BatailleNavale app) {
@@ -62,10 +62,14 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		sprites.add(shipChooser);
 
 		/* ***** Gestion du listener ***** */
+		putListener();
+	}
+
+	protected void putListener() {
 		ShipChooserListener scl = new ShipChooserListener(shipChooser);
 		PlaceBateauListener sbl = new PlaceBateauListener(this);
 		InputMultiplexer multiplexer = new InputMultiplexer(sbl, scl);
-		Gdx.input.setInputProcessor(multiplexer);
+		Gdx.input.setInputProcessor(multiplexer);		
 	}
 
 	@Override

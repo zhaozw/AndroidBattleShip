@@ -41,14 +41,14 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		
 		/* ***** Création des boutons composants le menu ***** */
 		ArrayList<CmmMenu> menus = new ArrayList<CmmMenu>();
-		menus.add(new CmmMenu("Jouer contre l'ordinateur") {
+		menus.add(new CmmMenu("1 joueur") {
 			@Override
 			public boolean onTouched() {
 				app.setScreen(BatailleNavale.PLACE_BATEAU);
 				return true;
 			}
 		});
-		menus.add(new CmmMenu("Jouer contre un humain") {
+		menus.add(new CmmMenu("2 joueurs") {
 			@Override
 			public boolean onTouched() {
 				app.setScreen(BatailleNavale.SEARCH_ENNEMY);
