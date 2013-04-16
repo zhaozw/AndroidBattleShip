@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 
 /**
  * Permet de gérer une série de menus, de les placer sur l'ecran (car il hérite de Sprite).
@@ -33,6 +34,10 @@ public class CmmMenuGroup extends Sprite {
 
 		/* ***** génère une police à partir d'un fichier FNT ***** */
 		font = new BitmapFont(Gdx.files.internal("data/fonts/mainMenu.fnt"), Gdx.files.internal("data/fonts/mainMenu.png"), false);
+//		font = new BitmapFont();
+		font.setUseIntegerPositions(false);
+		font.setScale(1.4f / Gdx.graphics.getHeight());
+		font.setColor(1, 1, 1, 1);
 	}
 	
 	public CmmMenu getMenuAt(int index) {
@@ -48,13 +53,15 @@ public class CmmMenuGroup extends Sprite {
 		float x = getX();
 		float y = getY() + getHeight();
 		float width = getWidth();
+		TextBounds strRect;
 		String menuName;
-
+		
 		for(CmmMenu m: menus) {
 			menuName = m.getName();
 			y -= menuHeight;
 			batch.draw(menuText, x, y, width, menuHeight);
-			font.draw(batch, menuName, x, y);
+			strRect = font.getBounds(menuName);
+			font.drawMultiLine(batch, menuName, 0.f - (strRect.width/2), y + menuHeight/2 + (strRect.height/2));
 		}
 	}
 
