@@ -6,7 +6,7 @@ public class ServerListener extends Listener {
 	public final static int 
 		WAIT_TWO_PLAYERS = 0, 	WAIT_ONE_PLAYER = 1,
 		WAIT_TWO_SEAS = 2, 		WAIT_ONE_SEA = 3,
-		WAIT_PLAYER_1 = 4, 	WAIT_PLAYER_2 = 5; 
+		WAIT_PLAYER_1 = 4, 		WAIT_PLAYER_2 = 5; 
 	private int state;
 	private Connection[] players;
 	
@@ -20,6 +20,7 @@ public class ServerListener extends Listener {
 			switch(state) {
 			case WAIT_TWO_PLAYERS:
 				players[0] = connection;
+				players[0].sendTCP("wait for player");
 				state = WAIT_ONE_PLAYER;
 				System.out.println("wait for one more player");
 				break;
@@ -60,14 +61,21 @@ public class ServerListener extends Listener {
 			case WAIT_PLAYER_1:
 			case WAIT_PLAYER_2:
 				play(connection, object);
+				break;
+			default:
+				System.out.println("j'ai pas compris !");
 			}
 	}
 
 	@Override
 	public void disconnected(Connection c) {
 		super.disconnected(c);
-		players[0].close();
-		players[1].close();
+		if(players[0] != null) {
+			players[0].close();
+		}
+		if(players[1] != null) {
+			players[1].close();
+		}
 		state = WAIT_TWO_PLAYERS;
 	}
 	
@@ -103,5 +111,11 @@ public class ServerListener extends Listener {
 	private boolean equals(Connection connection, Connection connection2) {
 		
 		return connection.getID() != -1 && connection.getID() == connection2.getID();
+	}
+
+
+	@Override
+	public void connected(Connection arg0) {
+		System.out.println("connected!");
 	}
 }
