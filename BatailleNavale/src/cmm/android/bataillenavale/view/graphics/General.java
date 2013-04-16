@@ -36,7 +36,7 @@ public class General extends Sprite {
 		happyTextReg = new TextureRegion(text);
 		
 		/* ***** général déçu ***** */
-		text = new Texture("./data/img/unhappy" + textName);
+		text = new Texture("data/img/unhappy" + textName);
 		screen.getApp().putTransversalTexture("unhappy" + textName, text);
 		unhappyTextReg = new TextureRegion(text);
 		
