@@ -11,6 +11,5 @@ public class VersusHumainGameScreen extends GameScreen {
 	@Override
 	public void initialize() {
 		super.initialize();
-		
 	}
 }

@@ -34,7 +34,6 @@ public class CmmMenuGroup extends Sprite {
 
 		/* ***** génère une police à partir d'un fichier FNT ***** */
 		font = new BitmapFont(Gdx.files.internal("data/fonts/mainMenu.fnt"), Gdx.files.internal("data/fonts/mainMenu.png"), false);
-//		font = new BitmapFont();
 		font.setUseIntegerPositions(false);
 		font.setScale(1.4f / Gdx.graphics.getHeight());
 		font.setColor(1, 1, 1, 1);
