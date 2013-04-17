@@ -3,7 +3,9 @@ package cmm.android.bataillenavale.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.controlers.GameListener;
@@ -25,7 +27,9 @@ public abstract class GameScreen extends CmmScreenAdapter {
 	private Sound missedSound, touchedSound;
 	protected boolean playerTurn;
 	protected boolean isOverGame;
-
+	private BitmapFont font;
+	private String messageFin;
+	
 	public GameScreen(BatailleNavale app) {
 		super(app, false);
 		isOverGame = false;
@@ -76,6 +80,12 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		missedSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/missed.mp3"));
 		sounds.add(touchedSound);
 		sounds.add(missedSound);
+	
+		/* ***** place la police en mémoire ***** */
+		font = new BitmapFont(Gdx.files.internal("data/fonts/mainMenu.fnt"), Gdx.files.internal("data/fonts/mainMenu.png"), false);
+		font.setUseIntegerPositions(false);
+		font.setScale(1.4f / Gdx.graphics.getHeight());
+		font.setColor(1, 1, 1, 1);
 		
 		/* ***** gestion du controleur ***** */
 		Gdx.input.setInputProcessor(new GameListener(this));
@@ -84,9 +94,12 @@ public abstract class GameScreen extends CmmScreenAdapter {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-
 		if(isOverGame) {
-			//TODO afficher "vous avez gagné", ou "vous avez perdu"
+			font.setColor((float)Math.random(), (float)Math.random(), (float)Math.random(), 1.0f);
+			TextBounds bounds = font.getBounds(messageFin);
+			spriteBatch.begin();			
+			font.drawMultiLine(spriteBatch, messageFin, - bounds.width/2, -bounds.height/2);
+			spriteBatch.end();
 		}
 	}
 
@@ -94,9 +107,9 @@ public abstract class GameScreen extends CmmScreenAdapter {
 	public void dispose() {
 		super.dispose();
 		GraphicMer.dispose();
+		font.dispose();
 	}
 
-//	public abstract boolean adversairePlay();
 
 	public GraphicMer getGraphicJoueur() {
 		return graphicJoueur;
@@ -108,6 +121,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 
 	public void setIsOverGame() {
 		isOverGame = true;
+		graphicAdversaire.setBoatsVisible(true);
 		Gdx.input.setInputProcessor(new ChangeScreenOnTouchListener(getApp().getScreen(BatailleNavale.MAIN_MENU)) {
 			@Override
 			/**
@@ -153,8 +167,17 @@ public abstract class GameScreen extends CmmScreenAdapter {
 			adv.getGeneral().setStatus(General.UNHAPPY);
 			if(adv.getMer().aPerdu()) {
 				Gdx.app.log("jeu", "gagné!");
-				Gdx.input.setInputProcessor(new ChangeScreenOnTouchListener(this.app.getScreen(BatailleNavale.MAIN_MENU)));
 				isOverGame = true;
+				graphicAdversaire.setBoatsVisible(true);
+				
+				if(playerTurn) {
+					messageFin = "Vous avez Gagné!\n Bravo!";
+				}
+				else {
+					messageFin = "Vous avez Perdu!\n Désolé ...";
+				}
+					
+				Gdx.input.setInputProcessor(new ChangeScreenOnTouchListener(this.app.getScreen(BatailleNavale.MAIN_MENU)));
 			}
 		}
 		else {
@@ -163,6 +186,9 @@ public abstract class GameScreen extends CmmScreenAdapter {
 			adv.getGeneral().setStatus(General.CLASSIC);
 		}
 		
-		playerTurn = !playerTurn; //à l'autre joueur de jouer.
+		/* Si la partie n'est pas finie, alors on donne la main à l'autre joueur */
+		if(!(adv.getMer().aPerdu())) {
+			playerTurn = !playerTurn;
+		}
 	}
 }
