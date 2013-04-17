@@ -1,12 +1,10 @@
 package cmm.android.bataillenavale.view.screens;
 
-import com.badlogic.gdx.Gdx;
-
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
-import cmm.android.bataillenavale.view.graphics.General;
+import cmm.android.bataillenavale.modele.ia.IntelligenceArtificielle;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 
 /**
@@ -16,6 +14,7 @@ import cmm.android.bataillenavale.view.graphics.GraphicMer;
  */
 public class VersusComputerGameScreen extends GameScreen {
 	private float adversaireTimer;
+	private IntelligenceArtificielle ia;
 	
 	public VersusComputerGameScreen(BatailleNavale app) {
 		super(app, true);
@@ -46,13 +45,13 @@ public class VersusComputerGameScreen extends GameScreen {
 		}
 		
 		super.initialize();
+		
+		ia.setJoueur(graphicJoueur.getMer());
 	}
 
 	public void adversairePlay() {
-		int x = (int)(Math.random() * Mer.ARRAY_SIZE);
-		int y = (int)(Math.random() * Mer.ARRAY_SIZE);
-
-		tirer(new Coord2D(x, y));		
+		Coord2D coord = ia.adversairePlay();
+		tirer(coord);
 	}
 
 	@Override
@@ -66,5 +65,13 @@ public class VersusComputerGameScreen extends GameScreen {
 				adversaireTimer = 0;
 			}
 		}
+	}
+
+	public IntelligenceArtificielle getIa() {
+		return ia;
+	}
+
+	public void setIa(IntelligenceArtificielle ia) {
+		this.ia = ia;
 	}
 }
