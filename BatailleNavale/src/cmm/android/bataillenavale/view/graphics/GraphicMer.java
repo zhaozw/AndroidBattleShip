@@ -28,11 +28,13 @@ public class GraphicMer extends Sprite {
 	private Mer mer;
 	private General general;
 	private boolean isPlayer;
+	private boolean boatsVisible;
 	private float widthCase, heightCase;
 
 	public GraphicMer(CmmScreenAdapter screen, Mer mer, boolean isPlayer) {
 		this.mer = mer;
 		this.isPlayer = isPlayer;
+		boatsVisible = isPlayer;
 		shipSprites = new ArrayList<Sprite>(5);
 
 		for(Bateau b: mer.getBateaux()) {
@@ -89,7 +91,7 @@ public class GraphicMer extends Sprite {
 		}
 
 		/* ***** On place les bateaux s'il doivent être visibles ***** */
-		if(isPlayer) {
+		if(boatsVisible) {
 			for(Sprite s: shipSprites) {
 				s.draw(spriteBatch);
 			}
@@ -251,5 +253,13 @@ public class GraphicMer extends Sprite {
 
 	public General getGeneral() {
 		return general;
+	}
+
+	public boolean isBoatsVisible() {
+		return boatsVisible;
+	}
+
+	public void setBoatsVisible(boolean boatsVisible) {
+		this.boatsVisible = boatsVisible;
 	}
 }
