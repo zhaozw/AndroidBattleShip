@@ -29,6 +29,10 @@ public class BatailleNavale extends CmmGameAdapter {
 	public void create() {
 		super.create();
 		
+		/* ***** initialise la partie réseau en utilisant IPV4 ***** */
+		System.setProperty("java.net.preferIPv4Stack" , "true");
+		
+		
 		/* ***** On met la musique en streaming ***** */
 		Music music = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/music.mp3"));
 		music.play();
@@ -52,6 +56,8 @@ public class BatailleNavale extends CmmGameAdapter {
 				Gdx.files.internal("data/fonts/mainMenu.png"),
 				false
 				));
+		font.setUseIntegerPositions(false);
+		font.setScale(1.4f / Gdx.graphics.getHeight());
 	}
 	
 	public Client getClient() {
@@ -65,12 +71,12 @@ public class BatailleNavale extends CmmGameAdapter {
 		client = new Client();
 		client.start();
 		/* ***** on essaye de trouver un serveur ***** */
-		InetAddress adress = client.discoverHost(UDP_PORT, 10000);
-		if(adress == null)
-			return false;
-		
+		/*
+		InetAddress adress = client.discoverHost(UDP_PORT, 10000); 
+		Gdx.app.log("NET", "addr:" + adress);
+		*/		
 		try {
-			client.connect(5000, adress, TCP_PORT, UDP_PORT);
+			client.connect(5000, "192.168.2.67", TCP_PORT, UDP_PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;

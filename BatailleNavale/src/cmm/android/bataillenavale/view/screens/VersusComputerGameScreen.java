@@ -40,8 +40,9 @@ public class VersusComputerGameScreen extends GameScreen {
 				x = (int)(Math.random() * Mer.ARRAY_SIZE);
 				y = (int)(Math.random() * (Mer.ARRAY_SIZE - i));
 			}
-			if(computerMer.addBateauAt(new Bateau(Mer.TAILLE_BATEAUX[i]), x, y, horizontal))
+			if(graphicAdversaire.addBateauAt(new Bateau(Mer.TAILLE_BATEAUX[i]), x, y, horizontal)) {
 				i++;
+			}
 		}
 		
 		super.initialize();

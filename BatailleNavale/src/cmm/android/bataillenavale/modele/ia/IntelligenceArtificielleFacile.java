@@ -2,7 +2,6 @@ package cmm.android.bataillenavale.modele.ia;
 
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
-import cmm.android.bataillenavale.view.graphics.GraphicMer;
 
 /**
  * Intelligence artificielle niveau "Facile"

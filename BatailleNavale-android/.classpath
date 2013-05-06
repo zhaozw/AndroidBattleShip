@@ -7,8 +7,8 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="lib" path="/BatailleNavale/libs/gdx.jar" sourcepath="/BatailleNavale/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
-	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/BatailleNavale/BatailleNavale/libs/kryo-2.20.jar"/>
 	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/BatailleNavale/BatailleNavale-android/libs/gdx-freetype.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-freetype.jar"/>
+	<classpathentry kind="lib" path="libs/kryonet-2.18-all.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -3,8 +3,6 @@ package cmm.android.bataillenavale.modele.ia;
 
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
-import cmm.android.bataillenavale.view.graphics.General;
-import cmm.android.bataillenavale.view.graphics.GraphicMer;
 import com.badlogic.gdx.Gdx;
 import java.util.Random;
 

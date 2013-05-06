@@ -180,17 +180,25 @@ public class GraphicMer extends Sprite {
 			height = heightCase * b.getTaille();
 		}
 		s.setSize(width, height);
-		s.setPosition(
-				getX() + b.getDebX() * widthCase,
-				getY() + getHeight() - (b.getDebY()+1) * heightCase
-				);
+		if(isPlayer) {
+			s.setPosition(
+					getX() + b.getDebX() * widthCase,
+					getY() + getHeight() - (b.getDebY()+1) * heightCase
+					);
+		}
+		else {
+			s.setPosition(
+					getX() + general.getWidth() + b.getDebX() * widthCase,
+					getY() + getHeight() - (b.getDebY()+1) * heightCase
+					);
+		}
 
 		if(!b.isHorizontal()) {
 			s.rotate90(true);
 			s.setY(s.getY() - (s.getHeight() - heightCase) );
 		}
 	}
-	
+
 	public boolean touchSea(float x, float y) {
 		boolean touch;
 		if(isPlayer) {
@@ -203,8 +211,8 @@ public class GraphicMer extends Sprite {
 		}
 		return touch;
 	}
-	
-	
+
+
 	@Override
 	public void setSize(float width, float height) {
 		super.setSize(width, height);
@@ -219,14 +227,15 @@ public class GraphicMer extends Sprite {
 	}
 
 	@Override
-	public void setPosition(float x, float y) {
+	public void setPosition(float
+			x, float y) {
 		super.setPosition(x, y);
 		resizeBoats();
 
 		/* ***** on recalcule la place du général ***** */
 		float generalX, generalY;
 		if(isPlayer) {
-			// On place le général en haut à droites
+			// On place le général en haut à droite
 			generalX = getX() + getWidth() - general.getWidth();
 			generalY = getY() + getHeight() - general.getHeight();
 		}

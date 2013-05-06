@@ -14,7 +14,6 @@ public abstract class CmmMenu {
 	}
 
 	public CmmMenu() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {

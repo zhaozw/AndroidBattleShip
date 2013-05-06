@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/BatailleNavale/BatailleNavale/libs/gdx-freetype.jar"/>
 	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/BatailleNavale/BatailleNavale/libs/gdx-freetype-natives.jar"/>
 	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/BatailleNavale/BatailleNavale/libs/gdx-sources.jar"/>
+	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/BatailleNavale/BatailleNavale/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="/home/lejoh/progra/java/android/sdks/platforms/android-17/android.jar"/>
+	<classpathentry kind="lib" path="libs/kryonet-2.18-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
