@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 
 import cmm.android.bataillenavale.BatailleNavale;
+import cmm.android.bataillenavale.controlers.MerReceiverListener;
 import cmm.android.bataillenavale.controlers.PlaceBateauNetListener;
 import cmm.android.bataillenavale.controlers.ShipChooserListener;
 import cmm.android.bataillenavale.modele.Mer;
@@ -25,17 +26,23 @@ public class PlaceBateauNetScreen extends PlaceBateauScreen {
 		PlaceBateauNetListener sbl = new PlaceBateauNetListener(this);
 		InputMultiplexer multiplexer = new InputMultiplexer(sbl, scl);
 		Gdx.input.setInputProcessor(multiplexer);
+		app.setKryonetListener(new MerReceiverListener(this));
 	}
 
 	public void merPlacee() {
 		nbMersPlacees++;
-		
+
 		/* ***** si toutes les mers ont été placées ***** */
 		if(nbMersPlacees == 2) {
-			VersusHumainGameScreen screen = (VersusHumainGameScreen) app.getScreen(BatailleNavale.VERSUS_HUMAIN_GAME);
-			screen.setAdversaire(adversaireMer);
-			screen.setJoueur(graphicMer.getMer());
-			app.setScreen(screen);
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					VersusHumainGameScreen screen = (VersusHumainGameScreen) app.getScreen(BatailleNavale.VERSUS_HUMAIN_GAME);
+					screen.setAdversaire(adversaireMer);
+					screen.setJoueur(graphicMer.getMer());
+					app.setScreen(screen);	
+				}
+			});
 		}
 	}
 
@@ -45,6 +52,6 @@ public class PlaceBateauNetScreen extends PlaceBateauScreen {
 
 	public void setAdversaireMer(Mer adversaireMer) {
 		this.adversaireMer = adversaireMer;
-		nbMersPlacees++;
+		merPlacee();
 	}
 }

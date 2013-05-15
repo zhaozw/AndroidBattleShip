@@ -1,5 +1,6 @@
 package cmm.android.bataillenavale.modele;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,8 @@ import java.util.ArrayList;
  * @author Jonathan GEOFFROY, Samy CHAYEM
  * @version 1.0
  */
-public class Mer {
+public class Mer implements Serializable {
+	private static final long serialVersionUID = -3012095048525060464L;
 	public static final int EMPTY = 0, BOAT_HANDLE_GOOD = 1, BOAT_HANDLE_KILLED = 2, MISSED = 3;
 	public static final int ARRAY_SIZE = 10;
 	public static final int NB_BOAT_HANDLES = 2 + 3 + 3 + 4 + 5;

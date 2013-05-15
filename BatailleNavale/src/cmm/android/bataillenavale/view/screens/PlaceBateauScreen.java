@@ -31,7 +31,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 	public static final String TMP_SAVE = "./tmp";
 
 	public PlaceBateauScreen(BatailleNavale app) {
-		super(app, false);
+		super(app, true);
 	}
 
 	@Override

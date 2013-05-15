@@ -2,12 +2,18 @@ package cmm.android.bataillenavale;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener;
 
+import cmm.android.bataillenavale.controlers.WaitForPlayerListener;
+import cmm.android.bataillenavale.modele.Bateau;
+import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.utils.CmmGameAdapter;
 import cmm.android.bataillenavale.view.screens.CmmFinalScreen;
 import cmm.android.bataillenavale.view.screens.IaMenuScreen;
@@ -24,6 +30,7 @@ public class BatailleNavale extends CmmGameAdapter {
 	
 	private Client client;
 	private BitmapFont font;
+	private Listener kryonetListener;
 	
 	@Override
 	public void create() {
@@ -69,6 +76,13 @@ public class BatailleNavale extends CmmGameAdapter {
 	
 	public boolean connect() {
 		client = new Client();
+		Kryo kryo = client.getKryo();
+		kryo.register(int[][].class);
+		kryo.register(int[].class);
+		kryo.register(ArrayList.class);
+		kryo.register(Bateau.class);
+		kryo.register(Mer.class);
+		
 		client.start();
 		/* ***** on essaye de trouver un serveur ***** */
 		/*
@@ -76,11 +90,11 @@ public class BatailleNavale extends CmmGameAdapter {
 		Gdx.app.log("NET", "addr:" + adress);
 		*/		
 		try {
-			client.connect(5000, "192.168.2.67", TCP_PORT, UDP_PORT);
+			client.connect(5000, "192.168.1.10", TCP_PORT, UDP_PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
-		}
+		}		
 		return true;
 	}
 	
@@ -88,6 +102,7 @@ public class BatailleNavale extends CmmGameAdapter {
 		if(client != null) {
 			client.close();
 			client = null;
+			kryonetListener = null;
 		}
 		
 		return true;
@@ -99,5 +114,16 @@ public class BatailleNavale extends CmmGameAdapter {
 
 	public void setFont(BitmapFont font) {
 		this.font = font;
+	}
+
+	public Listener getKryonetListener() {
+		return kryonetListener;
+	}
+
+	public void setKryonetListener(Listener kryonetListener) {
+		if(kryonetListener != null)
+			client.removeListener(kryonetListener);
+		this.kryonetListener = kryonetListener;
+		client.addListener(kryonetListener);
 	}
 }
