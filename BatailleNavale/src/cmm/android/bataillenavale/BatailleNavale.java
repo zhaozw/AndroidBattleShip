@@ -1,19 +1,8 @@
 package cmm.android.bataillenavale;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Listener;
-
-import cmm.android.bataillenavale.controlers.WaitForPlayerListener;
-import cmm.android.bataillenavale.modele.Bateau;
-import cmm.android.bataillenavale.modele.Mer;
+import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.utils.CmmGameAdapter;
 import cmm.android.bataillenavale.view.screens.CmmFinalScreen;
 import cmm.android.bataillenavale.view.screens.IaMenuScreen;
@@ -23,6 +12,13 @@ import cmm.android.bataillenavale.view.screens.VersusComputerGameScreen;
 import cmm.android.bataillenavale.view.screens.VersusHumainGameScreen;
 import cmm.android.bataillenavale.view.screens.net.PlaceBateauNetScreen;
 import cmm.android.bataillenavale.view.screens.net.SearchEnnemy;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener;
 
 public class BatailleNavale extends CmmGameAdapter {
 	public static final int MAIN_MENU = 0, IA_MENU = 1, CMM_FINAL = 2, SEARCH_ENNEMY = 3,PLACE_BATEAU = 4, NET_PLACE_BATEAU = 5, VERSUS_COMPUTER_GAME = 6, VERSUS_HUMAIN_GAME = 7;
@@ -77,11 +73,8 @@ public class BatailleNavale extends CmmGameAdapter {
 	public boolean connect() {
 		client = new Client();
 		Kryo kryo = client.getKryo();
-		kryo.register(int[][].class);
-		kryo.register(int[].class);
-		kryo.register(ArrayList.class);
-		kryo.register(Bateau.class);
-		kryo.register(Mer.class);
+		kryo.register(Boolean.class);
+		kryo.register(Coord2D.class);
 		
 		client.start();
 		/* ***** on essaye de trouver un serveur ***** */

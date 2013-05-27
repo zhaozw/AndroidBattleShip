@@ -1,6 +1,5 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.FrameworkMessage.KeepAlive;
 
 
 public class ServerListener extends Listener {
@@ -18,8 +17,8 @@ public class ServerListener extends Listener {
 
 
 	public void received (Connection connection, Object object) {
-		super.received(connection, object);		
-		System.out.println("type" + object.getClass());
+		super.received(connection, object);
+
 		switch(state) {
 		case WAIT_TWO_PLAYERS:
 			players[0] = connection;
@@ -38,32 +37,39 @@ public class ServerListener extends Listener {
 			break;
 
 		case WAIT_TWO_SEAS:
-			if(writeMer(connection, object)) {
-				state = WAIT_ONE_SEA;
-				System.out.println("wait for one more sea");
+			if(object instanceof String) {
+				String message = (String)object;
+				if(message.equals("WFP")) { // WFP: WAIT FOR PLAYING
+					state = WAIT_ONE_SEA;
+					System.out.println("wait for one more sea");
+				}
 			}
 			break;
 		case WAIT_ONE_SEA:
-			if(writeMer(connection, object)) {
-				int random = (int)(Math.random() * 2);
-				if(random == 0) { 
-					state = WAIT_PLAYER_1;
-					System.out.println("wait for player 1");
-					players[0].sendTCP("you play");
-					players[1].sendTCP("wait");
-				}
-				else {
-					state = WAIT_PLAYER_2;
-					System.out.println("wait for player 2");
-					players[1].sendTCP("you play");
-					players[0].sendTCP("wait");
+			if(object instanceof String) {
+				String message = (String)object;
+				if(message != null && message.equals("WFP")) {
+					int random = (int)(Math.random() * 2);
+					if(random == 0) { 
+						state = WAIT_PLAYER_1;
+						System.out.println("wait for player 1");
+						players[0].sendTCP("play");
+						players[1].sendTCP("wait");
+					}
+					else {
+						state = WAIT_PLAYER_2;
+						System.out.println("wait for player 2");
+						players[1].sendTCP("play");
+						players[0].sendTCP("wait");
+					}
 				}
 			}
 			break;
 
 		case WAIT_PLAYER_1:
 		case WAIT_PLAYER_2:
-			play(connection, object);
+			if(object instanceof Coord2D || object instanceof Boolean)
+				play(connection, object);
 			break;
 		default:
 			System.out.println("j'ai pas compris !");
@@ -82,41 +88,35 @@ public class ServerListener extends Listener {
 		state = WAIT_TWO_PLAYERS;
 	}
 
-	private boolean writeMer(Connection connection, Object object) {
-		System.out.println(object);
-		boolean ok = false;
-		if(object instanceof Mer) {
-			if(equals(connection, players[0])) {
-				players[1].sendTCP(object);
-				System.out.println("une mer recue");
-				ok = true;
+	private void play(Connection connection, Object message) {
+		if(message instanceof Coord2D) {
+			if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
+				players[1].sendTCP(message);
 			}
-			else if(equals(connection, players[1])) {
-				players[0].sendTCP(object);
-				System.out.println("une mer recue");
-				ok = true;
+			else if(equals(connection, players[1]) && state == WAIT_PLAYER_2) {
+				players[0].sendTCP(message);
+			}
+			else {
+				connection.sendTCP("not your turn");
 			}
 		}
-		return ok;
-	}
-
-	private void play(Connection connection, Object object) {
-		if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
-			players[1].sendTCP(object);
-			state = WAIT_PLAYER_2;
-		}
-		else if(equals(connection, players[0]) && state == WAIT_PLAYER_2) {
-			players[0].sendTCP(object);
-			state = WAIT_PLAYER_1;
-		}
-		else {
-			connection.sendTCP("not your turn");
+		else if (message instanceof Boolean) {
+			if(equals(connection, players[1]) && state == WAIT_PLAYER_1) {
+				players[1].sendTCP(message);
+				state = WAIT_PLAYER_2;
+			}
+			else if(equals(connection, players[2]) && state == WAIT_PLAYER_2) {
+				players[0].sendTCP(message);
+				state = WAIT_PLAYER_1;
+			}
+			else {
+				connection.sendTCP("not your turn");
+			}
 		}
 	}
 
 
 	private boolean equals(Connection connection, Connection connection2) {
-
 		return connection.getID() != -1 && connection.getID() == connection2.getID();
 	}
 

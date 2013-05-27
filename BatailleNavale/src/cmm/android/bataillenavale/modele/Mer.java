@@ -160,4 +160,10 @@ public class Mer implements Serializable {
 	public int caseAt(int x, int y) {
 		return mer[y][x];
 	}
+	
+	public void setStatusCase(int x, int y, int status) {
+		if(status >=EMPTY && status <= MISSED) {
+			mer[x][y] = status;
+		}
+	}
 }

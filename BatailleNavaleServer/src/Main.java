@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 
@@ -16,11 +15,8 @@ public class Main {
 		/* ***** lancement du serveur ***** */
 		Server server = new Server();
 		Kryo kryo = server.getKryo();
-		kryo.register(int[][].class);
-		kryo.register(int[].class);
-		kryo.register(ArrayList.class);
-		kryo.register(Bateau.class);
-		kryo.register(Mer.class);
+		kryo.register(Boolean.class);
+		kryo.register(Coord2D.class);
 		
 		server.start();
 		

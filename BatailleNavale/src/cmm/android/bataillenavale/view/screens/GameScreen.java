@@ -147,8 +147,13 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		playerTurn = b;		
 	}
 	
-	public void tirer(Coord2D touchedCase) {
+	public void switchPlayerTurn() {
+		playerTurn = !playerTurn;
+	}
+	
+	public boolean tirer(Coord2D touchedCase) {
 		GraphicMer tireur, adv;
+		boolean touche = false;
 		
 		/* ***** On trouve qui tire, qui va subir ***** */
 		if(playerTurn) {
@@ -162,6 +167,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		
 		/* ***** on simule le tir ***** */
 		if(adv.getMer().tirer(touchedCase.x, touchedCase.y)) {
+			touche = true;
 			touchedSound.play();
 			tireur.getGeneral().setStatus(General.HAPPY);
 			adv.getGeneral().setStatus(General.UNHAPPY);
@@ -190,5 +196,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		if(!(adv.getMer().aPerdu())) {
 			playerTurn = !playerTurn;
 		}
+		
+		return touche;
 	}
 }
