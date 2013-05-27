@@ -46,8 +46,7 @@ public class VersusComputerGameScreen extends GameScreen {
 				i++;
 			}
 		}
-		
-		super.initialize();
+
 		ia.setJoueur(graphicJoueur.getMer());
 		
 		/* ***** gestion du controleur ***** */
