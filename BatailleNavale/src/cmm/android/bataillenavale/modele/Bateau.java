@@ -1,15 +1,12 @@
 package cmm.android.bataillenavale.modele;
 
-import java.io.Serializable;
-
 /**
  * Modèle pour le bateau
  * Cette classe permet de placer en mémoire un bateau, avec la case sur laquelle il se trouve, sa taille, et s'il est à l'horizontal ou non 
  * @author Jonathan GEOFFROY, Samy CHAYEM
  * @version 1.0
  */
-public class Bateau implements Serializable {
-	private static final long serialVersionUID = 8779122127514398274L;
+public class Bateau {
 	public static final int NB_BOATS = 5;
 	private int taille;
 	private boolean horizontal;

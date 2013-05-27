@@ -16,5 +16,4 @@ public class PlaceBateauNetListener extends PlaceBateauListener {
 		pbn.merPlacee(); //On dit qu'on a placé une mer
 		Gdx.input.setInputProcessor(null); //On supprime les Listeners pour pas avoir de conflits
 	}
-
 }
