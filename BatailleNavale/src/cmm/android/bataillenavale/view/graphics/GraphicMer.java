@@ -37,8 +37,10 @@ public class GraphicMer extends Sprite {
 		boatsVisible = isPlayer;
 		shipSprites = new ArrayList<Sprite>(5);
 
-		for(Bateau b: mer.getBateaux()) {
-			addGraphicboat(b);
+		if(mer != null && mer.getBateaux() != null) {
+			for(Bateau b: mer.getBateaux()) {
+				addGraphicboat(b);
+			}
 		}
 
 		/* ***** on place le bon général ***** */
