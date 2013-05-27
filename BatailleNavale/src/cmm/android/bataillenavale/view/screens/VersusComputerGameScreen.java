@@ -1,11 +1,13 @@
 package cmm.android.bataillenavale.view.screens;
 
+import com.badlogic.gdx.Gdx;
+
 import cmm.android.bataillenavale.BatailleNavale;
+import cmm.android.bataillenavale.controlers.GameListener;
 import cmm.android.bataillenavale.modele.Bateau;
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.modele.ia.IntelligenceArtificielle;
-import cmm.android.bataillenavale.view.graphics.GraphicMer;
 
 /**
  * Screen permettant de jouer contre l'ordinateur
@@ -23,13 +25,13 @@ public class VersusComputerGameScreen extends GameScreen {
 
 	@Override
 	public void initialize() {
+		super.initialize();
 		/* ***** place les bateaux au hasard sur la mer de l'adversaire (i.e. l'ordinateur) ***** */
 		boolean horizontal;
 		int x, y;
 		int i = 0;
-		Mer computerMer = new Mer();
-		graphicAdversaire = new GraphicMer(this, computerMer, false);
 
+		Mer computerMer = graphicAdversaire.getMer();
 		while(computerMer.getNbBoats() < Bateau.NB_BOATS) {
 			horizontal = Math.random() >= 0.5;
 			if(horizontal) {
@@ -46,8 +48,10 @@ public class VersusComputerGameScreen extends GameScreen {
 		}
 		
 		super.initialize();
-		
 		ia.setJoueur(graphicJoueur.getMer());
+		
+		/* ***** gestion du controleur ***** */
+		Gdx.input.setInputProcessor(new GameListener(this));
 	}
 
 	public void adversairePlay() {

@@ -16,9 +16,8 @@ public class WaitForSeaListener extends Listener {
 	public void received(Connection c, Object o) {
 		super.received(c, o);
 		if(o instanceof String) {
-			System.out.println("on recoit la mer de l'adv");
+			System.out.println("reçu: " + (String)o);
 			screen.merPlacee();
 		}
 	}
-
 }

@@ -20,16 +20,26 @@ public class HumainTirListener extends Listener {
 			if(message.equals("play")) {
 				screen.setPlayerTurn(true);
 			}
-			else {
+			else if(message.equals("wait")) {
 				screen.setPlayerTurn(false);
 			}
-		}
-		else if(data instanceof Coord2D) {
-			/* ***** on analyse le tir de l'adversaire ***** */
-			advTir = (Coord2D)data;
-			if(!screen.isPlayerTurn() && !screen.isOverGame()) {
-				boolean touche = screen.tirer(advTir);
-				screen.getApp().getClient().sendTCP(new Boolean(touche));
+			else if(message.equals("true")) {
+				//TODO
+			}
+			else if(message.equals("false")) {
+				//TODO
+			}
+			else {
+				String[] parsedMessage = message.split(":");
+				int x = Integer.parseInt(parsedMessage[0]);
+				int y = Integer.parseInt(parsedMessage[1]);
+				boolean touched = screen.tirer(new Coord2D(x, y)); //FIXME: risque e planter
+				String result;
+				if(touched)
+					result = "true";
+				else
+					result = "false";
+				screen.getApp().getClient().sendTCP(result);
 			}
 		}
 

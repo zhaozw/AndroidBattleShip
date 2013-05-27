@@ -8,8 +8,10 @@ public class VersusHumainGameScreen extends GameScreen {
 		super(app);
 	}
 
-	@Override
-	public void initialize() {
-		super.initialize();
-	}
+//	@Override
+//	public void initialize() {
+//		super.initialize();
+//		GameNetListener listener = new GameNetListener(this);
+//		Gdx.input.setInputProcessor(listener);
+//	}
 }

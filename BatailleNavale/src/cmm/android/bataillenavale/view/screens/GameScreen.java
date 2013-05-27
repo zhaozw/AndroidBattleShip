@@ -54,6 +54,10 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		super.initialize();
 		isOverGame = false;
 		
+		/* ***** Création de la mer de l'adversaire ***** */
+		Mer computerMer = new Mer();
+		graphicAdversaire = new GraphicMer(this, computerMer, false);
+		
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = app.getTransversaleTexture("wallpaper");
 		setWallpaper(new TextureRegion(wallText, 349, 496));
@@ -86,9 +90,6 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		font.setUseIntegerPositions(false);
 		font.setScale(1.4f / Gdx.graphics.getHeight());
 		font.setColor(1, 1, 1, 1);
-		
-		/* ***** gestion du controleur ***** */
-		Gdx.input.setInputProcessor(new GameListener(this));
 	}
 
 	@Override

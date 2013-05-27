@@ -67,9 +67,13 @@ public class ServerListener extends Listener {
 			break;
 
 		case WAIT_PLAYER_1:
+			if(object instanceof String) {
+				players[1].sendTCP(object);
+			}
 		case WAIT_PLAYER_2:
-			if(object instanceof Coord2D || object instanceof Boolean)
-				play(connection, object);
+			if(object instanceof String) {
+				players[0].sendTCP(object);
+			}	
 			break;
 		default:
 			System.out.println("j'ai pas compris !");
