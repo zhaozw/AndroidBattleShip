@@ -68,11 +68,25 @@ public class ServerListener extends Listener {
 
 		case WAIT_PLAYER_1:
 			if(object instanceof String) {
-				players[1].sendTCP(object);
+				if(connection.equals(players[0])) {
+					players[1].sendTCP(object);
+				}
+				else if (connection.equals(players[1])) {
+					assert(object.equals("true") || object.equals("false"));
+					players[0].sendTCP(object);
+					state = WAIT_PLAYER_2;
+				}
 			}
 		case WAIT_PLAYER_2:
 			if(object instanceof String) {
-				players[0].sendTCP(object);
+				if(connection.equals(players[1])) {
+					players[0].sendTCP(object);
+				}
+				else if (connection.equals(players[0])) {
+					assert(object.equals("true") || object.equals("false"));
+					players[1].sendTCP(object);
+					state = WAIT_PLAYER_2;
+				}
 			}	
 			break;
 		default:

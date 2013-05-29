@@ -1,9 +1,7 @@
 package cmm.android.bataillenavale.view.screens;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.badlogic.gdx.Gdx;
@@ -88,17 +86,17 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 
 	@Override
 	public boolean tmpLoad() {
-		try {
-			FileHandle handle = Gdx.files.internal(TMP_SAVE);
-			ObjectInputStream load = new ObjectInputStream(new FileInputStream(handle.file()));
-			Mer mer = (Mer)load.readObject();
-			graphicMer = new GraphicMer(this, mer, true);
-			load.close();
-		}catch (IOException e) {
-			return false;
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
+//		try {
+//			FileHandle handle = Gdx.files.internal(TMP_SAVE);
+//			ObjectInputStream load = new ObjectInputStream(new FileInputStream(handle.file()));
+//			Mer mer = (Mer)load.readObject();
+//			graphicMer = new GraphicMer(this, mer, true);
+//			load.close();
+//		}catch (IOException e) {
+//			return false;
+//		} catch (ClassNotFoundException e) {
+//			return false;
+//		}
 
 		return true;
 	}
