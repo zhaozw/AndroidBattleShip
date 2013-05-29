@@ -11,6 +11,7 @@
 # generated files
 bin/
 gen/
+BatailleNavale-android/bin/jarlist.cache
 
 # android & desktop datas
 BatailleNavale-android/assets/data/
