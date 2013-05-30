@@ -48,7 +48,7 @@ public class SearchEnnemy extends CmmScreenAdapter {
 			message = "En attente qu'un autre joueur se connecte";
 			break;
 		}
-		
+
 		/* ***** affichage du texte ***** */
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -66,7 +66,13 @@ public class SearchEnnemy extends CmmScreenAdapter {
 		this.state = state;
 		/* ***** Si on peut changer de screen pour placer les bateaux ***** */
 		if(state == WAIT_SEA) {
-			app.setScreen(BatailleNavale.NET_PLACE_BATEAU);
+			Gdx.app.postRunnable(
+					new Runnable() {
+						@Override
+						public void run() {
+							app.setScreen(BatailleNavale.NET_PLACE_BATEAU);	
+						}
+					});
 		}
 	}
 }

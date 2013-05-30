@@ -29,7 +29,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 	protected boolean isOverGame;
 	private BitmapFont font;
 	private String messageFin;
-	
+
 	public GameScreen(BatailleNavale app) {
 		super(app, false);
 		isOverGame = false;
@@ -40,7 +40,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		isOverGame = false;
 		playerTurn = Math.random() > 0.5;
 	}
-	
+
 	public void setJoueur(Mer joueur) {
 		graphicJoueur = new GraphicMer(this, joueur, true);
 	}
@@ -53,11 +53,11 @@ public abstract class GameScreen extends CmmScreenAdapter {
 	public void initialize() {
 		super.initialize();
 		isOverGame = false;
-		
+
 		/* ***** Création de la mer de l'adversaire ***** */
 		Mer computerMer = new Mer();
 		graphicAdversaire = new GraphicMer(this, computerMer, false);
-		
+
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = app.getTransversaleTexture("wallpaper");
 		setWallpaper(new TextureRegion(wallText, 349, 496));
@@ -73,18 +73,18 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		graphicJoueur.setSize(1.0f, 0.5f);
 		graphicJoueur.setPosition(-0.5f, -0.5f); //On place le joueur à gauche
 		sprites.add(graphicJoueur);
-		
+
 		graphicAdversaire.setSize(1.0f, 0.5f);
 		graphicAdversaire.setPosition(0.5f - graphicAdversaire.getWidth(), 0.5f - graphicAdversaire.getHeight()); //On place l'adversaire à droite
 		sprites.add(graphicAdversaire);
 
-		
+
 		/* ***** place les sons en mémoire ***** */
 		touchedSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/touched.mp3"));
 		missedSound = Gdx.audio.newSound(Gdx.files.internal("data/sounds/missed.mp3"));
 		sounds.add(touchedSound);
 		sounds.add(missedSound);
-	
+
 		/* ***** place la police en mémoire ***** */
 		font = new BitmapFont(Gdx.files.internal("data/fonts/mainMenu.fnt"), Gdx.files.internal("data/fonts/mainMenu.png"), false);
 		font.setUseIntegerPositions(false);
@@ -147,15 +147,15 @@ public abstract class GameScreen extends CmmScreenAdapter {
 	public void setPlayerTurn(boolean b) {
 		playerTurn = b;		
 	}
-	
+
 	public void switchPlayerTurn() {
 		playerTurn = !playerTurn;
 	}
-	
+
 	public boolean tirer(Coord2D touchedCase) {
 		GraphicMer tireur, adv;
 		boolean touche = false;
-		
+
 		/* ***** On trouve qui tire, qui va subir ***** */
 		if(playerTurn) {
 			tireur = graphicJoueur;
@@ -165,10 +165,16 @@ public abstract class GameScreen extends CmmScreenAdapter {
 			tireur = graphicAdversaire;
 			adv = graphicJoueur;
 		}
-		
+
 		/* ***** on simule le tir ***** */
-		if(adv.getMer().tirer(touchedCase.x, touchedCase.y)) {
-			touche = true;
+		touche = adv.getMer().tirer(touchedCase.x, touchedCase.y);
+		tirer(touche, tireur, adv);
+
+		return touche;
+	}
+
+	public void tirer(boolean touched, GraphicMer tireur, GraphicMer adv) {
+		if(touched) {
 			touchedSound.play();
 			tireur.getGeneral().setStatus(General.HAPPY);
 			adv.getGeneral().setStatus(General.UNHAPPY);
@@ -176,28 +182,22 @@ public abstract class GameScreen extends CmmScreenAdapter {
 				Gdx.app.log("jeu", "gagné!");
 				isOverGame = true;
 				graphicAdversaire.setBoatsVisible(true);
-				
+
 				if(playerTurn) {
 					messageFin = "Vous avez Gagné!\n Bravo!";
 				}
 				else {
 					messageFin = "Vous avez Perdu!\n Désolé ...";
 				}
-					
 				Gdx.input.setInputProcessor(new ChangeScreenOnTouchListener(this.app.getScreen(BatailleNavale.MAIN_MENU)));
 			}
+			playerTurn = !playerTurn;
 		}
 		else {
 			missedSound.play();
 			tireur.getGeneral().setStatus(General.CLASSIC);
 			adv.getGeneral().setStatus(General.CLASSIC);
-		}
-		
-		/* Si la partie n'est pas finie, alors on donne la main à l'autre joueur */
-		if(!(adv.getMer().aPerdu())) {
 			playerTurn = !playerTurn;
 		}
-		
-		return touche;
 	}
 }

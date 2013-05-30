@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.controlers.PlaceBateauNetListener;
 import cmm.android.bataillenavale.controlers.ShipChooserListener;
-import cmm.android.bataillenavale.controlers.WaitForSeaListener;
 import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.view.screens.PlaceBateauScreen;
 import cmm.android.bataillenavale.view.screens.VersusHumainGameScreen;
@@ -30,13 +29,18 @@ public class PlaceBateauNetScreen extends PlaceBateauScreen {
 
 	public void merPlacee() {
 		nbMersPlacees++;
-		
+		Gdx.app.log("debug", "nb mers placees: "  + nbMersPlacees);
 		/* ***** si toutes les mers ont été placées ***** */
 		if(nbMersPlacees == 2) {
-			VersusHumainGameScreen screen = (VersusHumainGameScreen) app.getScreen(BatailleNavale.VERSUS_HUMAIN_GAME);
-			screen.setAdversaire(adversaireMer);
-			screen.setJoueur(graphicMer.getMer());
-			app.setScreen(screen);
+			Gdx.app.postRunnable(new Runnable() {
+				@Override
+				public void run() {
+					VersusHumainGameScreen screen = (VersusHumainGameScreen) app.getScreen(BatailleNavale.VERSUS_HUMAIN_GAME);
+					screen.setAdversaire(adversaireMer);
+					screen.setJoueur(graphicMer.getMer());
+					app.setScreen(screen);					
+				}
+			});
 		}
 	}
 

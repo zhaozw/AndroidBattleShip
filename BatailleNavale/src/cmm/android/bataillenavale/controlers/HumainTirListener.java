@@ -11,7 +11,7 @@ public class HumainTirListener extends Listener {
 
 	public HumainTirListener(VersusHumainGameScreen screen) {
 		this.screen = screen;
-	}
+		}
 
 	@Override
 	public void received(Connection connection, Object data) {
@@ -24,22 +24,27 @@ public class HumainTirListener extends Listener {
 				screen.setPlayerTurn(false);
 			}
 			else if(message.equals("true")) {
-				//TODO
+				screen.tirer(true, screen.getGraphicJoueur(), screen.getGraphicAdversaire());
 			}
 			else if(message.equals("false")) {
-				//TODO
+				screen.tirer(true, screen.getGraphicJoueur(), screen.getGraphicAdversaire());
 			}
 			else {
-				String[] parsedMessage = message.split(":");
-				int x = Integer.parseInt(parsedMessage[0]);
-				int y = Integer.parseInt(parsedMessage[1]);
-				boolean touched = screen.tirer(new Coord2D(x, y)); //FIXME: risque e planter
-				String result;
-				if(touched)
-					result = "true";
-				else
-					result = "false";
-				screen.getApp().getClient().sendTCP(result);
+				if(!screen.isPlayerTurn()) {
+					String[] parsedMessage = message.split(":");
+					int x = Integer.parseInt(parsedMessage[0]);
+					int y = Integer.parseInt(parsedMessage[1]);
+					boolean touched = screen.tirer(new Coord2D(x, y)); //FIXME: risque de planter
+					String result;
+					if(touched)
+						result = "true";
+					else
+						result = "false";
+					screen.getApp().getClient().sendTCP(result);
+				}
+				else {
+					System.out.println("C'EST A MOI DE JOUER ! PAS A TOI !!!");
+				}
 			}
 		}
 

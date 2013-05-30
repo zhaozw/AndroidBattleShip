@@ -82,7 +82,7 @@ public class BatailleNavale extends CmmGameAdapter {
 		Gdx.app.log("NET", "addr:" + adress);
 		*/		
 		try {
-			client.connect(5000, "192.168.2.67", TCP_PORT, UDP_PORT);
+			client.connect(5000, "192.168.111.72", TCP_PORT, UDP_PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
