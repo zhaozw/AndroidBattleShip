@@ -9,6 +9,8 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+
 import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.controlers.PlaceBateauListener;
 import cmm.android.bataillenavale.controlers.ShipChooserListener;
@@ -26,8 +28,14 @@ import cmm.android.bataillenavale.view.graphics.ShipChooser;
 public class PlaceBateauScreen extends CmmScreenAdapter {
 	protected GraphicMer graphicMer;
 	protected ShipChooser shipChooser;
+	protected String message;
 	public static final String TMP_SAVE = "./tmp";
-
+	protected static final String MESSAGE_PLACER =	
+			"Pour placer les bateaux\n" +
+			"Cliquez sur un bateau,\n" +
+			"puis sur une case\npour placer le bateau\n";
+	protected static final String MESSAGE_ATTENTE = "En attente\n de l'autre\njoueur";
+	
 	public PlaceBateauScreen(BatailleNavale app) {
 		super(app, false);
 	}
@@ -35,7 +43,8 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 	@Override
 	public void initialize() {
 		super.initialize();		
-
+		message = MESSAGE_PLACER;
+		
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = new Texture("data/img/gameWallpaper.jpg");
 		setWallpaper(new TextureRegion(wallText, 349, 496));
@@ -63,6 +72,16 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		putListener();
 	}
 
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		app.getFont().drawMultiLine(spriteBatch, message, -0.5f, 0.4f, 1.0f, HAlignment.CENTER);
+		spriteBatch.end();
+	}
+	
+	
 	protected void putListener() {
 		ShipChooserListener scl = new ShipChooserListener(shipChooser);
 		PlaceBateauListener sbl = new PlaceBateauListener(this);

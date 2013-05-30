@@ -13,6 +13,7 @@ public class PlaceBateauNetListener extends PlaceBateauListener {
 	protected void onAllShipPlaced() {
 		placeBateau.getApp().getClient().sendTCP("WFP");//WFP: Wait For Playing
 		PlaceBateauNetScreen pbn = (PlaceBateauNetScreen)placeBateau;
+		pbn.setAllShipPlaced();
 		pbn.merPlacee(); //On dit qu'on a placé une mer
 		Gdx.input.setInputProcessor(null); //On supprime les Listeners pour pas avoir de conflits
 	}

@@ -43,6 +43,10 @@ public class PlaceBateauNetScreen extends PlaceBateauScreen {
 			});
 		}
 	}
+	
+	public void setAllShipPlaced() {
+		message = MESSAGE_ATTENTE;
+	}
 
 	public Mer getAdversaireMer() {
 		return adversaireMer;

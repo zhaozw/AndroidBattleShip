@@ -18,7 +18,6 @@ import cmm.android.bataillenavale.view.screens.net.PlaceBateauNetScreen;
 import cmm.android.bataillenavale.view.screens.net.SearchEnnemy;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.Listener;
 
 public class BatailleNavale extends CmmGameAdapter {
 	public static final int MAIN_MENU = 0, IA_MENU = 1, CMM_FINAL = 2, SEARCH_ENNEMY = 3,PLACE_BATEAU = 4, NET_PLACE_BATEAU = 5, VERSUS_COMPUTER_GAME = 6, VERSUS_HUMAIN_GAME = 7;
@@ -59,7 +58,7 @@ public class BatailleNavale extends CmmGameAdapter {
 				false
 				));
 		font.setUseIntegerPositions(false);
-		font.setScale(1.4f / Gdx.graphics.getHeight());
+		font.setScale(0.8f / Gdx.graphics.getWidth());
 	}
 	
 	public Client getClient() {
@@ -84,7 +83,6 @@ public class BatailleNavale extends CmmGameAdapter {
 		try {
 			client.connect(5000, "192.168.111.72", TCP_PORT, UDP_PORT);
 		} catch (IOException e) {
-			e.printStackTrace();
 			return false;
 		}
 		return true;

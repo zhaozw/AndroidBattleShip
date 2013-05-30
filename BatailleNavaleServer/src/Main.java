@@ -1,9 +1,6 @@
 import java.io.IOException;
-<<<<<<< HEAD
-import com.esotericsoftware.kryo.Kryo;
-=======
 
->>>>>>> parent of 4114e84... Ajoute les entités pour le réseau. Pour l'instant, la connexino fonctionne, et on arrive à placer ces bateaux, mais la Mer n'est pas envoyée au serveur
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 
 public class Main {
@@ -18,13 +15,11 @@ public class Main {
 		
 		/* ***** lancement du serveur ***** */
 		Server server = new Server();
-<<<<<<< HEAD
+
 		Kryo kryo = server.getKryo();
 		kryo.register(Boolean.class);
 		kryo.register(Coord2D.class);
 		
-=======
->>>>>>> parent of 4114e84... Ajoute les entités pour le réseau. Pour l'instant, la connexino fonctionne, et on arrive à placer ces bateaux, mais la Mer n'est pas envoyée au serveur
 		server.start();
 		
 		try {

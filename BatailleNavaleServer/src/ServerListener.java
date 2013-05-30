@@ -121,6 +121,7 @@ public class ServerListener extends Listener {
 			}
 		}
 	}
+	
 	@Override
 	public void disconnected(Connection c) {
 		super.disconnected(c);
@@ -133,6 +134,7 @@ public class ServerListener extends Listener {
 		state = WAIT_TWO_PLAYERS;
 	}
 
+	/*
 	private void play(Connection connection, Object message) {
 		if(message instanceof Coord2D) {
 			if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
@@ -157,49 +159,48 @@ public class ServerListener extends Listener {
 			else {
 				connection.sendTCP("not your turn");
 			}
-			=======
-
-					private boolean writeMer(Connection connection, Object object) {
-				boolean ok = false;
-				if(equals(connection, players[0])) {
-					players[1].sendTCP(object);
-					ok = true;
-				}
-				else if(equals(connection, players[1])) {
-					players[0].sendTCP(object);
-					ok = true;
-				}
-
-				return ok;
-			}
-
-			private void play(Connection connection, Object object) {
-				if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
-					players[1].sendTCP(object);
-					state = WAIT_PLAYER_2;
-				}
-				else if(equals(connection, players[0]) && state == WAIT_PLAYER_2) {
-					players[0].sendTCP(object);
-					state = WAIT_PLAYER_1;
-				}
-				else {
-					connection.sendTCP("not your turn");
-					>>>>>>> parent of 4114e84... Ajoute les entités pour le réseau. Pour l'instant, la connexino fonctionne, et on arrive à placer ces bateaux, mais la Mer n'est pas envoyée au serveur
-				}
-			}
-
-
-			private boolean equals(Connection connection, Connection connection2) {
-				<<<<<<< HEAD
-				=======
-
-				>>>>>>> parent of 4114e84... Ajoute les entités pour le réseau. Pour l'instant, la connexino fonctionne, et on arrive à placer ces bateaux, mais la Mer n'est pas envoyée au serveur
-				return connection.getID() != -1 && connection.getID() == connection2.getID();
-			}
-
-
-			@Override
-			public void connected(Connection arg0) {
-				System.out.println("connected!");
-			}
 		}
+	}
+	*/
+	
+	private boolean writeMer(Connection connection, Object object) {
+		boolean ok = false;
+		if(equals(connection, players[0])) {
+			players[1].sendTCP(object);
+			ok = true;
+		}
+		else if(equals(connection, players[1])) {
+			players[0].sendTCP(object);
+			ok = true;
+		}
+
+		return ok;
+	}
+
+	// TODO: Gérer les envois
+	private void play(Connection connection, Object object) {
+		if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
+			players[1].sendTCP(object);
+			state = WAIT_PLAYER_2;
+		}
+		else if(equals(connection, players[0]) && state == WAIT_PLAYER_2) {
+			players[0].sendTCP(object);
+			state = WAIT_PLAYER_1;
+		}
+		else {
+			connection.sendTCP("not your turn");
+		}
+	}
+
+
+	private boolean equals(Connection connection, Connection connection2) {
+
+		return connection.getID() != -1 && connection.getID() == connection2.getID();
+	}
+
+
+	@Override
+	public void connected(Connection arg0) {
+		System.out.println("connected!");
+	}
+}
