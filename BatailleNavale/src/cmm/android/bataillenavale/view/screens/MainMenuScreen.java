@@ -81,13 +81,15 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		final TextButton quitter = new TextButton("Quitter", skin);
 
 		/* ***** On place les boutons dans la table ***** */
-		table.add(unJoueur).width(150).height(80).expandY();
+		float width = Gdx.graphics.getWidth() * 80 / 100;
+		float height = Gdx.graphics.getHeight() * 20 / 100;
+		table.add(unJoueur).width(width).height(height).expandY();
 		table.row();
-		table.add(deuxJoueurs).width(150).height(80).expandY();
+		table.add(deuxJoueurs).width(width).height(height).expandY();
 		table.row();
-		table.add(options).width(150).height(80).expandY();
+		table.add(options).width(width).height(height).expandY();
 		table.row();
-		table.add(quitter).width(150).height(80).expandY();
+		table.add(quitter).width(width).height(height).expandY();
 		
 		/* ***** Création des listener pour changer de Screen au clic ***** */
 		unJoueur.addListener(new ChangeListener() {
