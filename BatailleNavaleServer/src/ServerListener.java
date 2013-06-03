@@ -178,19 +178,19 @@ public class ServerListener extends Listener {
 	}
 
 	// TODO: Gérer les envois
-	private void play(Connection connection, Object object) {
-		if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
-			players[1].sendTCP(object);
-			state = WAIT_PLAYER_2;
-		}
-		else if(equals(connection, players[0]) && state == WAIT_PLAYER_2) {
-			players[0].sendTCP(object);
-			state = WAIT_PLAYER_1;
-		}
-		else {
-			connection.sendTCP("not your turn");
-		}
-	}
+//	private void play(Connection connection, Object object) {
+//		if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
+//			players[1].sendTCP(object);
+//			state = WAIT_PLAYER_2;
+//		}
+//		else if(equals(connection, players[0]) && state == WAIT_PLAYER_2) {
+//			players[0].sendTCP(object);
+//			state = WAIT_PLAYER_1;
+//		}
+//		else {
+//			connection.sendTCP("not your turn");
+//		}
+//	}
 
 
 	private boolean equals(Connection connection, Connection connection2) {
