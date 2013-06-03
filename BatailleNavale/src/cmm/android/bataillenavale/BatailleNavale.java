@@ -87,6 +87,7 @@ public class BatailleNavale extends CmmGameAdapter {
 		try {
 			client.connect(5000, "192.168.1.10", TCP_PORT, UDP_PORT);
 		} catch (IOException e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;
