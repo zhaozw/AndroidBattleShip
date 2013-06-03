@@ -39,6 +39,7 @@ public class MainMenuScreen extends CmmScreenAdapter {
 	@Override
 	public void initialize() {
 		super.initialize();
+		
 		/* *****  Création du fond ***** */
 		Texture wallText = new Texture("data/img/mainMenuWallpaper.jpg");
 		TextureRegion wallTextReg = new TextureRegion(wallText);
