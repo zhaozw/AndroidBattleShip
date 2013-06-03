@@ -205,7 +205,9 @@ public abstract class GameScreen extends CmmScreenAdapter {
 
 	public void tirer(boolean touched, GraphicMer tireur, GraphicMer adv) {
 		if (touched) {
-			touchedSound.play();
+			if(app.isPlaySound())
+				touchedSound.play();
+			
 			tireur.getGeneral().setStatus(General.HAPPY);
 			adv.getGeneral().setStatus(General.UNHAPPY);
 			if (adv.getMer().aPerdu()) {
@@ -220,7 +222,8 @@ public abstract class GameScreen extends CmmScreenAdapter {
 				switchPlayerTurn();
 			}
 		} else {
-			missedSound.play();
+			if(app.isPlaySound())
+				missedSound.play();
 			tireur.getGeneral().setStatus(General.CLASSIC);
 			adv.getGeneral().setStatus(General.CLASSIC);
 			switchPlayerTurn();
