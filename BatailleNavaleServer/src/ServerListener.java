@@ -114,64 +114,6 @@ public class ServerListener extends Listener {
 		state = WAIT_TWO_PLAYERS;
 	}
 
-	/*
-	private void play(Connection connection, Object message) {
-		if(message instanceof Coord2D) {
-			if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
-				players[1].sendTCP(message);
-			}
-			else if(equals(connection, players[1]) && state == WAIT_PLAYER_2) {
-				players[0].sendTCP(message);
-			}
-			else {
-				connection.sendTCP("not your turn");
-			}
-		}
-		else if (message instanceof Boolean) {
-			if(equals(connection, players[1]) && state == WAIT_PLAYER_1) {
-				players[1].sendTCP(message);
-				state = WAIT_PLAYER_2;
-			}
-			else if(equals(connection, players[2]) && state == WAIT_PLAYER_2) {
-				players[0].sendTCP(message);
-				state = WAIT_PLAYER_1;
-			}
-			else {
-				connection.sendTCP("not your turn");
-			}
-		}
-	}
-	*/
-	
-	private boolean writeMer(Connection connection, Object object) {
-		boolean ok = false;
-		if(equals(connection, players[0])) {
-			players[1].sendTCP(object);
-			ok = true;
-		}
-		else if(equals(connection, players[1])) {
-			players[0].sendTCP(object);
-			ok = true;
-		}
-
-		return ok;
-	}
-
-	// TODO: Gérer les envois
-//	private void play(Connection connection, Object object) {
-//		if(equals(connection, players[0]) && state == WAIT_PLAYER_1) {
-//			players[1].sendTCP(object);
-//			state = WAIT_PLAYER_2;
-//		}
-//		else if(equals(connection, players[0]) && state == WAIT_PLAYER_2) {
-//			players[0].sendTCP(object);
-//			state = WAIT_PLAYER_1;
-//		}
-//		else {
-//			connection.sendTCP("not your turn");
-//		}
-//	}
-
 
 	private boolean equals(Connection connection, Connection connection2) {
 

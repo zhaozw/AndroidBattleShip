@@ -161,7 +161,7 @@ public class Mer {
 	
 	public void setStatusCase(int x, int y, int status) {
 		if(status >=EMPTY && status <= MISSED) {
-			mer[x][y] = status;
+			mer[y][x] = status;
 		}
 	}
 	
