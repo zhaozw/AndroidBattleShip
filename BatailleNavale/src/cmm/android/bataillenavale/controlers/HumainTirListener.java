@@ -1,66 +1,62 @@
 package cmm.android.bataillenavale.controlers;
+
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
 import cmm.android.bataillenavale.view.screens.VersusHumainGameScreen;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
 public class HumainTirListener extends Listener {
 	VersusHumainGameScreen screen;
 	private Coord2D advTir;
 
 	public HumainTirListener(VersusHumainGameScreen screen) {
 		this.screen = screen;
-		}
+	}
 
 	@Override
 	public void received(Connection connection, Object data) {
 		if (data instanceof String) {
 			String message = (String)data;
-			if(message.equals("play")) {
-				screen.setPlayerTurn(true);
-			}
-			else if(message.equals("wait")) {
-				screen.setPlayerTurn(false);
-			}
-			else if(message.equals("true")) {
+			if(message.equals("true")) {
 				screen.tirer(true, screen.getGraphicJoueur(), screen.getGraphicAdversaire());
 			}
 			else if(message.equals("false")) {
 				screen.tirer(true, screen.getGraphicJoueur(), screen.getGraphicAdversaire());
 			}
-			else {
-				if(!screen.isPlayerTurn()) {
-					String[] parsedMessage = message.split(":");
-					int x = Integer.parseInt(parsedMessage[0]);
-					int y = Integer.parseInt(parsedMessage[1]);
-					boolean touched = screen.tirer(new Coord2D(x, y)); //FIXME: risque de planter
-					String result;
-					if(touched)
-						result = "true";
-					else
-						result = "false";
-					screen.getApp().getClient().sendTCP(result);
+			else if(!screen.isPlayerTurn()) {
+				/* ***** On s'attend à recevoir un message du type x:y, correspondant à la case visée par l'adversaire ****** */
+				String[] parsedMessage = message.split(":");
+				if(parsedMessage.length != 2)
+					return;
+
+				int x = Integer.parseInt(parsedMessage[0]);
+				int y = Integer.parseInt(parsedMessage[1]);
+				boolean touched = screen.tirer(new Coord2D(x, y));
+				String result;
+
+				if(touched)
+					result = "true";
+				else
+					result = "false";
+				screen.getApp().getClient().sendTCP(result);
+			}
+			/* ***** Si on reçoit la réponse sur notre propre tir ***** */
+			else if(message.equals("true") || message.equals("false")) {
+				Boolean touche = message.equals("true");
+				int status;
+				if(touche) {
+					status = Mer.BOAT_HANDLE_KILLED;
+					screen.getGraphicAdversaire().getMer().incNbHandlesTouched();
 				}
 				else {
-					System.out.println("C'EST A MOI DE JOUER ! PAS A TOI !!!");
+					status = Mer.MISSED;
 				}
+				screen.getGraphicAdversaire().getMer().setStatusCase(advTir.x, advTir.y, status);
+				screen.tirer(touche, screen.getGraphicJoueur(), screen.getGraphicAdversaire());
 			}
 		}
 
-		/* ***** on récupère la réponse de l'adversaire sur notre propre tir ***** */
-		else if(data instanceof Boolean) {
-			Boolean touche = (Boolean)data;
-			int status;
-			if(touche){
-				status = Mer.MISSED;
-			}
-			else {
-				status = Mer.BOAT_HANDLE_KILLED;
-			}
-			screen.getGraphicAdversaire().getMer().setStatusCase(advTir.x, advTir.y, status);
-		}
-		/* On change de joueur */
-		screen.switchPlayerTurn();
 	}
 }

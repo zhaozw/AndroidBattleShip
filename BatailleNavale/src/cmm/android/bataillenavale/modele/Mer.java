@@ -164,4 +164,8 @@ public class Mer {
 			mer[x][y] = status;
 		}
 	}
+	
+	public void incNbHandlesTouched() {
+		nbHandlesTouched++;
+	}
 }

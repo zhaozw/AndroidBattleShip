@@ -75,8 +75,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 
 		graphicAdversaire.setSize(1.0f, 0.5f);
 		graphicAdversaire.setPosition(0.5f - graphicAdversaire.getWidth(),
-				0.5f - graphicAdversaire.getHeight()); // On place l'adversaire
-		// à droite
+				0.5f - graphicAdversaire.getHeight()); // On place l'adversaire à droite
 		sprites.add(graphicAdversaire);
 
 		/* ***** place les sons en mémoire ***** */
@@ -93,9 +92,6 @@ public abstract class GameScreen extends CmmScreenAdapter {
 		font.setUseIntegerPositions(false);
 		font.setScale(1.4f / Gdx.graphics.getHeight());
 		font.setColor(1, 1, 1, 1);
-
-		/* ***** On choisit le premier à jouer ***** */
-		setPlayerTurn(playerTurn = Math.random() > 0.5);
 	}
 
 	@Override

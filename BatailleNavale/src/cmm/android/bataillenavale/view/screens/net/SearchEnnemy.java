@@ -69,6 +69,8 @@ public class SearchEnnemy extends CmmScreenAdapter {
 		case WAIT_PLAYER:
 			/* ***** Si on peut changer de screen pour placer les bateaux ***** */
 			message = "En attente qu'un\nautre joueur se connecte";
+			break;
+		case WAIT_SEA:
 			Gdx.app.postRunnable(
 					new Runnable() {
 						@Override
@@ -76,7 +78,6 @@ public class SearchEnnemy extends CmmScreenAdapter {
 							app.setScreen(BatailleNavale.NET_PLACE_BATEAU);	
 						}
 					});
-			break;
 		}
 	}
 }

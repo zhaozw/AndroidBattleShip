@@ -15,14 +15,10 @@ public class WaitForPlayerListener extends Listener {
 	@Override
 	public void received(Connection connection, Object data) {
 		super.received(connection, data);
-		
 		if(data instanceof String) {
 			String stringData = (String)data;
 			
-			if(stringData.equals("wait for player")) {
-				searchEnnemy.setState(SearchEnnemy.WAIT_PLAYER);
-			}
-			else if(stringData.equals("wait for sea")) {
+			if(stringData.equals("wait for sea")) {
 				searchEnnemy.setState(SearchEnnemy.WAIT_SEA);
 			}
 		}

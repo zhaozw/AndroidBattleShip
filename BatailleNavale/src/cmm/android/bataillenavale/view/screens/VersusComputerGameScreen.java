@@ -49,6 +49,9 @@ public class VersusComputerGameScreen extends GameScreen {
 
 		ia.setJoueur(graphicJoueur.getMer());
 		
+		/* ***** On choisit le premier à jouer ***** */
+		setPlayerTurn(playerTurn = Math.random() > 0.5);
+		
 		/* ***** gestion du controleur ***** */
 		Gdx.input.setInputProcessor(new GameListener(this));
 	}
