@@ -1,7 +1,9 @@
 package cmm.android.bataillenavale.controlers;
 
+import cmm.android.bataillenavale.BatailleNavale;
 import cmm.android.bataillenavale.view.screens.net.SearchEnnemy;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
@@ -24,4 +26,14 @@ public class WaitForPlayerListener extends Listener {
 		}
 	}
 
+	@Override
+	public void disconnected(Connection arg0) {
+		super.disconnected(arg0);
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				searchEnnemy.getApp().setScreen(BatailleNavale.MAIN_MENU);
+			}
+		});
+	}
 }

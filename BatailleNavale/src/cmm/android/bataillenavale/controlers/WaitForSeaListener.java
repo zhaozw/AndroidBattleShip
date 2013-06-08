@@ -35,4 +35,15 @@ public class WaitForSeaListener extends Listener {
 			}
 		}
 	}
+
+	@Override
+	public void disconnected(Connection arg0) {
+		super.disconnected(arg0);
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				screen.getApp().setScreen(BatailleNavale.MAIN_MENU);
+			}
+		});
+	}
 }
