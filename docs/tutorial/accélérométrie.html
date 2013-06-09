@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bataille navale: Documentation</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id = 'menu'>
+    <a href="accueil.html">Accueil</a> <br />
+    <a href="cahier_des_charges.html">cahier des charges</a> <br />
+    <a href="creer_projet.html">créer un projet LibGDX</a> <br />
+    <a href="Les_Images_en_LibGDX.html">Placer une image en mémoire</a> <br />
+    <a href="les_bases_du_painting.html">Afficher une image</a> <br />
+    <a href="screens.html">Les Screen</a> <br />
+    <a href="sons.html">les Sons</a> <br />
+    <a href="reaction.html">L'interaction avec l'utilisateur</a> <br />
+    <a href="accélérométrie.html">L'accélérométrie</a> <br />
+    <a href="intelligence_artificielle.html">Intelligence artificielle</a> <br />
+    <a href="reseau.html">Réseau</a>  </p>
+</div>
+
+
+<div id = 'body'>
+    <h1>Android et les particularités de la machine</h1>
+
+    <p>Nous sommes tous d'accord pour dire que Android est une technologie nouvelle qui apporte son lot de spécificités.
+    Outre son cycle de vie particulier, il y a également son matériel tout-à fait différent d'un ordinateur classique:
+     * Accélérométrie
+     * GPS
+     * bousole
+     * etc.</p>
+
+    <p>Le framework LibGDX instancie ces divers matériels afin de nous permettre de les utiliser rapidement. <br />
+    Nous prendrons ici un exemple: l'accélérométrie.</p>
+
+    <h2>Accélérométrie</h2>
+
+    <p>Pour rappel, l'accélérométre est ce qui permet de connaître <em>l'inclinaison</em> de la machine. <br />
+    Le but est de connaître cette inclinaison, afin de faire réagir le programme en fonction de cette accéléromètre.</p>
+
+    <h2>LibGDX et l'accélérométrie</h2>
+
+    <p>Comme expliqué précédemment, LibGDX permet de réaliser facilement un travail avec l'accélérométrie:</p>
+
+    <pre><code>float x = Gdx.input.getAccelerometerX();
+    float y = Gdx.input.getAccelerometerY();
+    float z = Gdx.input.getAccelerometerZ();
+    </code></pre>
+
+    <p>On s'aperçoit ici que LibGDX nous offre une version 3 dimensions de l'inclinaison de la machine. <br />
+    Observons maintenant les résultats:
+     * les données sont des float (nombres décimaux, positif ou négatifs)
+     * les valeurs sont comprises entre -2.f et 2.f
+     * 0 est la valeur tel que la tablette est posée à plat (sur une table par exemple)</p>
+
+    <p>Nous pouvons donc connaître rapidement l'inclinaison de la tablette:
+        if(x > 0) {
+            System.out.println("vous êtes un peu à gauche");
+        }
+        else if(x &lt; 0) {
+            System.out.println("vous êtes un peu à droite");
+        }
+        else {
+            System.out.println("Vous êtes tout-à-fait au centre");
+        }
+    A noter que le else ("Vous êtes tout-à-fait au centre") ne s'appliquera probablement jamais: les valeurs étant en float, il se peut que l'approximation vous donne 0.000001 plutôt que 0 !</p>
+
+    <h2>LibGDX et la gestion pour PC</h2>
+
+    <p>Rappelons-nous que LibGDX permet de développer pour systèmes Android ainsi que pour système PC. 
+    Que se passe t-il si nous tentons de connaître la valeur de l'accéléromètre sur un système qui n'en possède pas? <br />
+    Tout simplement: la méthode retourne 0!
+    Ainsi, nous pouvons reprendre notre exemple, en l'améliorant un peu:</p>
+
+    <pre><code>if(x &lt; 0.0001 &amp;&amp; x &gt; - 0.0001) {
+        System.out.println("vous êtes parfaitement à gauche");
+    }
+    else if(x &lt; 0) {
+        System.out.println("vous êtes un peu à droite");
+    }
+    else if(x &gt; 0) {
+        System.out.println("vous êtes un peu à gauche");
+    }
+    else {
+        System.out.println("Vous n'avez pas d'accéléromètre ...");
+    }
+    </code></pre>
+
+    <h2>Listening VS Polling</h2>
+
+    <p>Remarquez ici que l'événement n'est pas un listener. Ainsi, aucun mécanisme ne se déclenche lorsque l'accéléromètre change (heureusement, ou il se déclencherait tout le temps !) <br />
+    Ici, nous utilisons la technique de polling: nous obtenons le résultat lors d'un appel explicite grâce à une méthode.
+    Afin de connaître ce résultat à chaque étape, il convient donc de l'utiliser dans la méthode <em>render</em></p>
+
+    <pre><code>public void render(float delta) {
+        float x = Gdx.input.getAccelerometerX();
+        if(x &lt; 0.0001 &amp;&amp; x &gt; - 0.0001) {
+            System.out.println("vous êtes parfaitement à gauche");
+        }
+        else if(x &lt; 0) {
+            System.out.println("vous êtes un peu à droite");
+        }
+        else if(x &gt; 0) {
+            System.out.println("vous êtes un peu à gauche");
+        }
+        else {
+            System.out.println("Vous n'avez pas d'accéléromètre ...");
+        }
+    }
+    </code></pre>
+</body>
+</html>

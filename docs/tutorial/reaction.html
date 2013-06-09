@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bataille navale: Documentation</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id = 'menu'>
+<p><a href="accueil.html">Accueil</a> <br />
+<a href="cahier_des_charges.html">cahier des charges</a> <br />
+<a href="creer_projet.html">créer un projet LibGDX</a> <br />
+<a href="Les_Images_en_LibGDX.html">Placer une image en mémoire</a> <br />
+<a href="les_bases_du_painting.html">Afficher une image</a> <br />
+<a href="screens.html">Les Screen</a> <br />
+<a href="sons.html">les Sons</a> <br />
+<a href="reaction.html">L'interaction avec l'utilisateur</a> <br />
+<a href="accélérométrie.html">L'accélérométrie</a> <br />
+<a href="intelligence_artificielle.html">Intelligence artificielle</a> <br />
+<a href="reseau.html">Réseau</a>  </p>
+</div>
+
+<div id = 'body'>
+<h1>La réaction de votre application</h1>
+
+<p>Si l'utilisateur ne peut pas interagir avec les éléments de votre jeu, ce n'est pas un jeu! <br />
+Nous allons donc voir comment interagir avec l'utilisateur. En réalité, il y a deux types d'interaction, La callback et le polling</p>
+
+<h2>Système de callback (listener)</h2>
+
+<p>LibGDX implémente des classes de Listeners. En particulier, les InputAdapter implémentent les méthodes suivantes:</p>
+
+<h3>Le listener</h3>
+
+<table>
+    <tr>
+        <th>Méthode</th> 
+        <th>Machine concernée</th>
+        <th>commentaire</th>
+    </tr>
+    <tr>
+    <td>
+        <td>keyDown</td>
+        <td>Ordinateur</td>
+        <td>Appelée lorsqu'une touche du clavier est pressée</td>
+    </tr>
+    <tr>
+    <td>
+        <td>keyTyped</td>
+        <td>Ordinateur</td>
+        <td>Appelée lorsqu'une touche du clavier est appuyée puis relâchée</td>
+    </tr>
+    <tr>
+    <td>
+        <td>keyUp</td>
+        <td>Ordinateur</td>
+        <td>Appelée lorsqu'une touche du clavier est relâchée</td>
+    </tr>
+    <tr>
+    <td>
+        <td>mouseMoved</td>
+        <td>Ordinateur</td>
+        <td>Appelée lorsqu'aucun clic n'est effectué, au mouvement de la souris<td>
+    </tr>
+    <tr>
+        <td>scrolled</td>
+        <td>Ordinateur</td>
+        <td>Appelée lors du déplacement de la molette de la souris</td>
+    </tr>
+    <tr>
+        <td>touchDown</td>
+        <td>Tous</td>
+        <td>Appelée lors d'un clic, ou lorsqu'on touche l'écran pour Android</tr>
+    <tr>
+        <td>touchDragged</td>
+        <td>Tous</td>
+        <td>Appelée lors du mouvement de la souris, clic enfoncé, ou lors d'un mouvement du doigt sur l'écran Android</td>
+    </tr>
+    <tr>
+        <td>touchUp</td>
+        <td>Tous</td>
+        <td>Appelée lorsque le clic est relâché, ou lorsque le doigt est retiré de l'écran Android</td>
+</tr>
+</table>
+<p>Comme vous pouvez le constater sur l'API, les méthodes des listeners renvoyent toutes un boolean. En fait, ils servent à dire si l'appel était pour ce listener ou non.
+En effet, si vous placez des listeners sur des objets graphiques (et ce sera preque toujours le cas), il se peut que ces objets se superposent. Or, vous ne voulez sans doute pas qu'on puisse cliquer sur plusieurs objets en même temps
+C'est pourquoi, vous devez renvoyer <em>true</em> si vous décidez de prendre l'appel.</p>
+
+<p>L'algorithme de LibGDX sur les Listener est le suivant:
+    aReponduVrai &lt;- faux
+    tant que non aReponduVrai
+        Prendre le Listener suivant
+        aReponduVrai &lt;- executer listener
+    fin_tant
+ici, on voit donc clairement que les listener suivants ne seront pas exécutés si votre listener répond <em>true</em></p>
+
+<h3>Ajouter des listeners</h3>
+
+<p>En LibGDX, il y a une classe pour placer plusieurs listeners en même temps: InputMultiplexer.
+Le InputProcessor est l'objet qui exécute l'algorithme décrit précédemment.</p>
+
+<p>Pour placer les listeners, il suffit de faire:</p>
+
+<ul>
+<li><p>Cas où on place un listener:</p>
+
+<p>Listener list = new Listener();
+Gdx.input.setInputProcessor(list);</p></li>
+<li><p>Cas où on place plusieurs listeners</p>
+
+<p>Listener list1 = new Listener();
+Listener list2 = new Listener();
+InputMultiplexer process = new InputMultiplexer(list1, list2);
+Gdx.input.setInputProcessor(multiplexer);</p></li>
+</ul>
+
+<p>A noter que l'algorithme précédent prend en compte l'ordre dans lequel vous placez les Listeners. L'algorithme sera donc ici:</p>
+
+<pre><code>aReponduVrai &lt;- execution_list1;
+si NON aReponduVrai alors
+    aReponduVrai &lt;- execution_list2
+    si NON aReponduVrai alors
+        aReponduVrai &lt;- execution_list3 ...
+    fsi
+fsi
+</code></pre>
+
+<h2>Polling</h2>
+
+<p>Le callback est un système performant et simple à mettre en place. De plus, il peut être intéressant de créer des listeners dans des fichiers séparés pour respecter de design partern M.V.C.
+Cependant, l'exécution de callback trop répétitif peut baisser les performances de votre application. Par exemple, une callback exécutée à chaque fois que l'accélérométrie change est une mauvaise idée, car le moindre mouvement de la part de l'utilisateur entraîne plusieurs dizaines d'exécutions.  </p>
+
+<p>C'est pourquoi il existe une autre manière d'interagir avec l'utilisateur: le <strong>Polling</strong> <br />
+Le polling est une manière plus bas niveau de récupérer l'information. Le polling consiste à noter tous les événements entre deux rafraîchissement de l'image. <br />
+Ensuite, à chaque rafraîchissement (dans la méthode render), on peut demander à la machine:</p>
+
+<ul>
+<li>A t-on cliqué?</li>
+<li>L'accéléromètre a-t-il bougé ?</li>
+<li>a-t-on déplacé la souris ?</li>
+<li>...</li>
+</ul>
+
+<p>Le polling consiste donc en une série de conditions, afin de connaître les changements de l'application entre deux rafraichissements de l'image:</p>
+
+<pre><code>if(Gdx.input.isKeyPressed('A')) {
+    /* execution si on appuie sur A */
+}
+if(Gdx.input.isDragged()) {
+    /* execution si on a deplacé la souris en cliquant */
+}
+if(isTouched(0)) {
+    /* execution si au moins un doigt est placé sur l'ecran */
+}
+</code></pre>
+
+<p>Ainsi, on peut voir que le polling est une manière simple, et souvent plus rapide de réaliser une interaction avec l'utilisateur. <br />
+Cependant, il ne faut pas abuser du polling, car:</p>
+
+<ul>
+<li>il n'est pas M.V.C, et peut rapidement salir votre code source,</li>
+<li>il peut entrainer des problèmes de concurrence sur les différents objets,</li>
+<li>sans rafraichissement automatique de l'écran, pas de polling. Or le rafraichissement automatique de l'écran n'est pas toujours utile (dans les menus notamment).</li>
+</ul>
+
+<p>Il faut donc utiliser le polling avec parcimonie, lorsqu'il est nécessaire. c'est par exemple le cas de l'accéléromètrie.</p>
+
+<h2>Conclusion</h2>
+
+<p>LibGDX implémente deux façons de gérer les interactions avec l'utilisateur. Il faut connaître les différences entre ces deux méthodes, et les implémenter correctement, en tenant compte des besoins de l'application, ainsi que des spécificités de la machine. <br />
+En particulier, tentez de toujours implémenter des listeners lorsque celui-ci n'est pas trop répétitif. En particulier, l'accéléromètrie est un bon exemple d'implémentation en polling.</p>
+
+</div>
+</body>
+</html>

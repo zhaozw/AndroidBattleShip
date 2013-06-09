@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bataille navale: Documentation</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id = 'menu'>
+<p><a href="accueil.html">Accueil</a> <br />
+<a href="cahier_des_charges.html">cahier des charges</a> <br />
+<a href="creer_projet.html">créer un projet LibGDX</a> <br />
+<a href="Les_Images_en_LibGDX.html">Placer une image en mémoire</a> <br />
+<a href="les_bases_du_painting.html">Afficher une image</a> <br />
+<a href="screens.html">Les Screen</a> <br />
+<a href="sons.html">les Sons</a> <br />
+<a href="reaction.html">L'interaction avec l'utilisateur</a> <br />
+<a href="accélérométrie.html">L'accélérométrie</a> <br />
+<a href="intelligence_artificielle.html">Intelligence artificielle</a> <br />
+<a href="reseau.html">Réseau</a></p>
+</div>
+
+
+<div id = 'body'>
+<h1>Créer un projet LibGdx</h1>
+
+<p>Dans cette page, vous trouverez tout ce qu'il vous faut pour créer un projet libgdx.
+En réalité, un projet LibGDX est constitué d'au maximum 4 projets:</p>
+
+<ul>
+<li>un projet <em>global</em> dans lequel vous écrirez 99% de votre code source</li>
+<li>un projet <em>android</em> dans lequel figure tous les fichiers propres à une application Android (notamment le Manifest)</li>
+<li>un projet <em>desktop</em> qui lancera votre application sur votre ordinateur (dans une fenêtre, comme n'importe quel autre programme desktop)</li>
+<li>un projet <em>html</em> qui fonctionnera sous navigateur.</li>
+</ul>
+
+<p>libGDX est donc une abstraction des modèles PC, Android, et HTML. Cela signifie que le framework gère pour vous les différences entre les systèmes et compile convenablement à votre place. Les projets android, desktop et html utilisent tous les fichiers compilés du projet global.
+C'est donc dans ce projet global qu'il faut écrire quasiment tout le code. La seule chose à placer dans les autres projets sont les quelques lignes qui permettent de différencier les différents projets. Par exemple, il faudra parfois modifier le Manifest pour le projet Android.</p>
+
+<p>Attention: nous déconseillons (comme certains tutoriels et documentations parcourus par nos soins sur le WEB) la création du projet HTML. en effet celui-ci comporte de nombreuses différences dérangeantes avec les autres projets:</p>
+
+<ul>
+<li>Il est <em>stateless</em> de par son implémentation</li>
+<li>Il ne permet pas la création et l'écriture de données dans des fichiers.</li>
+<li><p>Il utilise des notions et un langage différents. On parle par exemple de Javascript pour ne citer que celui-ci. Ce n'est pas problèmatique en soi, mais il semble ralentir l'application.</p>
+
+<p>Pour les raisons évoquées ci-dessus, le projet ne comporte pas de version HTML, et aucun code source spécifique à HTML ne sera expliqué ou utilisé pour la suite. Dans l'explication ci-dessous (comment créer un nouveau projet), un seul point facultatif sera donné dans le cas où vous souhaiteriez tout-de-même créer une version HTML.</p></li>
+</ul>
+
+<h2>Créer l'ensemble des projets</h2>
+
+<p>Une application Java (sous forme JAR) a été développée par les concepteurs de LibGDX afin de réaliser facilement un nouveau projet. Pour l'utiliser, il suffit de taper la ligne de commande:
+    java -jar gdx-setup-ui.jar
+Le programme se lance alors. Cliquez sur <em>create</em>, puis remplissez les champs:</p>
+
+<ul>
+<li>Name: le nom de l'application. Notre projet s'appelle <em>BatailleNavale</em>, c'est pourquoi nous avons obtenu les projets:
+<ul><li>BatailleNavale</li>
+<li>BatailleNavale-android</li>
+<li>BatailleNavale-desktop</li></ul></li>
+<li>Package: le package <em>par défaut</em>. Pour des raisons de portabilité sous android, il faut respecter la règle d'au moins 3 packages. Dans notre exemple il s'agit de <em>cmm.android.bataillenavale</em></li>
+<li>Game Class: le nom de la classe jouant le rôle de point d'entrée. Nous l'avons appelée <em>BatailleNavale</em>.</li>
+<li>Destination: par défaut, il s'agit du chemin où se trouve le fichier jar. Vous pouvez le modifier à votre gré.</li>
+<li>les cases à cocher vous permettant de générer ou non les projets pour desktop, android et html. Comme expliqué précédemment, nous avons décidé de ne pas créer de projet HTML et l'avons donc décoché.
+Enfin, vérifiez que le chemin vers LibGDX est bien rempli dans la section 2. Si ce n'est pas le cas, il faut simplement le lui donner.</li>
+</ul>
+
+<p>Lorsque tous les champs sont correctement remplis (vérifiez qu'il n'y a pas d'erreur dans le menu de droite), cliquez sur <em>open the generation screen</em>. Cliquez ensuite sur <em>generate</em>. Votre projet est alors créé!
+Reste tout de même à l'importer dans votre IDE préféré!</p>
+
+<p>Note: il peut être astucieux de mettre les trois projets dans un même dossier parent et non directement dans un dossier où vous rangeriez tous vos projets. L'arborescence simple et pratique, que nous utilisons pour ce projet est celle-ci:</p>
+
+<ul>
+<li>BatailleNavale/ # le seul dossier placé directement dans mon dossier de projets en tout genre.
+<ul><li>BatailleNavale/ # le projet <em>global</em> généré automatiquement</li>
+<li>BatailleNavale-android/ # le projet <em>android</em></li>
+<li>BatailleNavale-desktop/ # le projet <em>desktop</em></li>
+<li>data/ # les ressources utiles à tous les projets (images, polices ...)</li>
+<li>docs/ # la documentation du projet.</li>
+<li>...</li></ul></li>
+</ul>
+
+<p>Comme on peut le constater, cette arborescence permet de stocker sa documentation, commune aux 3 projets, dans le dossier parent de ceux-ci. De plus, les ressources seront toujours placées dans un dossier <em>data</em> commun aux 3 projets. On peut ensuite recopier les ressources dans le bon dossier pour chaque projet en utilisant un script shell très simple (voir fichier <em>putDatas.bs</em>).</p>
+
+<h2>Importer les projets dans un IDE</h2>
+
+<p>Tout d'abord, il est à noter qu'il paraît difficile, voire impossible de programmer un jeu vidéo Android sans Environnement de Développement Integré (IDE). En effet, celui-ci se chargera pour vous de compiler d'abord le projet global, puis d'utiliser ces fichiers de compilation pour les autres projets, et d'installer sur votre smartphone/tablette l'application. Bien que nous utilisons Eclipse pour le développement de notre jeu de Bataille Navale, il est a priori possible d'utiliser n'importe quel IDE supportant les projets Android. Vous pourrez donc utiliser NetBeans par exemple.</p>
+
+<h3>Importer les projets dans Eclipse</h3>
+
+<ul>
+<li>Exécutez Eclipse,</li>
+<li>file -> import</li>
+<li>Dans la fenêtre qui s'ouvre, choisissez <em>Existing Project Into Workspace</em></li>
+<li>Donnez le chemin vers votre projet, puis cliquez sur <em>Finish</em></li>
+<li>Appliquez cette méthode pour les trois projets.</li>
+</ul>
+
+<p>Note: si vous utilisez l'astuce décrite plus haut, vous pouvez donner le chemin vers le dossier parent; eclipse importera directement les 3 projets.</p>
+
+<h2>Exécuter le projet</h2>
+
+<p>Parmi les trois projets, seuls deux sont exécutables (le projet global ne servant que de "dépôt" commun pour le code source).</p>
+
+<ul>
+<li>le projet desktop peut être exécuté directement en utilisant la classe Main. Une fenêtre s'ouvre alors, et vos programmes s'exécutent.</li>
+<li>le projet android doit être installé sur une machine Android pour être exécuté. Comme pour les autres projets android, vous devez installer un emulateur, ou brancher une machine en USB sur votre ordinateur, et exécuter votre programme sous eclipse, afin que celui-ci installe tout ce qui est nécessaire.</li>
+</ul>
+
+</div>
+
+</body>
+</html>

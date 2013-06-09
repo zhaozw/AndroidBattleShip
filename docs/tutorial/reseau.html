@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bataille navale: Documentation</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id = 'menu'>
+<p><a href="accueil.html">Accueil</a> <br />
+<a href="cahier_des_charges.html">cahier des charges</a> <br />
+<a href="creer_projet.html">créer un projet LibGDX</a> <br />
+<a href="Les_Images_en_LibGDX.html">Placer une image en mémoire</a> <br />
+<a href="les_bases_du_painting.html">Afficher une image</a> <br />
+<a href="screens.html">Les Screen</a> <br />
+<a href="sons.html">les Sons</a> <br />
+<a href="reaction.html">L'interaction avec l'utilisateur</a> <br />
+<a href="accélérométrie.html">L'accélérométrie</a> <br />
+<a href="intelligence_artificielle.html">Intelligence artificielle</a> <br />
+<a href="reseau.html">Réseau</a></p>
+</div>
+
+<div id = 'body'>
+<h1>Réseau</h1>
+
+<p>Pour la partie réseau de cette application, nous utiliserons <a href="http://code.google.com/p/kryonet/">Kryonet</a>. Cette librairie possède plusieurs qualités:</p>
+
+<ul>
+<li>Elle fonctionne sous Android et PC,</li>
+<li>Elle est multi-thread,</li>
+<li>Elle permet l'envoi d'objets Serialisés à travers le réseau.</li>
+</ul>
+
+<p>Cette librairie de réseau Client/Serveur, est très simple à utiliser. Il faut:</p>
+
+<ul>
+<li>Créer un serveur</li>
+<li>Créer un client</li>
+<li>Ajouter un listener pour chaque partie.</li>
+</ul>
+
+<p>N.B. les exemples sont directement sortis de la documentation Kryonet: <a href="http://code.google.com/p/kryonet/">ici</a></p>
+
+<h2>Création client/serveur</h2>
+
+<h3>Création du serveur</h3>
+
+<pre><code>Server server = new Server();
+server.start();
+server.bind(54555, 54777);
+</code></pre>
+
+<p>Ici, on décide d'utiliser le port 54555 pour TCP, 54777 pour UDP.
+Globalement, le serveur utillise TCP. Cependant, il peut envoyer des requêtes UDP en broadcast pour découvrir ou répondre à une découverte du réseau (discoverHost)</p>
+
+<h3>Création du client</h3>
+
+<pre><code>Client client = new Client();
+client.start();
+client.connect(5000, "192.168.0.4", 54555, 54777);
+</code></pre>
+
+<p>Même principe: pour connecter le client au serveur, il suffit de donner:</p>
+
+<ul>
+<li>une adresse IP; notez que "www.google.fr" fonctionne également: la libraire s'occupe de trouver l'adresse IP grâce au DNS.</li>
+<li>un port TCP où envoyer,</li>
+<li>un port UDP où envoyer.</li>
+</ul>
+
+<p>Si vous ne connaissez pas l'adresse du serveur, vous pouvez utiliser la découverte du réseau.</p>
+
+<h3>Le DiscoverHost</h3>
+
+<p>Il s'agit d'envoyer un message en broadcast sur le réseau local. Pour cela, il suffit de donner le port sur lequel envoyer en broadcast:</p>
+
+<pre><code>InetAddress address = client.discoverHost(54777, 5000);
+client.connect(5000, address, 54555, 54777);
+</code></pre>
+
+<p>A noter que ceci ne fonctionne que pour un réseau local.</p>
+
+<h2>L'envoi de données Serialisé</h2>
+
+<h3>Le Registering</h3>
+
+<p>Pour envoyer des objets, il faut auparavant <strong>enregistrer</strong> votre Objet (i.e. la classe que vous allez envoyer).</p>
+
+<pre><code>Kryo kryo = server.getKryo(); // également pour le client!
+kryo.register(MaClassAEnvoyer.class);
+</code></pre>
+
+<h3>L'envoi de trames</h3>
+
+<p>Pour envoyer une trame, c'est très simple:</p>
+
+<pre><code>MaClassAEnvoyer object = new MaClassAEnvoyer();
+server.sendTCP(object);
+</code></pre>
+
+<p>Rappelons que l'envoi est effectué en TCP: votre message est donc certain d'arriver, en entier, dans le bon ordre.</p>
+
+<h3>Listener</h3>
+
+<p>Afin de répondre aux demandes, vous pouvez écrire des listeners. Il s'agit d'un listener classique qui implémente des méthodes:</p>
+
+<ul>
+<li>connected à la connexion</li>
+<li>disconnected à la déconnexion</li>
+<li>idle à la création d'un nouveau thread</li>
+<li>received à chaque trame reçue.</li>
+</ul>
+
+<pre><code>
+server.addListener(new Listener() {
+    public void received (Connection connection, Object object) {
+        if (object instanceof SomeRequest) {
+            SomeRequest request = (SomeRequest)object;
+            System.out.println(request.text);
+            SomeResponse response = new SomeResponse();
+            response.text = "Thanks!";
+            connection.sendTCP(response);
+        }
+    }
+}
+</code></pre>
+
+</div>
+
+
+</body>
+</html>

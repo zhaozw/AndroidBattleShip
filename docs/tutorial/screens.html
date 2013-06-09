@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bataille navale: Documentation</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div id = 'menu'>
+<p><a href="accueil.html">Accueil</a> <br />
+<a href="cahier_des_charges.html">cahier des charges</a> <br />
+<a href="creer_projet.html">créer un projet LibGDX</a> <br />
+<a href="Les_Images_en_LibGDX.html">Placer une image en mémoire</a> <br />
+<a href="les_bases_du_painting.html">Afficher une image</a> <br />
+<a href="screens.html">Les Screen</a> <br />
+<a href="sons.html">les Sons</a> <br />
+<a href="reaction.html">L'interaction avec l'utilisateur</a> <br />
+<a href="accélérométrie.html">L'accélérométrie</a> <br />
+<a href="intelligence_artificielle.html">Intelligence artificielle</a> <br />
+<a href="reseau.html">Réseau</a>  </p>
+
+<div id = 'body'>
+<h1>Développer son jeu-vidéo de façon modulaire</h1>
+
+<p>Jusqu'à présent, nous n'avons créé que de minuscules "jeux vidéos", et n'avons alors utilisé qu'une seule classe. Bien évidemment, nous n'allons pas faire cela pour de vrais jeux. Nous allons donc les découper en <strong>Screen</strong>.</p>
+
+<h2>Notion de Screen</h2>
+
+<p>Qu'est ce qu'un Screen ? C'est un "morceau" de notre jeu, un "écran".
+Voici plusieurs exemples de Screen:</p>
+
+<ul>
+<li>Menu principal</li>
+<li>Menu Options</li>
+<li>L'écran dans lequel vous placez vos bateaux</li>
+<li>L'écran dans lequel vous jouez contre l'adversaire à la bataille navale.</li>
+<li>L'écran de fin où vous déplacez l'image grâce à l'accélérométrie.</li>
+</ul>
+
+<p>Pour qu'un screen devienne le Screen utilisé, il faut:</p>
+
+<ul>
+<li>L'instancier,</li>
+<li>appeler la méthode setScreen(Screen) de l'application.</li>
+</ul>
+
+<p>Pour cela, la classe jouant le rôle de point d'entrée va nous être fort utile. Analysons tout-de-suite son code:</p>
+
+<pre><code>public class BatailleNavale extends CmmGameAdapter {
+    public static final int MAIN_MENU = 0, CMM_FINAL = 1, SEARCH_ENNEMY = 2,PLACE_BATEAU = 3, VERSUS_COMPUTER_GAME = 4; 
+    @Override
+    public void create() {
+        super.create();
+
+        /* ***** on crée toutes les screens en mémoire pour les utiliser dans l'appli ***** */
+        screens.add(MAIN_MENU, new MainMenuScreen(this));
+        screens.add(CMM_FINAL,new CmmFinalScreen(this));
+        screens.add(SEARCH_ENNEMY, new SearchEnnemyScreen(this));
+        screens.add(PLACE_BATEAU, new PlaceBateauScreen(this));
+        screens.add(VERSUS_COMPUTER_GAME, new VersusComputerGameScreen(this));
+
+        /* ***** On place MAIN_MENU comme le premier screen de l'appli ***** */
+        setScreen(screens.get(MAIN_MENU));
+    }
+}
+</code></pre>
+
+<p>Ici, le point d'entrée hérite de CmmGameAdapter. Nous avons déjà vu que cette classe donne des instructions par défaut pour d'autres méthodes (dont nous reparlerons pour le cycle de vie).
+Le code est composé de deux parties:</p>
+
+<ul>
+<li>l'instanciation de tous les Screen que nous utiliserons dans le jeu,</li>
+<li>le Screen d'entrée (c'est-à-dire le Screen qui va s'afficher au lancement de l'application) : setScreen(screens.get(MAIN_MENU));</li>
+</ul>
+
+<p>Ici, on remarque que CmmGameAdapter ne réimplémente pas la méthode <code>render</code>. C'est tout simplement qu'elle ne peut pas être utilisée: c'est la méthode <code>render</code> du Screen qui sera utilisée.</p>
+
+<p>On remarque également qu'on instancie tous les Screen dès le début du jeu, pour des raisons d'efficacité et de simplicité du code. Or, rappelez vous de la méthode <code>au plus tard</code>. Ne placez donc <strong>surtout pas</strong> vos ressources dans le constructeur, mais bien dans la méthode <em>initialize</em>. Ainsi, vous pourrez changer de screen facilement, sans prendre beaucoup de mémoire. Au changement, les anciennes images seront supprimées, les nouvelles automatiquement ajoutées, et l'affichage raffraîchi avec le nouveau Screen.</p>
+
+<h2>Ecrire un Screen</h2>
+
+<p>Ecrivons dès à présent un Screen. Nous allons directement utiliser l'adapter <code>CmmScreenAdapter</code>.</p>
+
+<pre><code>public abstract class MonScreen extends CmmScreenAdapter {
+    protected GraphicMer graphicJoueur;
+    protected GraphicMer graphicAdversaire;
+    private Sound missedSound, touchedSound;
+    protected boolean playerTurn;
+    protected boolean isOverGame;
+    private BitmapFont font;
+    private String message;
+
+    /* ***** Très peu de chose dans le constructeur, une petite configuration, et quelques boolean ****** */
+    public GameScreen(BatailleNavale app) {
+        super(app, false);
+    }
+
+    @Override
+    /* ***** Initialisation des ressources lourdes, plus ce dont vous avez besoin ***** */
+    public void initialize() {
+        super.initialize();
+        isOverGame = false;
+
+        /* ***** Création de la mer de l'adversaire ***** */
+        Mer computerMer = new Mer();
+        graphicAdversaire = new GraphicMer(this, computerMer, false);
+
+        /* ***** Place les images en mémoire ***** */
+        Texture wallText = app.getTransversaleTexture("wallpaper");
+        setWallpaper(new TextureRegion(wallText, 349, 496));
+        textures.add(wallText);
+
+        /* ***** place les sons en mémoire ***** */
+        touchedSound = Gdx.audio.newSound(Gdx.files
+                .internal("data/sounds/touched.mp3"));
+        missedSound = Gdx.audio.newSound(Gdx.files
+                .internal("data/sounds/missed.mp3"));
+        sounds.add(touchedSound);
+        sounds.add(missedSound);
+
+        /* ***** place la police en mémoire ***** */
+        font = new BitmapFont(Gdx.files.internal("data/fonts/mainMenu.fnt"),
+                Gdx.files.internal("data/fonts/mainMenu.png"), false);
+        font.setUseIntegerPositions(false);
+        font.setScale(1.4f / Gdx.graphics.getHeight());
+        font.setColor(1, 1, 1, 1);
+    }
+
+    @Override
+    /* ***** On rafraichit l'écran par une série d'appels OpenGL (ou LibGDX) ***** */
+    public void render(float delta) {
+        super.render(delta);
+        spriteBatch.begin();
+        font.drawMultiLine(spriteBatch, message, x, y);
+        spriteBatch.end();
+    }
+
+    @Override
+    /* ***** Et enfin on supprime les ressources lourdes ***** */
+    public void dispose() {
+        super.dispose();
+        GraphicMer.dispose();
+        font.dispose(); 
+    }
+}
+</code></pre>
+
+<p>Ici, on respecte donc bien la méthode <em>j'initialise mes ressources lourdes seulement lorsque j'en ai besoin, je les supprime dès que je ne m'en sers plus</em>.  </p>
+
+<p>Ici, on s'est servi du helper CmmScreenAdapter. Ce helper permet simplement de supprimer automatiquement les ressources placées dans son ArrayList. Il réimplémente également des méthodes du cycle de vie Android, dont nous allons parler tout de suite.</p>
+
+<h2>Gérer le cycle de vie</h2>
+
+<p>Le cycle de vie est une notion fondamentale dans toute application Android. Gérer convenablement le cycle de vie de votre application vous assurera de:</p>
+
+<ul>
+<li>ne pas perdre de données,</li>
+<li>rendre le jeu vidéo moins gourmand en batterie et en ressources (mémoire, CPU ...)</li>
+<li><p>éviter des bugs difficiles à reproduire.</p>
+
+<p>LibGDX nous permet naturellement de gérer ce cycle de vie de manière agréable, puisqu'il implémente des méthodes qui seront appelées au bon moment, en fonction du cycle de vie. Ainsi, il est important de redéfinir les méthodes d'un Screen:</p>
+
+<table>
+<tr>
+    <th>Méthode LibGDX </th>
+    <th>état du cycle de vie </th>
+    <th>Commentaire</th>
+</tr>
+<tr> 
+    <td>show()</td>
+    <td> Created</td>
+    <td> Placez vos initialisations</td>
+    <td>
+<tr> 
+    <td> hide()</td>
+    <td>Stoped</td>
+    <td>Placez vos sauvegardes temporaires, et vos dispose </td>
+</tr>
+<tr> 
+    <td> resume()</td>
+    <td>Resumed</td>
+    <td>Placez vos chargements temporaires, et vos initialisations </td>
+</tr>
+<tr> 
+    <td> pause()</td>
+    <td>Paused</td>
+    <td>Placez vos sauvegardes temporaires, et vos dispose </td>
+</tr>
+<tr> 
+    <td> dispose()</td>
+    <td>Destroyed </td>
+    <td>Placez vos sauvegardes temporaires, et vos dispose </td>
+</tr>
+<tr> 
+    <td> resize()</td>
+    <td>N/A</td>
+    <td>Surtout utile pour la version PC.
+</tr>
+</table>
+
+<p>Pour vous donner une idée, au changement de Screen, si on passe de ScreenA à ScreenB, les méthodes seront lancées dans cet ordre:</p>
+
+<ul><li>screenA.hide()</li>
+<li>screenA.dispose()</li>
+<li>screenB.show()</li>
+<li>screenB.resize()</li></ul></li>
+</ul>
+
+<p>Bien évidemment, le cycle de vie est un peu plus capricieux que cela. Cependant, son utilisation est bien entendu similaire à celle des applications plus classiques. </p>
+
+<h2>Conclusion</h2>
+
+<p>Les ressources utilisées pour un jeu vidéo sont lourdes, voire parfois très lourdes. Essayez de les utiliser de manière utile, afin de ne pas surcharger la machine. <br />
+Ayez toujours à l'esprit le cycle de vie Android. Celui-ci pose des contraintes liées justement à la faible puissance de certaines machines. N'oubliez jamais que les ressources de votre application peuvent être placées en cache par la machine. il faudra donc recharger les images dès que le jeu est passé en Pause (c'est-à-dire, chaque fois que votre application n'est plus au premier plan). <br />
+N'hésitez pas à utiliser les facilités apportées par LibGDX: réimplémentez les méthodes des Screen. Le helper CmmScreenAdapter donne un comportement par défaut, qui sera peut-être le bon comportement la plupart du temps. Cependant, il est important que vous compreniez comment le cycle de vie fonctionne, et à programmer un comportement adapté à ce que vous voulez faire.</p>
+
+</div>
+</body>
+</html>
