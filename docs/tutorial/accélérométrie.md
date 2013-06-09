@@ -12,7 +12,7 @@ Nous prendrons ici un exemple: l'accélérométrie.
 
 ==== Accélérométrie ====
 Pour rappel, l'accélérométre est ce qui permet de connaître __l'inclinaison__ de la machine.  
-Le but est de connaître cette inclinaison, afin de faire réagir le programme en fonction de cet accéléromètre.
+Le but est de connaître cette inclinaison, afin de faire réagir le programme en fonction de cette accéléromètre.
 
 ==== LibGDX et l'accélérométrie ====
 Comme expliqué précédemment, LibGDX permet de réaliser facilement un travail avec l'accélérométrie:
@@ -60,7 +60,7 @@ Ainsi, nous pouvons reprendre notre exemple, en l'améliorant un peu:
 
 
 ==== Listening VS Polling ====
-Remarquez ici que l'événement n'est pas un listener. Ainsi, aucun mécanisme ne se déclenche lorsque l'accéléromètre change (heureusement, où il se déclencherait tout le temps !)  
+Remarquez ici que l'événement n'est pas un listener. Ainsi, aucun mécanisme ne se déclenche lorsque l'accéléromètre change (heureusement, ou il se déclencherait tout le temps !)  
 Ici, nous utilisons la technique de polling: nous obtenons le résultat lors d'un appel explicite grâce à une méthode.
 Afin de connaître ce résultat à chaque étape, il convient donc de l'utiliser dans la méthode _render_
 

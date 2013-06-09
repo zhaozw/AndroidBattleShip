@@ -20,10 +20,10 @@ Attention: nous déconseillons (comme certains tutoriels et documentations parco
 
 
 ==== Créer l'ensemble des projets ====
-Une application Java (sous forme JAR) à été développé par les concepteurs de LibGDX afin de réaliser facilement un nouveau projet. Pour l'utiliser, il suffit de taper la ligne de commande:
+Une application Java (sous forme JAR) a été développée par les concepteurs de LibGDX afin de réaliser facilement un nouveau projet. Pour l'utiliser, il suffit de taper la ligne de commande:
 	java -jar gdx-setup-ui.jar
 Le programme se lance alors. Cliquez sur ``create``, puis remplissez les champs:
- * Name: le nom de l'application. Notre projet s'appelle ``BatailleNavale``, c'est pourquoi nous avons obtenus les projets:
+ * Name: le nom de l'application. Notre projet s'appelle ``BatailleNavale``, c'est pourquoi nous avons obtenu les projets:
  	* BatailleNavale
  	* BatailleNavale-android
  	* BatailleNavale-desktop
@@ -33,7 +33,7 @@ Le programme se lance alors. Cliquez sur ``create``, puis remplissez les champs:
  * les cases à cocher vous permettant de générer ou non les projets pour desktop, android et html. Comme expliqué précédemment, nous avons décider de ne pas créer de projet HTML et l'avons donc décoché.
 Enfin, vérifiez que le chemin vers LibGDX est bien remplit dans la section 2. Si ce n'est pas le cas, il faut simplement le lui donner.
 
-Lorsque tous les champs sont correctement remplit (vérifiez qu'il n'y a pas d'erreur dans le menu de droite), cliquez sur ``open the generation screen``. Cliquez ensuite sur ``generate``. Votre projet est alors créé!
+Lorsque tous les champs sont correctement remplis (vérifiez qu'il n'y a pas d'erreur dans le menu de droite), cliquez sur ``open the generation screen``. Cliquez ensuite sur ``generate``. Votre projet est alors créé!
 Reste tout-de-même à l'importer dans votre IDE préféré!
 
 
@@ -45,7 +45,7 @@ Note: il peut être astucieux de mettre les trois projets dans un même dossier 
  	* data/ # les ressources utiles à tous les projets (images, polices ...)
  	* docs/ # la documentation du projet.
  	* ...
-Comme on peut le constater, cette arborescence permet de stocker sa documentation, commune aux 3 projets, dans le dossier parent de ceux-ci. De plus, les ressources seront toujours placés dans un dossier ``data`` commun aux 3 projets. On peut ensuite recopier les ressources dans le bon dossier pour chaque projet en utilisant un script shell très simple (voir fichier ``putDatas.bs``).
+Comme on peut le constater, cette arborescence permet de stocker sa documentation, commune aux 3 projets, dans le dossier parent de ceux-ci. De plus, les ressources seront toujours placées dans un dossier ``data`` commun aux 3 projets. On peut ensuite recopier les ressources dans le bon dossier pour chaque projet en utilisant un script shell très simple (voir fichier ``putDatas.bs``).
 
 
 ==== Importer les projets dans un IDE ====
@@ -60,12 +60,7 @@ Tout d'abord, il est à noter qu'il parait difficile, voire impossible de progra
 
 Note: si vous utilisez l'astuce décrite plus haut, vous pouvez donner le chemin vers le dossier parent; eclipse importera directement les 3 projets.
 
-
-=== Importer les projets dans NetBeans ===
-TODO ;)
-
-
 ==== Executer le projet ====
 Parmi les trois projets, seuls deux sont executables (le projet global ne servant que de "dépôt" commun pour le code source).
- * le projet desktop peut être executé directement en utilisant la classe Main. Une fenêtre s'ouvre alors, et vos programme s'execute.
+ * le projet desktop peut être executé directement en utilisant la classe Main. Une fenêtre s'ouvre alors, et vos programme s'executent.
  * le projet android doit être installé sur une machine Android pour être executé. Comme pour les autres projets android, vous devez installer un emulateur, ou branchez une machine en USB sur votre ordinateur, et executer votre programme sous eclipse, afin que celui-ci installe tout ce qui est nécessaire.
