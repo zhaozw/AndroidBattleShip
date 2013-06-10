@@ -21,6 +21,7 @@ import cmm.android.bataillenavale.view.screens.net.SearchEnnemy;
 import com.esotericsoftware.kryo.Kryo;
 
 public class BatailleNavale extends CmmGameAdapter {
+	private static final String DEFAULT_HOST = "192.168.1.10";
 	public static final int MAIN_MENU = 0, IA_MENU = 1, CMM_FINAL = 2, SEARCH_ENNEMY = 3,PLACE_BATEAU = 4, NET_PLACE_BATEAU = 5, VERSUS_COMPUTER_GAME = 6, VERSUS_HUMAIN_GAME = 7, OPTIONS = 8;
 	public final static int TCP_PORT = 54722, UDP_PORT = 54723;
 
@@ -85,7 +86,7 @@ public class BatailleNavale extends CmmGameAdapter {
 		Gdx.app.log("NET", "addr:" + adress);
 		 */		
 		try {
-			client.connect(5000, "192.168.1.10", TCP_PORT, UDP_PORT);
+			client.connect(5000, DEFAULT_HOST, TCP_PORT, UDP_PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
