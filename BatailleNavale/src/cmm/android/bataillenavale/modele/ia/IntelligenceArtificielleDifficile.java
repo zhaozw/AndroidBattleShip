@@ -82,8 +82,4 @@ public class IntelligenceArtificielleDifficile extends IntelligenceArtificielle{
 			}
 		}
 	}
-	
-
-
-
 }

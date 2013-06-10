@@ -3,8 +3,7 @@ package cmm.android.bataillenavale.modele.ia;
 
 import cmm.android.bataillenavale.modele.Coord2D;
 import cmm.android.bataillenavale.modele.Mer;
-import com.badlogic.gdx.Gdx;
-import java.util.Random;
+import java.util.Stack;
 
 /**
  * Intelligence artificielle niveau "Moyen"
@@ -14,45 +13,59 @@ import java.util.Random;
  */
 public class IntelligenceArtificielleMoyen extends IntelligenceArtificielle {
 
+	private Stack<Coord2D> caseATester;
+
 	public IntelligenceArtificielleMoyen() {
 		super();
+		caseATester = new Stack<Coord2D>();
 	}
-    public IntelligenceArtificielleMoyen(Mer joueur) {
+
+	public IntelligenceArtificielleMoyen(Mer joueur) {
 		super(joueur);
+		caseATester = new Stack<Coord2D>();
 	}
 
-	protected Random r = new Random();
-    protected int x1 = r.nextInt(Mer.ARRAY_SIZE);
-    protected int y1 = r.nextInt(Mer.ARRAY_SIZE);
-    boolean touched = false;
+	@Override
+	public Coord2D adversairePlay() {
+		int x;
+		int y;
+		Coord2D caseTir = null;
+		int caseTest;
+		if(caseATester.isEmpty()) {
+			x = (int) (Math.random() * Mer.ARRAY_SIZE);
+	        y = (int) (Math.random() * Mer.ARRAY_SIZE);
+	        caseTir = new Coord2D(x, y);
+		}
+		else {
+			caseTir = caseATester.pop();
+			caseTest = joueur.caseAt(caseTir.x, caseTir.y);
+			if(caseTest == Mer.BOAT_HANDLE_GOOD) {
+				addAtester(caseTir);
+			}
+		}
 
-    @Override
-    public Coord2D adversairePlay() {
-        
-        Gdx.app.log("game", "computer joue: " + x1 + "-" + y1);
+		return caseTir;
+	}
 
-//        touched = graphicJoueur.getMer().tirer(x1, y1);
-//        if (touched) {
-//            System.out.println(x1 +";"+y1);
-//            Gdx.app.log("game", "touché!");
-//            graphicAdversaire.getGeneral().setStatus(General.HAPPY);
-//            graphicJoueur.getGeneral().setStatus(General.UNHAPPY);
-//            x1 = r.nextInt((x1+1)-(x1-1))+(x1-1);
-//            x1 = r.nextInt(3) + (x1 - 1);
-//            y1 = r.nextInt((y1+1)-(y1-1))+(y1-1);
-//            y1 = r.nextInt(3) + (y1 - 1);
-//            System.out.println(x1 +";"+y1);
-//
-//        } else {
-//            System.out.println("pas touche");
-//            System.out.println(x1 +";"+y1);
-//            Gdx.app.log("game", "dans l'eau!");
-//            graphicAdversaire.getGeneral().setStatus(General.CLASSIC);
-//            graphicJoueur.getGeneral().setStatus(General.CLASSIC);
-//            x1 = r.nextInt(Mer.ARRAY_SIZE);
-//            y1 = r.nextInt(Mer.ARRAY_SIZE);
-//            System.out.println(x1 +";"+y1);
-//        }
-        return new Coord2D(0,0);
-    }
+	private void addAtester(Coord2D coord) {
+		Coord2D[] tests = {	
+				new Coord2D(coord.x - 1	, coord.y),
+				new Coord2D(coord.x + 1	, coord.y),
+				new Coord2D(coord.x		, coord.y - 1),
+				new Coord2D(coord.x		, coord.y + 1)
+		};
+		int caseTest;
+		Coord2D t;
+
+		for(int i = 0; i < tests.length; i++) {
+			t = tests[i];
+			if(t.x >= 0 && t.x < Mer.ARRAY_SIZE &&
+					t.y >= 0 && t.y < Mer.ARRAY_SIZE) {
+				caseTest = joueur.caseAt(t.x, t.y);
+				if(caseTest != Mer.BOAT_HANDLE_KILLED && caseTest != Mer.MISSED) {
+					caseATester.push(t);
+				}
+			}
+		}
+	}
 }
