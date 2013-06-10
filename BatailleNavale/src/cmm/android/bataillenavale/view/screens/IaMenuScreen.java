@@ -38,7 +38,7 @@ public class IaMenuScreen extends CmmScreenAdapter {
 
 		/* *****  Création du fond ***** */
 		Texture wallText = new Texture("data/img/mainMenuWallpaper.jpg");
-		TextureRegion wallTextReg = new TextureRegion(wallText);
+		TextureRegion wallTextReg = new TextureRegion(wallText, 412, 600);
 		Sprite wallpaper = new Sprite(wallTextReg);
 		setWallpaper(wallpaper);
 		textures.add(wallText);
@@ -56,18 +56,17 @@ public class IaMenuScreen extends CmmScreenAdapter {
 		pixmap.fill();
 		
 		Texture menuText = new Texture("data/img/mainMenu.png");
+		TextureRegion menuTextReg = new TextureRegion(menuText, 256, 140);
 		addTexture(menuText);
 		skin.add("white", new Texture(pixmap));
-		skin.add("up", menuText);
-		skin.add("down", menuText);
+		skin.add("up", menuTextReg);
+		skin.add("down", menuTextReg);
 		skin.add("default", new BitmapFont());
 
 		// Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.getDrawable("up");
 		textButtonStyle.down = skin.getDrawable("down");
-		textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
-		textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 		textButtonStyle.font = skin.getFont("default");
 		skin.add("default", textButtonStyle);
 		

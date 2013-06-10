@@ -59,7 +59,7 @@ public abstract class GameScreen extends CmmScreenAdapter {
 
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = app.getTransversaleTexture("wallpaper");
-		setWallpaper(new TextureRegion(wallText, 349, 496));
+		setWallpaper(new TextureRegion(wallText, 460, 400));
 		textures.add(wallText);
 
 		/* ***** Création de la texture pour le bateau ***** */

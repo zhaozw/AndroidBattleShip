@@ -47,7 +47,7 @@ public class PlaceBateauScreen extends CmmScreenAdapter {
 		
 		/* ***** Création du wallpaper ***** */
 		Texture wallText = new Texture("data/img/gameWallpaper.jpg");
-		setWallpaper(new TextureRegion(wallText, 349, 496));
+		setWallpaper(new TextureRegion(wallText, 460, 400));
 		app.putTransversalTexture("wallpaper", wallText);
 
 		/* ***** Création des textures ***** */
