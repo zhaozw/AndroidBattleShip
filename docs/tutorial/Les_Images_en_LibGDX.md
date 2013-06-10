@@ -1,10 +1,11 @@
 [Accueil](accueil.html)  
-[cahier des charges](cahier_des_charges.html)  
-[créer un projet LibGDX](creer_projet.html)  
+[Cahier des charges](cahier_des_charges.html)  
+[Créer un projet LibGDX](creer_projet.html)  
+[Composition du projet](les_bases_du_projet.html)
 [Placer une image en mémoire](Les_Images_en_LibGDX.html)  
 [Afficher une image](les_bases_du_painting.html)  
 [Les Screen](screens.html)  
-[les Sons](sons.html)  
+[Les Sons](sons.html)  
 [L'interaction avec l'utilisateur](reaction.html)  
 [L'accélérométrie](accélérométrie.html)  
 [Intelligence artificielle](intelligence_artificielle.html)  
@@ -78,15 +79,15 @@ N.B.: je ne dis pas que la solution: *Je place toutes mes images dès le début,
 
 Nous venons de placer l'image en mémoire. Ici, on l'a placée dans l'ArrayList, et elle sera donc affichée automatiquement. Cependant, si vous ne voulez pas utiliser l'ArrayList, vous pouvez afficher une image vous-même:
 
-	/* Initialisation de l'affichage */
-	Gdx.gl.glClearColor(1, 1, 1, 1);
-	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-	spriteBatch.begin();
-		/* série d'affichage */
-		cmmSprite.draw(spriteBatch);
-		font.drawMultiLine(spriteBatch,	message, 0f, 0f);
-	/* Arrêt de l'affichage */
-	spriteBatch.end();
+		/* Initialisation de l'affichage */
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		spriteBatch.begin();
+			/* série d'affichage */
+			cmmSprite.draw(spriteBatch);
+			font.drawMultiLine(spriteBatch,	message, 0f, 0f);
+		/* Arrêt de l'affichage */
+		spriteBatch.end();
 
 Dans ce code, vous voyez clairement trois blocs:
 

@@ -1,14 +1,15 @@
 [Accueil](accueil.html)  
-[cahier des charges](cahier_des_charges.html)  
-[créer un projet LibGDX](creer_projet.html)  
+[Cahier des charges](cahier_des_charges.html)  
+[Créer un projet LibGDX](creer_projet.html)  
+[Composition du projet](les_bases_du_projet.html)
 [Placer une image en mémoire](Les_Images_en_LibGDX.html)  
 [Afficher une image](les_bases_du_painting.html)  
 [Les Screen](screens.html)  
-[les Sons](sons.html)  
+[Les Sons](sons.html)  
 [L'interaction avec l'utilisateur](reaction.html)  
 [L'accélérométrie](accélérométrie.html)  
 [Intelligence artificielle](intelligence_artificielle.html)  
-[Réseau](reseau.html)  
+[Réseau](reseau.html)
 
 
 # Qu'est ce qu'un projet LibGDX #
@@ -18,7 +19,7 @@ Lorsque vous créez un nouveau projet pour LibGDX, vous récupérez en réalité
 Lors de la génération automatique de vos projet, vous remarquerez qu'une partie du code source a été généréee elle aussi.
 Analysons celle-ci:
 
-### Projet Desktop
+### Projet Desktop ###
 
  	 public class Main {
 		public static void main(String[] args) {
@@ -97,7 +98,9 @@ En revanche, ce code-ci est plus compliqué. Il contient:
  * pause et resume, qui font partie de cycle de vie android.
 
 La méthode la plus utile ici est create(). Celle-ci:
+
  * Crée une nouvelle caméra: la caméra permet de créer un repère orthonormé afin de placer les images indépendamment de la taille de l'écran.
+
 Ici, la camera propose de gérer 100% de la longueur de l'écran, et de ne prendre qu'une partie de la largeur. L'écran se résumera alors à un carré contenu dans le rectangle de votre ecran. Autrement dit, on perd une partie de l'écran. Assez gênant non? 
 
 Changeons cela:
@@ -112,6 +115,7 @@ Ici, on utilise tout l'écran. Cependant, les images seront étirées lorsque l'
 Enfin, il peut être gênant d'utiliser une classe aussi générique, par exemple parce qu'il y aura beaucoup de choses à redéfinir. Nous proposons une implémentation de Game appelée CmmGameAdapter. Cette classe utilise les propriétés énoncées plus haut, et gère en partie le cycle de vie (que nous expliquerons bien plus tard).
 
 La version "finale" de cette classe est donc:
+
 	public class BatailleNavale extends CmmGameAdapter {}
 
 Cette version ultra simpliste fonctionne, puisque CmmGameAdapter hérite de Game.

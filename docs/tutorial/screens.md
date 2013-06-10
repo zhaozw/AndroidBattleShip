@@ -1,17 +1,19 @@
 [Accueil](accueil.html)  
-[cahier des charges](cahier_des_charges.html)  
-[créer un projet LibGDX](creer_projet.html)  
+[Cahier des charges](cahier_des_charges.html)  
+[Créer un projet LibGDX](creer_projet.html)  
+[Composition du projet](les_bases_du_projet.html)
 [Placer une image en mémoire](Les_Images_en_LibGDX.html)  
 [Afficher une image](les_bases_du_painting.html)  
 [Les Screen](screens.html)  
-[les Sons](sons.html)  
+[Les Sons](sons.html)  
 [L'interaction avec l'utilisateur](reaction.html)  
 [L'accélérométrie](accélérométrie.html)  
 [Intelligence artificielle](intelligence_artificielle.html)  
-[Réseau](reseau.html)  
+[Réseau](reseau.html)
 
 
 # Développer son jeu-vidéo de façon modulaire #
+
 Jusqu'à présent, nous n'avons créé que de minuscules "jeux vidéos", et n'avons alors utilisé qu'une seule classe. Bien évidemment, nous n'allons pas faire cela pour de vrais jeux. Nous allons donc les découper en **Screen**.
 
 ## Notion de Screen ##

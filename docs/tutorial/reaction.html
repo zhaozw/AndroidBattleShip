@@ -11,9 +11,10 @@
 <div id = 'menu'>
 <p><a href="accueil.html">Accueil</a> <br />
 <a href="cahier_des_charges.html">cahier des charges</a> <br />
-<a href="creer_projet.html">créer un projet LibGDX</a> <br />
+ <a href="creer_projet.html">créer un projet LibGDX</a> <br />
+    <a href="les_bases_du_projet.html">Composition du projet</a> <br />
 <a href="Les_Images_en_LibGDX.html">Placer une image en mémoire</a> <br />
-<a href="les_bases_du_painting.html">Afficher une image</a> <br />
+<a href="afficher_image.html">Afficher une image</a> <br />
 <a href="screens.html">Les Screen</a> <br />
 <a href="sons.html">les Sons</a> <br />
 <a href="reaction.html">L'interaction avec l'utilisateur</a> <br />
@@ -41,25 +42,21 @@ Nous allons donc voir comment interagir avec l'utilisateur. En réalité, il y a
         <th>commentaire</th>
     </tr>
     <tr>
-    <td>
         <td>keyDown</td>
         <td>Ordinateur</td>
         <td>Appelée lorsqu'une touche du clavier est pressée</td>
     </tr>
     <tr>
-    <td>
         <td>keyTyped</td>
         <td>Ordinateur</td>
         <td>Appelée lorsqu'une touche du clavier est appuyée puis relâchée</td>
     </tr>
     <tr>
-    <td>
         <td>keyUp</td>
         <td>Ordinateur</td>
         <td>Appelée lorsqu'une touche du clavier est relâchée</td>
     </tr>
     <tr>
-    <td>
         <td>mouseMoved</td>
         <td>Ordinateur</td>
         <td>Appelée lorsqu'aucun clic n'est effectué, au mouvement de la souris<td>
@@ -89,11 +86,13 @@ En effet, si vous placez des listeners sur des objets graphiques (et ce sera pre
 C'est pourquoi, vous devez renvoyer <em>true</em> si vous décidez de prendre l'appel.</p>
 
 <p>L'algorithme de LibGDX sur les Listener est le suivant:
+    <pre><code>
     aReponduVrai &lt;- faux
     tant que non aReponduVrai
         Prendre le Listener suivant
         aReponduVrai &lt;- executer listener
     fin_tant
+</code></pre>
 ici, on voit donc clairement que les listener suivants ne seront pas exécutés si votre listener répond <em>true</em></p>
 
 <h3>Ajouter des listeners</h3>
@@ -104,27 +103,29 @@ Le InputProcessor est l'objet qui exécute l'algorithme décrit précédemment.<
 <p>Pour placer les listeners, il suffit de faire:</p>
 
 <ul>
-<li><p>Cas où on place un listener:</p>
+<li>Cas où on place un listener:</li>
 
-<p>Listener list = new Listener();
-Gdx.input.setInputProcessor(list);</p></li>
-<li><p>Cas où on place plusieurs listeners</p>
-
-<p>Listener list1 = new Listener();
+<pre><code>Listener list = new Listener();
+Gdx.input.setInputProcessor(list);
+</code></pre>
+<li>Cas où on place plusieurs listeners
+<pre><code>Listener list1 = new Listener();
 Listener list2 = new Listener();
 InputMultiplexer process = new InputMultiplexer(list1, list2);
-Gdx.input.setInputProcessor(multiplexer);</p></li>
+Gdx.input.setInputProcessor(multiplexer);
+</code></pre>
 </ul>
 
 <p>A noter que l'algorithme précédent prend en compte l'ordre dans lequel vous placez les Listeners. L'algorithme sera donc ici:</p>
 
-<pre><code>aReponduVrai &lt;- execution_list1;
-si NON aReponduVrai alors
-    aReponduVrai &lt;- execution_list2
+<pre><code>
+    aReponduVrai &lt;- execution_list1;
     si NON aReponduVrai alors
-        aReponduVrai &lt;- execution_list3 ...
+        aReponduVrai &lt;- execution_list2
+        si NON aReponduVrai alors
+            aReponduVrai &lt;- execution_list3 ...
+        fsi
     fsi
-fsi
 </code></pre>
 
 <h2>Polling</h2>
@@ -147,13 +148,13 @@ Ensuite, à chaque rafraîchissement (dans la méthode render), on peut demander
 
 <pre><code>if(Gdx.input.isKeyPressed('A')) {
     /* execution si on appuie sur A */
-}
-if(Gdx.input.isDragged()) {
-    /* execution si on a deplacé la souris en cliquant */
-}
-if(isTouched(0)) {
-    /* execution si au moins un doigt est placé sur l'ecran */
-}
+    }
+    if(Gdx.input.isDragged()) {
+        /* execution si on a deplacé la souris en cliquant */
+    }
+    if(isTouched(0)) {
+        /* execution si au moins un doigt est placé sur l'ecran */
+    }
 </code></pre>
 
 <p>Ainsi, on peut voir que le polling est une manière simple, et souvent plus rapide de réaliser une interaction avec l'utilisateur. <br />
