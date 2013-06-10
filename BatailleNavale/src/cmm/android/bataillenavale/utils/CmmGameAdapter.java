@@ -9,6 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * helper redéfinissant les méthodes de la classe Game
+ * Le but est de faciliter l'utilisation du cycle de vie Android, ainsi que d'automatiser la gestion de ressource, en supprimant les textures au changement de Screen.
+ * Globalement, les Textures à supprimer au changement de Screen doivent être ajoutées à l'ArrayList screens;
+ * ceux à garder aux fils des Screens sont doivent être ajoutées à la HashMap transversalTextures.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ */
 public class CmmGameAdapter extends Game {
 
 	protected OrthographicCamera camera;
@@ -18,6 +25,7 @@ public class CmmGameAdapter extends Game {
 	
 	@Override
 	public void create() {
+		/* ***** Initialisation de la camera et du batch ***** */
 		camera = new OrthographicCamera(1, 1);
 		batch = new SpriteBatch();
 		

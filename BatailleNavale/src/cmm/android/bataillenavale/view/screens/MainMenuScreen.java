@@ -47,18 +47,22 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		setWallpaper(wallpaper);
 		textures.add(wallText);
 		
+		/* ***** On crée un Stage, qui va contenir les widgets du menu ***** */
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 		
+		/* **** on crée un table pour afficher les widgets comme on souhaite ***** */
 		Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
+        /* ***** On crée un Style pour notre menu ***** */
         skin = new Skin();
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGBA8888);
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
 		
+		/* ***** on crée les textures pour notre style de menu ***** */
 		Texture menuText = new Texture("data/img/mainMenu.png");
 		TextureRegion menuTextReg = new TextureRegion(menuText, 256, 140);
 		addTexture(menuText);
@@ -67,7 +71,7 @@ public class MainMenuScreen extends CmmScreenAdapter {
 		skin.add("down", menuTextReg);
 		skin.add("default", new BitmapFont());
 
-		// Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
+		/* ***** On ajoute à notre style, un style de bouton ***** */
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.getDrawable("up");
 		textButtonStyle.down = skin.getDrawable("down");

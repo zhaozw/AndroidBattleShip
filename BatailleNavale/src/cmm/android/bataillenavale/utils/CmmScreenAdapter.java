@@ -67,9 +67,12 @@ public abstract class CmmScreenAdapter implements Screen {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 
+		/* ***** On affiche le fond d'écran ***** */
 		if(wallpaper != null) {
 			wallpaper.draw(spriteBatch);
 		}
+		
+		/* ***** on affiche tous les sprites ***** */
 		for(Sprite s: sprites) {
 			s.draw(spriteBatch);
 		}
@@ -126,6 +129,9 @@ public abstract class CmmScreenAdapter implements Screen {
 		sounds.clear();
 	}
 	
+	/**
+	 * Permet d'initialiser les ArrayList contenant les textures, sprites et sounds
+	 */
 	public void initialize() {
 		sprites = new ArrayList<Sprite>();
 		textures = new ArrayList<Texture>();
@@ -133,7 +139,16 @@ public abstract class CmmScreenAdapter implements Screen {
 		Gdx.graphics.setContinuousRendering(continousRendering); 
 	}
 	
+	/**
+	 * Permet aux superclasses de redéfinir ce qui est placé en mémoire.
+	 * Par défaut, rien n'est placé en mémoire, puisqu'on libére toute la mémoire, avant de la recharger ensuite
+	 * @return true si on a utilisé la sauvegarde temporaire
+	 */
 	public boolean tmpSave() { return false; }
+	/**
+	 * Permet aux superclasses de recharger ce qui a été placé précédemment en mémoire cache
+	 * @return true si le chargement a été effectué convenablement
+	 */
 	public boolean tmpLoad() { return false; }
 	
 	public static void setSpriteBatch(SpriteBatch sb) {
@@ -150,10 +165,18 @@ public abstract class CmmScreenAdapter implements Screen {
 		wallpaper.setPosition(-wallpaper.getWidth()/2, -wallpaper.getHeight()/2);
 	}
 
+	/**
+	 * Permet d'ajouter un sprite, qui sera ensuite affiché automatiquement
+	 * @param sprite le Sprite à ajouter
+	 */
 	public void addSprite(Sprite sprite) {
 		assert(!sprites.contains(sprite));
 		sprites.add(sprite);
 	}
+	/**
+	 * permet d'ajouter une Texture, qui sera ensuite géré automatiquement
+	 * @param text
+	 */
 	public void addTexture(Texture text) {
 		assert(!textures.contains(text));
 		textures.add(text);
@@ -175,6 +198,12 @@ public abstract class CmmScreenAdapter implements Screen {
 		camera = cam;
 	}
 	
+	/**
+	 * Permet de calculer les données en float, a partir du pixel de l'écran
+	 * @param x le pixel en abscisse
+	 * @param y le pixel en ordonnée
+	 * @return les coordonnées passées en paramètre, converti en float en fonction de la caméra.
+	 */
 	public static Coord2F intToFloatCoord(int x, int y) {
 		touchPos.set(x, y, 0);
 		camera.unproject(touchPos);

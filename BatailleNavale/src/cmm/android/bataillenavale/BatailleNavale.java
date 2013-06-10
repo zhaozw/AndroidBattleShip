@@ -20,6 +20,13 @@ import cmm.android.bataillenavale.view.screens.net.SearchEnnemy;
 
 import com.esotericsoftware.kryo.Kryo;
 
+/**
+ * Point d'entrée du projet.
+ * Contient les instructions d'initialisation du projet, notamment l'instanciation de chaque Screen utilisé pour le jeu,
+ * ainsi que l'instanciation du client TCP, appelé à la demande (et non pas initialisé au début du jeu!)
+ * @author Jonathan GEOFFROY, Samy Chayem
+ * @version 2.0
+ */
 public class BatailleNavale extends CmmGameAdapter {
 	private static final String DEFAULT_HOST = "192.168.1.10";
 	public static final int MAIN_MENU = 0, IA_MENU = 1, CMM_FINAL = 2, SEARCH_ENNEMY = 3,PLACE_BATEAU = 4, NET_PLACE_BATEAU = 5, VERSUS_COMPUTER_GAME = 6, VERSUS_HUMAIN_GAME = 7, OPTIONS = 8;
@@ -73,6 +80,10 @@ public class BatailleNavale extends CmmGameAdapter {
 		this.client = client;
 	}
 
+	/**
+	 * Permet de connecter le client au serveur
+	 * @return true SSI le client est connecté
+	 */
 	public boolean connect() {
 		client = new Client();
 		Kryo kryo = client.getKryo();

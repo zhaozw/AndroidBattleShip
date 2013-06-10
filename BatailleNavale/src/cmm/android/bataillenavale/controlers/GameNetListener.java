@@ -5,6 +5,11 @@ import cmm.android.bataillenavale.utils.CmmScreenAdapter;
 import cmm.android.bataillenavale.view.graphics.GraphicMer;
 import cmm.android.bataillenavale.view.screens.VersusHumainGameScreen;
 
+/**
+ * Controleur permettant de gérer les clic sur la mer adverse afin de simuler un tir lors de la partie en réseau.
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 2.0
+ */
 public class GameNetListener extends GameListener  {
 
 	public GameNetListener(VersusHumainGameScreen jeu) {

@@ -10,6 +10,15 @@ import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+/**
+ * Listener TCP permettant d'interagir en fonction des réponses de l'adversaires
+ * Globalement, cette classe agit tel quel:
+ * Si on reçoit une case (x:y), alors on répond "true" si l'adversaire nous touche, "false" sinon.
+ * Si on attend une réponse, on récupère donc "true" si on a touché l'adversaire, "false" sinon.
+ * Met-à-jour l'affichage et le joueur en fonction de cette réponse, par des appels aux méthode du Screen.
+ * @author lejoh
+ *
+ */
 public class HumainTirListener extends Listener {
 	VersusHumainGameScreen screen;
 

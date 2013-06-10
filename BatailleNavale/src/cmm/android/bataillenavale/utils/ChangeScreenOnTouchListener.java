@@ -1,7 +1,11 @@
 package cmm.android.bataillenavale.utils;
 
 import com.badlogic.gdx.InputAdapter;
-
+/**
+ * Listener permettant de changer de Screen lorsqu'on touche l'ecran
+ * @author Jonathan GEOFFROY
+ * @version 1.0
+ */
 public class ChangeScreenOnTouchListener extends InputAdapter {
 	private CmmScreenAdapter screen;
 	

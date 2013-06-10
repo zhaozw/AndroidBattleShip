@@ -6,6 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * Permet d'afficher un général en fonction de son état (heureux, normal, malheureux)
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 2.0
+ */
 public class General extends Sprite {
 	public final static int PLAYER = 0, ADVERSAIRE = 1;
 	public final static int CLASSIC = 0, HAPPY = 1, UNHAPPY = 2;

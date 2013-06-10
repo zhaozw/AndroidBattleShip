@@ -8,6 +8,11 @@ import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+/**
+ * Permet d'attendre que le joueur adverse ai placé ses bateaux avant de lancer une partie en réseau
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ *
+ */
 public class WaitForSeaListener extends Listener {
 	private PlaceBateauNetScreen screen;
 

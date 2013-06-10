@@ -7,6 +7,11 @@ import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+/**
+ * Permet d'attendre qu'un autre joueur soit connecté au serveur avant de lancer une partie en réseau
+ * @author Jonathan GEOFFROY, Samy CHAYEM
+ * @version 2.0
+ */
 public class WaitForPlayerListener extends Listener {
 	private SearchEnnemy searchEnnemy;
 	
